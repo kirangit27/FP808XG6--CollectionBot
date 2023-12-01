@@ -27,9 +27,9 @@ class CompetitionARIAC : public rclcpp::Node
 
     private:
         
-        void callService_start();
+        void callServiceStart();
 
-        void callService_end();
+        void callServiceEnd();
 
 
         // ARIAC Services

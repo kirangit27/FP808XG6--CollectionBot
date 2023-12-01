@@ -6,7 +6,7 @@
 	<description>The ARIAC CCS (Competitor Control System) package is responsible for communicating with the competition environment and executing the tasks.</description>
 	<maintainer email="kpatil27@umd.edu">Kiran S Patil</maintainer>
 	<maintainer email="vyachu07@umd.edu">Vyshnv Achuthan</maintainer>
-	<maintainer email="braghuna@umd.edu">Surya Chappidi</maintainer>
+	<maintainer email="chappidi@umd.edu">Surya Chappidi</maintainer>
 	<license>TODO: License declaration</license>
 
 	<buildtool_depend>ament_cmake</buildtool_depend>

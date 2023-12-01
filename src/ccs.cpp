@@ -2,7 +2,7 @@
 #include "../include/ariac_collection_bot/ccs.hpp"
 
 
-void CompetitionARIAC::callService_start()
+void CompetitionARIAC::callServiceStart()
 {
     auto client = create_client<std_srvs::srv::Trigger>("/ariac/start_competition");
 
@@ -17,7 +17,7 @@ void CompetitionARIAC::callService_start()
 }
 
 
-void CompetitionARIAC::callService_end()
+void CompetitionARIAC::callServiceEnd()
 {
     auto client_ = create_client<std_srvs::srv::Trigger>("/ariac/end_competition");
 
