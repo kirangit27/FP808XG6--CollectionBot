@@ -19,6 +19,22 @@ void CompetitionARIAC::CompetitionStateCallback(const ariac_msgs::msg::Competiti
           
         RCLCPP_INFO(rclcpp::get_logger("CompState Subscriber"), "Competition state is 3, all orders retrived...\n");
         RCLCPP_INFO_STREAM(rclcpp::get_logger("Order Submission    "), "Submitting Orders ...");
+        for (int i = 0; i < int(orders_list_submit.size()); i++)
+        {
+            if (orders_list_submit[i].priority == 1)
+            {
+                RCLCPP_INFO_STREAM(rclcpp::get_logger("Order Submission    "), "Order submitted with Priority 1 :" + orders_list[i].id);
+                callService_submit(orders_list_submit[i].id);
+            }
+        }
+        for (int i = 0; i < int(orders_list_submit.size()); i++)
+        {
+            if (orders_list_submit[i].priority == 0)
+            {
+                RCLCPP_INFO_STREAM(rclcpp::get_logger("Order Submission    "), "Order submitted with Priority 0 :" + orders_list[i].id);
+                callService_submit(orders_list_submit[i].id);
+            }
+        }
         order_submitted = true;  
           
     }
@@ -34,7 +50,83 @@ void CompetitionARIAC::CompetitionStateCallback(const ariac_msgs::msg::Competiti
     }
 }
 
+void CompetitionARIAC::OrderCallback(const ariac_msgs::msg::Order::SharedPtr order_msg)
+{
+    RCLCPP_INFO(rclcpp::get_logger("Orders    Subscriber"), " ");
+    RCLCPP_INFO(rclcpp::get_logger("Orders    Subscriber"), "Received order !");
+    
+    order_::Orders order;
+    order.id = order_msg->id;
+    order.type = order_msg->type;
+    order.priority = order_msg->priority;
 
+    if (order_msg->type == ariac_msgs::msg::Order::KITTING)
+    {
+        const auto &kitting_task = order_msg->kitting_task;
+        order.kitting_type.agv_number = static_cast<int>(kitting_task.agv_number);
+
+        order.kitting_type.tray_id = static_cast<int>(kitting_task.tray_id);
+        order.kitting_type.destination = kitting_task.destination;
+        for (const auto &kitting_part : order_msg->kitting_task.parts)
+        {
+            order_::KittingPart ki_part;
+            ki_part.quadrant = kitting_part.quadrant;
+            ki_part.color = kitting_part.part.color;
+            ki_part.type = kitting_part.part.type;
+            order.kitting_type.parts.push_back(ki_part);
+        }
+    }
+    else if (order_msg->type == ariac_msgs::msg::Order::ASSEMBLY)
+    {
+        const auto &assembly_task = order_msg->assembly_task;
+        order.AssemComb_type.station = static_cast<int>(assembly_task.station);
+
+        for (size_t i = 0; i < assembly_task.agv_numbers.size(); ++i)
+        {
+            order.AssemComb_type.agv_numbers.push_back(static_cast<int>(assembly_task.agv_numbers[i]));
+        }
+        for (const auto &assem_part : assembly_task.parts)
+        {
+            order_::AssemCombPart ac_part;
+            ac_part.color = assem_part.part.color;
+            ac_part.type = assem_part.part.type;
+            ac_part.pose_stamp = assem_part.assembled_pose;
+            ac_part.install_direction = assem_part.install_direction;
+            order.AssemComb_type.parts.push_back(ac_part);
+        }
+    }
+    else
+    {
+        const auto &combined_task = order_msg->combined_task;
+        order.AssemComb_type.station = static_cast<int>(combined_task.station);
+        for (const auto &assem_part : combined_task.parts)
+        {
+            order_::AssemCombPart ac_part;
+            ac_part.color = assem_part.part.color;
+            ac_part.type = assem_part.part.type;
+            ac_part.pose_stamp = assem_part.assembled_pose;
+            ac_part.install_direction = assem_part.install_direction;
+            order.AssemComb_type.parts.push_back(ac_part);
+        }
+    }
+    order_counter++;
+    
+    if(order.priority)
+        priority_index = order_counter - 1;
+    priority_order = order.priority;
+    order_::Orders order_obj;
+
+    RCLCPP_INFO_STREAM(rclcpp::get_logger("Orders    Subscriber"), "  Orders details - ");
+    RCLCPP_INFO_STREAM(rclcpp::get_logger("Orders    Subscriber"), "\tOrder ID      : " + order.id);
+    RCLCPP_INFO_STREAM(rclcpp::get_logger("Orders    Subscriber"), "\tOrder type    : " + order_obj.order_type[order.type]);
+    RCLCPP_INFO_STREAM(rclcpp::get_logger("Orders    Subscriber"), "\tPriority      : " + std::to_string(order.priority));
+    RCLCPP_INFO_STREAM(rclcpp::get_logger("Orders    Subscriber"), "\torder_counter : " + std::to_string(order_counter)+"\n");
+
+    orders_list.push_back(order);
+    orders_list_submit.push_back(order);
+    list_size = orders_list.size();
+
+}
 
 void CompetitionARIAC::callServiceStart()
 {
