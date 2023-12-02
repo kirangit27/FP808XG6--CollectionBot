@@ -37,6 +37,7 @@ class CompetitionARIAC : public rclcpp::Node
         comp_state_sub = this->create_subscription<ariac_msgs::msg::CompetitionState>("/ariac/competition_state", 10, 
                                                                     std::bind(&CompetitionARIAC::CompetitionStateCallback, this, std::placeholders::_1),subscription_option1);
 
+        submit_order_client_ = create_client<ariac_msgs::srv::SubmitOrder>("/ariac/submit_order");
     };
 
     private:
@@ -48,16 +49,18 @@ class CompetitionARIAC : public rclcpp::Node
         rclcpp::CallbackGroup::SharedPtr m_callback_group_2;
 
         rclcpp::Subscription<ariac_msgs::msg::CompetitionState>::SharedPtr comp_state_sub;
+        rclcpp::Subscription<ariac_msgs::msg::Order>::SharedPtr order_sub;
 
         void CompetitionStateCallback(const ariac_msgs::msg::CompetitionState::SharedPtr msg);
         
         void callServiceStart();
         void callServiceEnd();
-
+        void callService_submit(std::string order);
 
         // ARIAC Services
         rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr start_comp_client_;
         rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr end_comp_client_;
+        rclcpp::Client<ariac_msgs::srv::SubmitOrder>::SharedPtr submit_order_client_;
 
 
 };

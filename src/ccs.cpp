@@ -66,4 +66,14 @@ void CompetitionARIAC::callServiceEnd()
 }
 
 
+void CompetitionARIAC::callService_submit(std::string order)
+{
+    auto submit_order_request = std::make_shared<ariac_msgs::srv::SubmitOrder::Request>();
+    submit_order_request->order_id = order;
+
+    auto submit_order_future = submit_order_client_->async_send_request(submit_order_request);
+
+}
+
+
 
