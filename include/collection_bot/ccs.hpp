@@ -230,7 +230,7 @@ class CompetitionARIAC : public rclcpp::Node
         floor_robot_.setMaxAccelerationScalingFactor(1.0);
         floor_robot_.setMaxVelocityScalingFactor(1.0);
 
-        
+
         m_callback_group_1 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
         m_callback_group_2 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
 
@@ -243,8 +243,13 @@ class CompetitionARIAC : public rclcpp::Node
         // Subscriber objects            
         comp_state_sub = this->create_subscription<ariac_msgs::msg::CompetitionState>("/ariac/competition_state", 10, 
                                                                     std::bind(&CompetitionARIAC::CompetitionStateCallback, this, std::placeholders::_1),subscription_option1);
+       
         order_sub = this->create_subscription<ariac_msgs::msg::Order>("/ariac/orders", 10, 
                                                                     std::bind(&CompetitionARIAC::OrderCallback, this, std::placeholders::_1),subscription_option2);
+        
+        bin_part_sub = this->create_subscription<ariac_msgs::msg::BinParts>("/ariac/bin_parts", 10, 
+                                                                        std::bind(&CompetitionARIAC::BinPartCallback, this, std::placeholders::_1),subscription_option3); 
+
         submit_order_client_ = create_client<ariac_msgs::srv::SubmitOrder>("/ariac/submit_order");
     };
 
@@ -264,9 +269,11 @@ class CompetitionARIAC : public rclcpp::Node
 
         rclcpp::Subscription<ariac_msgs::msg::CompetitionState>::SharedPtr comp_state_sub;
         rclcpp::Subscription<ariac_msgs::msg::Order>::SharedPtr order_sub;
+        rclcpp::Subscription<ariac_msgs::msg::BinParts>::SharedPtr bin_part_sub;
 
         void CompetitionStateCallback(const ariac_msgs::msg::CompetitionState::SharedPtr msg);
         void OrderCallback(const ariac_msgs::msg::Order::SharedPtr order_msg); 
+        void BinPartCallback(const ariac_msgs::msg::BinParts::SharedPtr bin_part_msg); 
         
         void callServiceStart();
         void callServiceEnd();
