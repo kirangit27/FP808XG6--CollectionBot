@@ -224,7 +224,8 @@ class CompetitionARIAC : public rclcpp::Node
 {
     public:
 
-    CompetitionARIAC() : Node("competition_subscriber"){
+    CompetitionARIAC() : Node("competition_subscriber")floor_robot_(std::shared_ptr<rclcpp::Node>(std::move(this)), "floor_robot"),
+        ceiling_robot_(std::shared_ptr<rclcpp::Node>(std::move(this)), "ceiling_robot"),planning_scene_(){
         m_callback_group_1 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
         m_callback_group_2 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
 
