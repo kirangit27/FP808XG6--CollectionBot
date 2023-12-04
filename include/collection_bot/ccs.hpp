@@ -83,19 +83,19 @@ namespace order_
         std::vector<KittingPart> parts;
     };
 
-    struct AssemCombPart{
-        uint8_t color;
-        uint8_t type;
-        geometry_msgs::msg::Pose pose;
-        geometry_msgs::msg::PoseStamped pose_stamp;
-        geometry_msgs::msg::Vector3 install_direction;
-    };
+    // struct AssemCombPart{
+    //     uint8_t color;
+    //     uint8_t type;
+    //     geometry_msgs::msg::Pose pose;
+    //     geometry_msgs::msg::PoseStamped pose_stamp;
+    //     geometry_msgs::msg::Vector3 install_direction;
+    // };
 
-    struct AssemCombType{
-        uint8_t station;
-        std::vector<uint8_t> agv_numbers;
-        std::vector<AssemCombPart> parts;
-    };
+    // struct AssemCombType{
+    //     uint8_t station;
+    //     std::vector<uint8_t> agv_numbers;
+    //     std::vector<AssemCombPart> parts;
+    // };
 
     class Orders{
     public:
@@ -104,15 +104,68 @@ namespace order_
         bool priority;
         KittingType kitting_type;
         bool order_status{0};
-        AssemCombType AssemComb_type;
+        // AssemCombType AssemComb_type;
 
         std::map<int,std::string> order_type={
             {0,"KITTING"},
             {1,"ASSEMBLY"},
             {2,"COMBINED"}};
     };
-
 }
+
+namespace color_
+{   
+    class ColorParts{
+        
+        public:
+
+        std::map<int, std::string> COLOR = {
+            {ariac_msgs::msg::Part::RED, "red"},
+            {ariac_msgs::msg::Part::GREEN, "green"},
+            {ariac_msgs::msg::Part::BLUE, "blue"},
+            {ariac_msgs::msg::Part::ORANGE, "orange"},
+            {ariac_msgs::msg::Part::PURPLE, "purple"}};
+
+        std::map<int,std::string> PART={
+            {ariac_msgs::msg::Part::BATTERY,"battery"},
+            {ariac_msgs::msg::Part::PUMP,"pump"},
+            {ariac_msgs::msg::Part::SENSOR,"sensor"},
+            {ariac_msgs::msg::Part::REGULATOR,"regulator"}};
+
+        std::map<int,std::string> DEST={
+            {ariac_msgs::msg::KittingTask::KITTING, "KITTING"},
+            {ariac_msgs::msg::KittingTask::ASSEMBLY_FRONT, "ASSEMBLY_FRONT"},
+            {ariac_msgs::msg::KittingTask::ASSEMBLY_BACK, "ASSEMBLY_BACK"},
+            {ariac_msgs::msg::KittingTask::WAREHOUSE, "WAREHOUSE"}};
+            
+    };
+    
+}
+
+namespace pick_part 
+{   
+
+    struct Part{
+        uint8_t color;
+        uint8_t type;
+        geometry_msgs::msg::Pose pose;
+    };
+
+    struct PartInfo{
+        uint8_t quantity;
+        std::string pickup_type;
+        uint8_t color;
+        uint8_t type;
+        uint8_t bin_number;
+        geometry_msgs::msg::Pose pose;
+    };
+
+    class Parts {
+        public:
+        std::vector<PartInfo> parts;
+    };
+}
+
 
 class CompetitionARIAC : public rclcpp::Node
 {
