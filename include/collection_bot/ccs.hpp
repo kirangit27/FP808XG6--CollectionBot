@@ -1,9 +1,13 @@
-
+#pragma once
+//Added necessary header files
 #include <chrono>
 #include <memory>
 #include <thread>
+#include <map>
 
-#include "rclcpp/rclcpp.hpp"
+#include <rclcpp/qos.hpp>
+#include <rclcpp/rclcpp.hpp>
+#include <rclcpp_action/rclcpp_action.hpp>
 #include "ariac_msgs/msg/competition_state.hpp"
 #include "std_srvs/srv/trigger.hpp"
 
@@ -14,10 +18,52 @@
 #include "ariac_msgs/msg/kitting_task.hpp"
 #include "ariac_msgs/msg/kitting_part.hpp"
 #include "ariac_msgs/msg/bin_parts.hpp"
+#include "ariac_msgs/msg/conveyor_parts.hpp"
+#include "ariac_msgs/msg/bin_info.hpp"
+#include "ariac_msgs/msg/part_lot.hpp"
+#include "ariac_msgs/msg/part.hpp"
+
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "geometry_msgs/msg/vector3.hpp"
 
+#include "ariac_msgs/msg/break_beam_status.hpp"
+
+#include <moveit/move_group_interface/move_group_interface.h>
+#include <moveit/planning_scene_interface/planning_scene_interface.h>
+#include <moveit/trajectory_processing/time_optimal_trajectory_generation.h>
+#include <moveit_msgs/msg/collision_object.hpp>
+
+#include <geometric_shapes/shapes.h>
+#include <geometric_shapes/shape_operations.h>
+#include <shape_msgs/msg/mesh.h>
+
+#include "tf2/exceptions.h"
+#include "tf2_ros/transform_listener.h"
+#include "tf2_ros/buffer.h"
+
+#include <kdl/frames.hpp>
+#include <tf2_kdl/tf2_kdl.h>
+
+#include <ariac_msgs/msg/advanced_logical_camera_image.hpp>
+#include <ariac_msgs/msg/kit_tray_pose.hpp>
+#include <ariac_msgs/msg/vacuum_gripper_state.hpp>
+#include <ariac_msgs/msg/part_pose.hpp>
+#include <ariac_msgs/msg/assembly_state.hpp>
+#include <ariac_msgs/msg/agv_status.hpp>
+
 #include "ariac_msgs/srv/submit_order.hpp"
+#include <ariac_msgs/srv/change_gripper.hpp>
+#include <ariac_msgs/srv/vacuum_gripper_control.hpp>
+#include <ariac_msgs/srv/get_pre_assembly_poses.hpp>
+#include <ariac_msgs/srv/perform_quality_check.hpp>
+#include <ariac_msgs/srv/move_agv.hpp>
+
+#include <std_msgs/msg/bool.hpp>
+#include <geometry_msgs/msg/pose.hpp>
+
+#include <unistd.h>
+#include <cmath>
+#include <ament_index_cpp/get_package_share_directory.hpp>
 
 
 namespace order_
