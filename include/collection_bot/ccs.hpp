@@ -166,6 +166,59 @@ namespace pick_part
     };
 }
 
+namespace constants
+{   /**
+    * @brief Class that stores constants
+    * 
+    */
+    class Constants{
+
+        public:
+
+            double kit_tray_thickness_ = 0.01;        
+            double drop_height_ = 0.002;
+            double pick_offset_ = 0.007;
+            double pick_offset_2 = 0.008;
+            double battery_grip_offset_ = -0.05;
+
+            // Part heights
+            std::map<int, double> part_heights_ = {
+                {ariac_msgs::msg::Part::BATTERY, 0.04},
+                {ariac_msgs::msg::Part::PUMP, 0.12},
+                {ariac_msgs::msg::Part::REGULATOR, 0.07},
+                {ariac_msgs::msg::Part::SENSOR, 0.07}};
+
+            // Part heights
+            std::map<int, double> part_heights_kit_pick = {
+                {ariac_msgs::msg::Part::BATTERY, 0.0},
+                {ariac_msgs::msg::Part::PUMP, 0.08},
+                {ariac_msgs::msg::Part::REGULATOR, 0.02},
+                {ariac_msgs::msg::Part::SENSOR, 0.02}};
+
+            // Quadrant Offsets
+            std::map<int, std::pair<double, double>> quad_offsets_ = {
+                {ariac_msgs::msg::KittingPart::QUADRANT1, std::pair<double, double>(-0.08, 0.12)},
+                {ariac_msgs::msg::KittingPart::QUADRANT2, std::pair<double, double>(0.08, 0.12)},
+                {ariac_msgs::msg::KittingPart::QUADRANT3, std::pair<double, double>(-0.08, -0.12)},
+                {ariac_msgs::msg::KittingPart::QUADRANT4, std::pair<double, double>(0.08, -0.12)}};
+
+            std::map<std::string, double> rail_positions_ = {
+                {"agv1", -4.5},
+                {"agv2", -1.2},
+                {"agv3", 1.2},
+                {"agv4", 4.5},
+                {"left_bins", 3},
+                {"right_bins", -3}};
+
+            std::map<int, std::pair<int,int>> quad_parts_map = {
+                {1, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::BATTERY)},
+                {2, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::PUMP)},
+                {3, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::REGULATOR)},
+                {4, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::SENSOR)}};
+    
+    };
+}
+
 
 class CompetitionARIAC : public rclcpp::Node
 {
