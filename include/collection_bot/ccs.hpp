@@ -226,6 +226,11 @@ class CompetitionARIAC : public rclcpp::Node
 
     CompetitionARIAC() : Node("competition_subscriber")floor_robot_(std::shared_ptr<rclcpp::Node>(std::move(this)), "floor_robot"),
         ceiling_robot_(std::shared_ptr<rclcpp::Node>(std::move(this)), "ceiling_robot"),planning_scene_(){
+
+        floor_robot_.setMaxAccelerationScalingFactor(1.0);
+        floor_robot_.setMaxVelocityScalingFactor(1.0);
+
+        
         m_callback_group_1 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
         m_callback_group_2 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
 
