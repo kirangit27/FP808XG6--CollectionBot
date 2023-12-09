@@ -243,6 +243,14 @@ class CompetitionARIAC : public rclcpp::Node
         auto subscription_option3 = rclcpp::SubscriptionOptions();
         subscription_option3.callback_group = m_callback_group_3;
 
+        // Floor Robot Public Functions
+        void FloorRobotSendHome();
+        bool FloorRobotSetGripperState(bool enable);
+        bool FloorRobotChangeGripper(std::string station, std::string gripper_type);
+        bool FloorRobotPickandPlaceTray(int tray_id, int agv_num);
+        bool FloorRobotPickBinPart(order_::KittingPart part_to_pick);
+        bool FloorRobotPlacePartOnKitTray(int agv_num, int quadrant);
+
         // Subscriber objects            
         comp_state_sub = this->create_subscription<ariac_msgs::msg::CompetitionState>("/ariac/competition_state", 10, 
                                                                     std::bind(&CompetitionARIAC::CompetitionStateCallback, this, std::placeholders::_1),subscription_option1);
@@ -283,6 +291,8 @@ class CompetitionARIAC : public rclcpp::Node
         void FloorRobotWaitForAttachKitTrayPart(double timeout);
         void FloorRobotWaitForDrop(double timeout);
         void FloorRobotMoveUp();
+
+        
 
         void CompetitionStateCallback(const ariac_msgs::msg::CompetitionState::SharedPtr msg);
         void OrderCallback(const ariac_msgs::msg::Order::SharedPtr order_msg); 
