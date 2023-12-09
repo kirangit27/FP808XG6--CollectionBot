@@ -276,6 +276,8 @@ class CompetitionARIAC : public rclcpp::Node
         int list_size{0};
         std::vector<order_::Orders> orders_list;
         std::vector<order_::Orders> orders_list_submit;
+
+        moveit::planning_interface::MoveGroupInterface floor_robot_;
          
         rclcpp::CallbackGroup::SharedPtr m_callback_group_1;
         rclcpp::CallbackGroup::SharedPtr m_callback_group_2;
