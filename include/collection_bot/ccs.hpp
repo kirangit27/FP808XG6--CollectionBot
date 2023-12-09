@@ -292,6 +292,11 @@ class CompetitionARIAC : public rclcpp::Node
         void FloorRobotWaitForDrop(double timeout);
         void FloorRobotMoveUp();
 
+
+
+        void AddModelToPlanningScene(std::string name, std::string mesh_file, geometry_msgs::msg::Pose model_pose);
+        void AddModelsToPlanningScene();
+
         
 
         void CompetitionStateCallback(const ariac_msgs::msg::CompetitionState::SharedPtr msg);
