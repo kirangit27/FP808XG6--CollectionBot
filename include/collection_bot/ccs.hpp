@@ -279,6 +279,12 @@ class CompetitionARIAC : public rclcpp::Node
 
         moveit::planning_interface::MoveGroupInterface floor_robot_;
         moveit::planning_interface::PlanningSceneInterface planning_scene_;
+        trajectory_processing::TimeOptimalTrajectoryGeneration totg_;
+
+        // TF
+        std::unique_ptr<tf2_ros::Buffer> tf_buffer = std::make_unique<tf2_ros::Buffer>(get_clock());
+        std::shared_ptr<tf2_ros::TransformListener> tf_listener = std::make_shared<tf2_ros::TransformListener>(*tf_buffer);
+
          
         rclcpp::CallbackGroup::SharedPtr m_callback_group_1;
         rclcpp::CallbackGroup::SharedPtr m_callback_group_2;
@@ -312,7 +318,6 @@ class CompetitionARIAC : public rclcpp::Node
         void AddModelsToPlanningScene();
 
         
-
         void CompetitionStateCallback(const ariac_msgs::msg::CompetitionState::SharedPtr msg);
         void OrderCallback(const ariac_msgs::msg::Order::SharedPtr order_msg); 
         void BinPartCallback(const ariac_msgs::msg::BinParts::SharedPtr bin_part_msg); 
