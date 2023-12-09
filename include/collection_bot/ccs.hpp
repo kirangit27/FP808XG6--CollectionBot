@@ -224,8 +224,9 @@ class CompetitionARIAC : public rclcpp::Node
 {
     public:
 
-    CompetitionARIAC() : Node("competition_subscriber")floor_robot_(std::shared_ptr<rclcpp::Node>(std::move(this)), "floor_robot"),
-        ceiling_robot_(std::shared_ptr<rclcpp::Node>(std::move(this)), "ceiling_robot"),planning_scene_(){
+    CompetitionARIAC() : Node("competition_subscriber"),floor_robot_(std::shared_ptr<rclcpp::Node>(std::move(this)), "floor_robot"),
+        ceiling_robot_(std::shared_ptr<rclcpp::Node>(std::move(this)), "ceiling_robot"),planning_scene_()
+        {
 
         floor_robot_.setMaxAccelerationScalingFactor(1.0);
         floor_robot_.setMaxVelocityScalingFactor(1.0);
@@ -239,6 +240,8 @@ class CompetitionARIAC : public rclcpp::Node
         subscription_option1.callback_group = m_callback_group_1;
         auto subscription_option2 = rclcpp::SubscriptionOptions();
         subscription_option2.callback_group = m_callback_group_2;
+        auto subscription_option3 = rclcpp::SubscriptionOptions();
+        subscription_option3.callback_group = m_callback_group_3;
 
         // Subscriber objects            
         comp_state_sub = this->create_subscription<ariac_msgs::msg::CompetitionState>("/ariac/competition_state", 10, 
@@ -266,10 +269,20 @@ class CompetitionARIAC : public rclcpp::Node
          
         rclcpp::CallbackGroup::SharedPtr m_callback_group_1;
         rclcpp::CallbackGroup::SharedPtr m_callback_group_2;
+        rclcpp::CallbackGroup::SharedPtr m_callback_group_3;
 
         rclcpp::Subscription<ariac_msgs::msg::CompetitionState>::SharedPtr comp_state_sub;
         rclcpp::Subscription<ariac_msgs::msg::Order>::SharedPtr order_sub;
         rclcpp::Subscription<ariac_msgs::msg::BinParts>::SharedPtr bin_part_sub;
+
+
+        // Floor Robot Move Functions
+        bool FloorRobotMovetoTarget();
+        bool FloorRobotMoveCartesian(std::vector<geometry_msgs::msg::Pose> waypoints, double vsf, double asf);
+        void FloorRobotWaitForAttach(double timeout);
+        void FloorRobotWaitForAttachKitTrayPart(double timeout);
+        void FloorRobotWaitForDrop(double timeout);
+        void FloorRobotMoveUp();
 
         void CompetitionStateCallback(const ariac_msgs::msg::CompetitionState::SharedPtr msg);
         void OrderCallback(const ariac_msgs::msg::Order::SharedPtr order_msg); 
