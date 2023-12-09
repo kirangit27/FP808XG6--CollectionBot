@@ -262,6 +262,8 @@ class CompetitionARIAC : public rclcpp::Node
                                                                         std::bind(&CompetitionARIAC::BinPartCallback, this, std::placeholders::_1),subscription_option3); 
 
         submit_order_client_ = create_client<ariac_msgs::srv::SubmitOrder>("/ariac/submit_order");
+
+        AddModelsToPlanningScene();
     };
 
     private:
@@ -291,6 +293,15 @@ class CompetitionARIAC : public rclcpp::Node
         void FloorRobotWaitForAttachKitTrayPart(double timeout);
         void FloorRobotWaitForDrop(double timeout);
         void FloorRobotMoveUp();
+
+        geometry_msgs::msg::Quaternion SetRobotOrientation(double rotation);
+        void LogPose(geometry_msgs::msg::Pose p);
+        geometry_msgs::msg::Pose MultiplyPose(geometry_msgs::msg::Pose p1, geometry_msgs::msg::Pose p2);
+        geometry_msgs::msg::Pose BuildPose(double x, double y, double z, geometry_msgs::msg::Quaternion orientation);
+        geometry_msgs::msg::Pose FrameWorldPose(std::string frame_id);
+        double GetYaw(geometry_msgs::msg::Pose pose);
+        double GetPitch(geometry_msgs::msg::Pose pose);
+        geometry_msgs::msg::Quaternion QuaternionFromRPY(double r, double p, double y);
 
 
 
