@@ -271,6 +271,9 @@ class CompetitionARIAC : public rclcpp::Node
         bool FloorRobotPickandPlaceTray(int tray_id, int agv_num);
         bool FloorRobotPickBinPart(order_::KittingPart part_to_pick);
         bool FloorRobotPlacePartOnKitTray(int agv_num, int quadrant);
+        
+        bool MoveAGV(int agv_num , int destination);
+        bool LockAGV(int agv_num);
 
 
     private:
