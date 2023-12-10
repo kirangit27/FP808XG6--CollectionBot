@@ -128,6 +128,11 @@ void CompetitionARIAC::OrderCallback(const ariac_msgs::msg::Order::SharedPtr ord
 
 }
 
+void CompetitionARIAC::BinPartCallback(const ariac_msgs::msg::BinParts::SharedPtr bin_part_msg)
+{
+
+}
+
 bool CompetitionARIAC::FloorRobotMovetoTarget()
 {
 
