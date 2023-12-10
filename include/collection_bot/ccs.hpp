@@ -318,6 +318,9 @@ class CompetitionARIAC : public rclcpp::Node
         std::vector<ariac_msgs::msg::PartPose> right_bins_parts_;
         geometry_msgs::msg::Pose lbin_pose;
         geometry_msgs::msg::Pose rbin_pose;
+        std::vector<ariac_msgs::msg::KitTrayPose> kts2_trays_;
+        geometry_msgs::msg::Pose kit1_pose;
+        geometry_msgs::msg::Pose kit2_pose;
 
         // TF
         std::unique_ptr<tf2_ros::Buffer> tf_buffer = std::make_unique<tf2_ros::Buffer>(get_clock());
