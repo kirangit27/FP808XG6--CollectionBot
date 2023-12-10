@@ -378,6 +378,7 @@ class CompetitionARIAC : public rclcpp::Node
         rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr end_comp_client_;
         rclcpp::Client<ariac_msgs::srv::SubmitOrder>::SharedPtr submit_order_client_;
         rclcpp::Client<ariac_msgs::srv::ChangeGripper>::SharedPtr floor_robot_tool_changer_;
+        rclcpp::Client<ariac_msgs::srv::VacuumGripperControl>::SharedPtr floor_robot_gripper_enable_;
 
 
 };
