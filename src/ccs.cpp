@@ -128,6 +128,36 @@ void CompetitionARIAC::OrderCallback(const ariac_msgs::msg::Order::SharedPtr ord
 
 }
 
+void CompetitionARIAC::FloorRobotSendHome()
+{
+
+}
+
+bool CompetitionARIAC::FloorRobotSetGripperState(bool enable)
+{
+    
+}
+
+bool CompetitionARIAC::FloorRobotChangeGripper(std::string station, std::string gripper_type)
+{
+
+}
+
+bool CompetitionARIAC::FloorRobotPickandPlaceTray(int tray_id, int agv_num)
+{
+
+}
+
+bool CompetitionARIAC::FloorRobotPickBinPart(order_::KittingPart part_to_pick)
+{
+
+}
+
+bool CompetitionARIAC::FloorRobotPlacePartOnKitTray(int agv_num, int quadrant)
+{
+    
+}
+
 void CompetitionARIAC::callServiceStart()
 {
     auto client = create_client<std_srvs::srv::Trigger>("/ariac/start_competition");
