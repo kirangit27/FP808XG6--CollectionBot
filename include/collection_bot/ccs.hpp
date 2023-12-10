@@ -230,6 +230,9 @@ class CompetitionARIAC : public rclcpp::Node
             auto kit_tray_cameras_option = rclcpp::SubscriptionOptions();
             kit_tray_cameras_option.callback_group = cb_group_kit_tray_cameras_;
 
+            auto subscription_option6 = rclcpp::SubscriptionOptions();
+            subscription_option6.callback_group = m_callback_group_6;
+
             // Subscriber objects            
             comp_state_sub = this->create_subscription<ariac_msgs::msg::CompetitionState>("/ariac/competition_state", 10, 
                                                                         std::bind(&CompetitionARIAC::CompetitionStateCallback, this, std::placeholders::_1),subscription_option1);
@@ -252,7 +255,8 @@ class CompetitionARIAC : public rclcpp::Node
             right_bins_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>("/ariac/sensors/right_bins_camera/image", rclcpp::SensorDataQoS(),
                                                                     std::bind(&CompetitionARIAC::RightBinsCameraCallback, this, std::placeholders::_1), bin_cameras_option);    
             
-            
+            floor_gripper_state_sub_ = this->create_subscription<ariac_msgs::msg::VacuumGripperState>("/ariac/floor_robot_gripper_state", rclcpp::SensorDataQoS(),
+                                                                    std::bind(&CompetitionARIAC::floor_gripper_state_cb, this, std::placeholders::_1), subscription_option6);
             
             submit_order_client_ = create_client<ariac_msgs::srv::SubmitOrder>("/ariac/submit_order");
 
@@ -325,6 +329,7 @@ class CompetitionARIAC : public rclcpp::Node
         rclcpp::CallbackGroup::SharedPtr m_callback_group_3;
         rclcpp::CallbackGroup::SharedPtr cb_group_bin_cameras_;
         rclcpp::CallbackGroup::SharedPtr cb_group_kit_tray_cameras_;
+        rclcpp::CallbackGroup::SharedPtr m_callback_group_6;
         
 
         rclcpp::Subscription<ariac_msgs::msg::CompetitionState>::SharedPtr comp_state_sub;
@@ -362,6 +367,7 @@ class CompetitionARIAC : public rclcpp::Node
         void KitTrayTable2Callback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg);
         void LeftBinsCameraCallback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg);
         void RightBinsCameraCallback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg); 
+        void floor_gripper_state_cb(const ariac_msgs::msg::VacuumGripperState::ConstSharedPtr msg);
         
         void callServiceStart();
         void callServiceEnd();
