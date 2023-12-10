@@ -128,6 +128,36 @@ void CompetitionARIAC::OrderCallback(const ariac_msgs::msg::Order::SharedPtr ord
 
 }
 
+bool CompetitionARIAC::FloorRobotMovetoTarget()
+{
+    
+}
+
+bool CompetitionARIAC::FloorRobotMoveCartesian(
+    std::vector<geometry_msgs::msg::Pose> waypoints, double vsf, double asf)
+    {
+
+    }
+void CompetitionARIAC::FloorRobotWaitForAttach(double timeout)
+{
+
+}
+
+void CompetitionARIAC::FloorRobotWaitForAttachKitTrayPart(double timeout)
+{
+
+}
+
+void CompetitionARIAC::FloorRobotWaitForDrop(double timeout)
+{
+
+}
+
+void CompetitionARIAC::FloorRobotMoveUp()
+{
+
+}
+
 void CompetitionARIAC::FloorRobotSendHome()
 {
 
@@ -155,7 +185,7 @@ bool CompetitionARIAC::FloorRobotPickBinPart(order_::KittingPart part_to_pick)
 
 bool CompetitionARIAC::FloorRobotPlacePartOnKitTray(int agv_num, int quadrant)
 {
-    
+
 }
 
 void CompetitionARIAC::callServiceStart()
