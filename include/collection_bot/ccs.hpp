@@ -244,6 +244,12 @@ class CompetitionARIAC : public rclcpp::Node
         {
             floor_robot_.~MoveGroupInterface();
         }
+
+        bool order_retrived{false};     
+        bool bin_flag{false};
+        bool tray_flag{false};
+        bool quality_check_flag{false};
+
         // Floor Robot Public Functions
         void FloorRobotSendHome();
         bool FloorRobotSetGripperState(bool enable);
