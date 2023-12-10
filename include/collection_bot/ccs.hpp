@@ -282,10 +282,15 @@ class CompetitionARIAC : public rclcpp::Node
         bool order_submitted{false};
         bool priority_order = false;
         int priority_index = -1;
-        int order_counter{0};
         int list_size{0};
+        
         std::vector<order_::Orders> orders_list;
         std::vector<order_::Orders> orders_list_submit;
+
+        // Gripper State
+        ariac_msgs::msg::VacuumGripperState floor_gripper_state_;
+        ariac_msgs::msg::Part floor_robot_attached_part_comb;
+        order_::KittingPart floor_robot_attached_part_;
 
         moveit::planning_interface::MoveGroupInterface floor_robot_;
         moveit::planning_interface::PlanningSceneInterface planning_scene_;
