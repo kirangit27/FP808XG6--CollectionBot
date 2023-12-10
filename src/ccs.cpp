@@ -235,6 +235,26 @@ geometry_msgs::msg::Quaternion CompetitionARIAC::QuaternionFromRPY(double r, dou
     
 }
 
+void CompetitionARIAC::KitTrayTable1Callback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg)
+{
+
+}
+
+void CompetitionARIAC::KitTrayTable2Callback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg)
+{
+
+}
+
+void CompetitionARIAC::LeftBinsCameraCallback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg)
+{
+
+}
+
+void CompetitionARIAC::RightBinsCameraCallback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg)
+{
+    
+}
+
 void CompetitionARIAC::callServiceStart()
 {
     auto client = create_client<std_srvs::srv::Trigger>("/ariac/start_competition");
