@@ -133,6 +133,17 @@ void CompetitionARIAC::BinPartCallback(const ariac_msgs::msg::BinParts::SharedPt
 
 }
 
+void CompetitionARIAC::AddModelToPlanningScene(
+    std::string name, std::string mesh_file, geometry_msgs::msg::Pose model_pose)
+    {
+        
+    }
+
+void CompetitionARIAC::AddModelsToPlanningScene()
+{
+
+}
+
 bool CompetitionARIAC::FloorRobotMovetoTarget()
 {
 
@@ -252,7 +263,7 @@ void CompetitionARIAC::LeftBinsCameraCallback(const ariac_msgs::msg::AdvancedLog
 
 void CompetitionARIAC::RightBinsCameraCallback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg)
 {
-    
+
 }
 
 void CompetitionARIAC::callServiceStart()
