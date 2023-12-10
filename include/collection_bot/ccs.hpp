@@ -83,20 +83,6 @@ namespace order_
         std::vector<KittingPart> parts;
     };
 
-    // struct AssemCombPart{
-    //     uint8_t color;
-    //     uint8_t type;
-    //     geometry_msgs::msg::Pose pose;
-    //     geometry_msgs::msg::PoseStamped pose_stamp;
-    //     geometry_msgs::msg::Vector3 install_direction;
-    // };
-
-    // struct AssemCombType{
-    //     uint8_t station;
-    //     std::vector<uint8_t> agv_numbers;
-    //     std::vector<AssemCombPart> parts;
-    // };
-
     class Orders{
     public:
         std::string id;
@@ -104,7 +90,6 @@ namespace order_
         bool priority;
         KittingType kitting_type;
         bool order_status{0};
-        // AssemCombType AssemComb_type;
 
         std::map<int,std::string> order_type={
             {0,"KITTING"},
@@ -224,25 +209,41 @@ class CompetitionARIAC : public rclcpp::Node
 {
     public:
 
-    CompetitionARIAC() : Node("competition_subscriber"),floor_robot_(std::shared_ptr<rclcpp::Node>(std::move(this)), "floor_robot"),
-        ceiling_robot_(std::shared_ptr<rclcpp::Node>(std::move(this)), "ceiling_robot"),planning_scene_()
+        CompetitionARIAC() : Node("competition_subscriber"),floor_robot_(std::shared_ptr<rclcpp::Node>(std::move(this)), "floor_robot")
         {
+            floor_robot_.setMaxAccelerationScalingFactor(1.0);
+            floor_robot_.setMaxVelocityScalingFactor(1.0);
 
-        floor_robot_.setMaxAccelerationScalingFactor(1.0);
-        floor_robot_.setMaxVelocityScalingFactor(1.0);
+            m_callback_group_1 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+            m_callback_group_2 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
 
+            //subscription callback groups
+            auto subscription_option1 = rclcpp::SubscriptionOptions();
+            subscription_option1.callback_group = m_callback_group_1;
+            auto subscription_option2 = rclcpp::SubscriptionOptions();
+            subscription_option2.callback_group = m_callback_group_2;
+            auto subscription_option3 = rclcpp::SubscriptionOptions();
+            subscription_option3.callback_group = m_callback_group_3;
 
-        m_callback_group_1 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
-        m_callback_group_2 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+            // Subscriber objects            
+            comp_state_sub = this->create_subscription<ariac_msgs::msg::CompetitionState>("/ariac/competition_state", 10, 
+                                                                        std::bind(&CompetitionARIAC::CompetitionStateCallback, this, std::placeholders::_1),subscription_option1);
+        
+            order_sub = this->create_subscription<ariac_msgs::msg::Order>("/ariac/orders", 10, 
+                                                                        std::bind(&CompetitionARIAC::OrderCallback, this, std::placeholders::_1),subscription_option2);
+            
+            bin_part_sub = this->create_subscription<ariac_msgs::msg::BinParts>("/ariac/bin_parts", 10, 
+                                                                            std::bind(&CompetitionARIAC::BinPartCallback, this, std::placeholders::_1),subscription_option3); 
 
-        //subscription callback groups
-        auto subscription_option1 = rclcpp::SubscriptionOptions();
-        subscription_option1.callback_group = m_callback_group_1;
-        auto subscription_option2 = rclcpp::SubscriptionOptions();
-        subscription_option2.callback_group = m_callback_group_2;
-        auto subscription_option3 = rclcpp::SubscriptionOptions();
-        subscription_option3.callback_group = m_callback_group_3;
+            submit_order_client_ = create_client<ariac_msgs::srv::SubmitOrder>("/ariac/submit_order");
 
+            AddModelsToPlanningScene();
+        };
+
+        ~CompetitionARIAC()
+        {
+            floor_robot_.~MoveGroupInterface();
+        }
         // Floor Robot Public Functions
         void FloorRobotSendHome();
         bool FloorRobotSetGripperState(bool enable);
@@ -251,20 +252,6 @@ class CompetitionARIAC : public rclcpp::Node
         bool FloorRobotPickBinPart(order_::KittingPart part_to_pick);
         bool FloorRobotPlacePartOnKitTray(int agv_num, int quadrant);
 
-        // Subscriber objects            
-        comp_state_sub = this->create_subscription<ariac_msgs::msg::CompetitionState>("/ariac/competition_state", 10, 
-                                                                    std::bind(&CompetitionARIAC::CompetitionStateCallback, this, std::placeholders::_1),subscription_option1);
-       
-        order_sub = this->create_subscription<ariac_msgs::msg::Order>("/ariac/orders", 10, 
-                                                                    std::bind(&CompetitionARIAC::OrderCallback, this, std::placeholders::_1),subscription_option2);
-        
-        bin_part_sub = this->create_subscription<ariac_msgs::msg::BinParts>("/ariac/bin_parts", 10, 
-                                                                        std::bind(&CompetitionARIAC::BinPartCallback, this, std::placeholders::_1),subscription_option3); 
-
-        submit_order_client_ = create_client<ariac_msgs::srv::SubmitOrder>("/ariac/submit_order");
-
-        AddModelsToPlanningScene();
-    };
 
     private:
 
