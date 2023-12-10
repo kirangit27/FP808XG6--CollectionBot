@@ -130,7 +130,7 @@ void CompetitionARIAC::OrderCallback(const ariac_msgs::msg::Order::SharedPtr ord
 
 bool CompetitionARIAC::FloorRobotMovetoTarget()
 {
-    
+
 }
 
 bool CompetitionARIAC::FloorRobotMoveCartesian(
@@ -187,6 +187,22 @@ bool CompetitionARIAC::FloorRobotPlacePartOnKitTray(int agv_num, int quadrant)
 {
 
 }
+
+geometry_msgs::msg::Quaternion CompetitionARIAC::SetRobotOrientation(double rotation)
+{
+
+}
+
+void CompetitionARIAC::LogPose(geometry_msgs::msg::Pose p)
+{
+
+}
+
+geometry_msgs::msg::Pose CompetitionARIAC::MultiplyPose(
+    geometry_msgs::msg::Pose p1, geometry_msgs::msg::Pose p2)
+    {
+        
+    }
 
 void CompetitionARIAC::callServiceStart()
 {
