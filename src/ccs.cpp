@@ -215,6 +215,20 @@ geometry_msgs::msg::Pose CompetitionARIAC::FrameWorldPose(std::string frame_id)
 
 } 
 
+double CompetitionARIAC::GetYaw(geometry_msgs::msg::Pose pose)
+{
+
+}
+
+double CompetitionARIAC::GetPitch(geometry_msgs::msg::Pose pose)
+{
+
+}
+
+geometry_msgs::msg::Quaternion CompetitionARIAC::QuaternionFromRPY(double r, double p, double y)
+{
+    
+}
 
 void CompetitionARIAC::callServiceStart()
 {
