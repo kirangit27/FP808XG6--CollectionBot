@@ -357,7 +357,11 @@ class CompetitionARIAC : public rclcpp::Node
         
         void CompetitionStateCallback(const ariac_msgs::msg::CompetitionState::SharedPtr msg);
         void OrderCallback(const ariac_msgs::msg::Order::SharedPtr order_msg); 
-        void BinPartCallback(const ariac_msgs::msg::BinParts::SharedPtr bin_part_msg); 
+        void BinPartCallback(const ariac_msgs::msg::BinParts::SharedPtr bin_part_msg);
+        void KitTrayTable1Callback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg);
+        void KitTrayTable2Callback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg);
+        void LeftBinsCameraCallback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg);
+        void RightBinsCameraCallback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg); 
         
         void callServiceStart();
         void callServiceEnd();
