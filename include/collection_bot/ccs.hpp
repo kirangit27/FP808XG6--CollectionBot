@@ -250,6 +250,20 @@ class CompetitionARIAC : public rclcpp::Node
         bool tray_flag{false};
         bool quality_check_flag{false};
 
+        std::vector<int> bin_space{1,2,3,4,5,6,7,8};
+        // priority bins
+        std::vector<int> p_bins{6,5,2,1,7,8,3,4};
+        // empty bins
+        std::vector<int> empty_bins;
+        // flag empty bins
+        int empty_bin{0};
+        int order_counter{0};
+        // order bin vector
+        std::vector<int> order_bins;
+        // boolean vector to check quality
+        std::vector<bool> quality_check_vec{};
+        int slot{2};
+
         // Floor Robot Public Functions
         void FloorRobotSendHome();
         bool FloorRobotSetGripperState(bool enable);
