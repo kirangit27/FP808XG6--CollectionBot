@@ -225,6 +225,11 @@ class CompetitionARIAC : public rclcpp::Node
             auto subscription_option3 = rclcpp::SubscriptionOptions();
             subscription_option3.callback_group = m_callback_group_3;
 
+            auto bin_cameras_option = rclcpp::SubscriptionOptions();
+            bin_cameras_option.callback_group = cb_group_bin_cameras_;
+            auto kit_tray_cameras_option = rclcpp::SubscriptionOptions();
+            kit_tray_cameras_option.callback_group = cb_group_kit_tray_cameras_;
+
             // Subscriber objects            
             comp_state_sub = this->create_subscription<ariac_msgs::msg::CompetitionState>("/ariac/competition_state", 10, 
                                                                         std::bind(&CompetitionARIAC::CompetitionStateCallback, this, std::placeholders::_1),subscription_option1);
@@ -235,6 +240,20 @@ class CompetitionARIAC : public rclcpp::Node
             bin_part_sub = this->create_subscription<ariac_msgs::msg::BinParts>("/ariac/bin_parts", 10, 
                                                                             std::bind(&CompetitionARIAC::BinPartCallback, this, std::placeholders::_1),subscription_option3); 
 
+            kit_tray_table1_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>("/ariac/sensors/kts1_camera/image", rclcpp::SensorDataQoS(),
+                                                                    std::bind(&CompetitionARIAC::KitTrayTable1Callback, this, std::placeholders::_1), kit_tray_cameras_option);
+
+            kit_tray_table2_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>("/ariac/sensors/kts2_camera/image", rclcpp::SensorDataQoS(),
+                                                                    std::bind(&CompetitionARIAC::KitTrayTable2Callback, this, std::placeholders::_1), kit_tray_cameras_option);
+
+            left_bins_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>("/ariac/sensors/left_bins_camera/image", rclcpp::SensorDataQoS(),
+                                                                    std::bind(&CompetitionARIAC::LeftBinsCameraCallback, this, std::placeholders::_1), bin_cameras_option);
+
+            right_bins_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>("/ariac/sensors/right_bins_camera/image", rclcpp::SensorDataQoS(),
+                                                                    std::bind(&CompetitionARIAC::RightBinsCameraCallback, this, std::placeholders::_1), bin_cameras_option);    
+            
+            
+            
             submit_order_client_ = create_client<ariac_msgs::srv::SubmitOrder>("/ariac/submit_order");
 
             AddModelsToPlanningScene();
@@ -304,6 +323,9 @@ class CompetitionARIAC : public rclcpp::Node
         rclcpp::CallbackGroup::SharedPtr m_callback_group_1;
         rclcpp::CallbackGroup::SharedPtr m_callback_group_2;
         rclcpp::CallbackGroup::SharedPtr m_callback_group_3;
+        rclcpp::CallbackGroup::SharedPtr cb_group_bin_cameras_;
+        rclcpp::CallbackGroup::SharedPtr cb_group_kit_tray_cameras_;
+        
 
         rclcpp::Subscription<ariac_msgs::msg::CompetitionState>::SharedPtr comp_state_sub;
         rclcpp::Subscription<ariac_msgs::msg::Order>::SharedPtr order_sub;
