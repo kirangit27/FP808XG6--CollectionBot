@@ -201,8 +201,20 @@ void CompetitionARIAC::LogPose(geometry_msgs::msg::Pose p)
 geometry_msgs::msg::Pose CompetitionARIAC::MultiplyPose(
     geometry_msgs::msg::Pose p1, geometry_msgs::msg::Pose p2)
     {
-        
+
     }
+
+geometry_msgs::msg::Pose CompetitionARIAC::BuildPose(
+    double x, double y, double z, geometry_msgs::msg::Quaternion orientation)
+    {
+
+    }
+
+geometry_msgs::msg::Pose CompetitionARIAC::FrameWorldPose(std::string frame_id)
+{
+
+} 
+
 
 void CompetitionARIAC::callServiceStart()
 {
