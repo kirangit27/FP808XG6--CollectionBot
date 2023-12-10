@@ -136,7 +136,7 @@ void CompetitionARIAC::BinPartCallback(const ariac_msgs::msg::BinParts::SharedPt
 void CompetitionARIAC::AddModelToPlanningScene(
     std::string name, std::string mesh_file, geometry_msgs::msg::Pose model_pose)
     {
-        
+
     }
 
 void CompetitionARIAC::AddModelsToPlanningScene()
@@ -303,6 +303,16 @@ void CompetitionARIAC::callService_submit(std::string order)
 
     auto submit_order_future = submit_order_client_->async_send_request(submit_order_request);
 
+}
+
+bool CompetitionARIAC::MoveAGV(int agv_num , int destination)
+{
+
+}
+        
+bool CompetitionARIAC::LockAGV(int agv_num)
+{
+    
 }
 
 
