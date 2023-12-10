@@ -260,6 +260,9 @@ class CompetitionARIAC : public rclcpp::Node
             
             submit_order_client_ = create_client<ariac_msgs::srv::SubmitOrder>("/ariac/submit_order");
 
+            quality_checker_ = this->create_client<ariac_msgs::srv::PerformQualityCheck>("/ariac/perform_quality_check");
+
+
             AddModelsToPlanningScene();
         };
 
@@ -389,6 +392,7 @@ class CompetitionARIAC : public rclcpp::Node
         rclcpp::Client<ariac_msgs::srv::SubmitOrder>::SharedPtr submit_order_client_;
         rclcpp::Client<ariac_msgs::srv::ChangeGripper>::SharedPtr floor_robot_tool_changer_;
         rclcpp::Client<ariac_msgs::srv::VacuumGripperControl>::SharedPtr floor_robot_gripper_enable_;
+        rclcpp::Client<ariac_msgs::srv::PerformQualityCheck>::SharedPtr quality_checker_;
 
 
 };
