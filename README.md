@@ -19,7 +19,7 @@ The "Human Tracker for Robots" project is a cutting-edge proposal presented to A
 | Document           |Link                                                                                         |
 | ------------------------- | -------------------------------------------------------------------------------------------- |
 | Project Proposal          | [link](https://github.com/kirangit27/FP808XG6--CollectionBot/blob/Phase_1/documents/ENPM808X%20-%20Final%20Project%20Proposal%20(Phase%200).pdf) |
-| Quad Chart                | [link](documents/QuadChart_Final.pdf) |
+| Quad Chart                | [link](https://github.com/kirangit27/FP808XG6--CollectionBot/blob/Phase_1/documents/QuadChart_Final.pdf) |
 | UML Diagram               | [link](https://github.com/kirangit27/FP808XG6--CollectionBot/blob/Phase_1/UML/UML%20class.png) |
 
 
@@ -27,7 +27,7 @@ The "Human Tracker for Robots" project is a cutting-edge proposal presented to A
 ### Phase_1
 | Document           |Link                                                                                         |
 | ------------------------- | -------------------------------------------------------------------------------------------- |
-| UML Diagram               | [link](hhttps://github.com/kirangit27/FP808XG6--CollectionBot/blob/Phase_1/UML/UML%20Revised.png) |
+| UML Diagram               | [link](https://github.com/kirangit27/FP808XG6--CollectionBot/blob/Phase_1/UML/UML%20Revised.png) |
 | Proposal Video            | [link](https://drive.google.com/drive/folders/1-OMwoqAwp02GAUaVJTIPztD0t-gRjUfr) |
 | AIP                       | [link](https://docs.google.com/spreadsheets/d/1FtwduI0UeLAkzt9SnpAClorMw1jcahy9qjM6wzhxDfg/edit#gid=0) |
 | Sprint Planning & Review  | [link](https://docs.google.com/document/d/1ZsBr0pjIIcKHEvNL5tI986ulKs6IyMRJGUegzvP9S6Y/edit) |
