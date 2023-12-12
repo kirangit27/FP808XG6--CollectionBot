@@ -10,7 +10,7 @@ Repository for ENPM808X Final Project Fall 23 - Group 6
 The "Human Tracker for Robots" project is a cutting-edge proposal presented to Acme Robotics aimed at addressing the challenge of "Human Detection and Tracking" within an indoor office environment using a specially designed robotic module equipped with a monocular video camera. The primary goal of this project is to develop an advanced robotic system capable of identifying and tracking humans within an office setting. This project leverages computer vision and machine learning. This is an efficient solution for various applications, such as enhancing security, improving workplace safety, and automating certain tasks within an indoor environment. Main features of the module include Human detection and Real-time Tracking. The Performance of the module is measured based on the detection accuracy and tracking precision.
 
 ### Team
-(Group 10)
+(Group 6)
 1. Kiran Patil
 2. Vyshnav Achutan
 3. Suryavardhan Reddy Chappidi
