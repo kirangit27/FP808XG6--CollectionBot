@@ -7,13 +7,58 @@ Repository for ENPM808X Final Project Fall 23 - Group 6
 
 
 ## Overview
-The "Human Tracker for Robots" project is a cutting-edge proposal presented to Acme Robotics aimed at addressing the challenge of "Human Detection and Tracking" within an indoor office environment using a specially designed robotic module equipped with a monocular video camera. The primary goal of this project is to develop an advanced robotic system capable of identifying and tracking humans within an office setting. This project leverages computer vision and machine learning. This is an efficient solution for various applications, such as enhancing security, improving workplace safety, and automating certain tasks within an indoor environment. Main features of the module include Human detection and Real-time Tracking. The Performance of the module is measured based on the detection accuracy and tracking precision.
+The Collection Robot is an important mechanism in any industrial automation process. It ensures autonmous kitting and assembling of parts in a timely fashion to increase overall throughput. The Agile Robots for Industrial Automation Challenge was developed by NIST that tests the ability of robots to perform a series of tasks in a dynamic environment. The tasks are designed to test the robot's ability to perform pick-and-place operations, assembly, and kitting in a simulated warehouse. In the context of ARIAC, agility refers to a robot's capacity for adaptation, efficiency, and autonomy in a dynamic manufacturing setting rather than just its speed or physical prowess. The competition acts as a trial run for the creation of algorithms that can be used in actual manufacturing environments. The ARIAC's competition platform standsout as the best simulating and testing ground for agile robots in dynamic industrial environments, which served as the perfect fit  for our solution demonstration.
+
 
 ### Team
 (Group 6)
 1. Kiran Patil
 2. Vyshnav Achutan
 3. Suryavardhan Reddy Chappidi
+
+## Steps to Install ARIAC Competition Platform
+
+# Project Title
+
+A brief description of what this project does and who it's for
+
+Create a new ROS2 workspace:
+```
+    source /opt/ros/galactic/setup.bash
+    mkdir -p ~/ariac_ws/src
+    cd ~/ariac_ws
+
+```
+
+Clone the ARIAC repository:
+```
+    git clone https://github.com/usnistgov/ARIAC.git src/ariac
+
+```
+ Note: Always use the ariac2023 branch.
+
+Install the dependencies:
+```
+    sudo apt install python3-rosdep
+    sudo apt install openjdk-17-jdk
+    sudo rosdep init
+    rosdep update --include-eol-distros
+    rosdep install --from-paths src -y --ignore-src
+```
+
+Build the ARIAC package:
+```
+    sudo apt install python3-colcon-common-extensions
+    colcon build --packages-select ariac
+
+```
+
+Source the workspace:
+```
+    source install/setup.bash
+
+```
+For further installation steps follow the guide at : https://pages.nist.gov/ARIAC_docs/en/2023.5.0/getting_started/installation.html
 
 ### Phase_0 (Project Proposal)
 | Document           |Link                                                                                         |
