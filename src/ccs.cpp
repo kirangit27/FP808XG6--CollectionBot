@@ -1,7 +1,30 @@
+/**
+ * @file ccs.cpp
+ * @author Kiran S Patil (kpatil27@umd.edu)
+ * @author Vyshnav Achuthan (vyachu07@umd.edu)
+ * @author Surya Chappidi (chappidi@umd.edu)
+ * @brief Implementation file for managing interactions and functionalities in the Automated Robot Industrial Automation Competition (ARIAC).
+ * @version 0.1
+ * @date 2023-12-6
+ * 
+ * This file contains the implementation of the CompetitionARIAC class methods. It includes functionalities
+ * for handling competition states, processing orders, and controlling robots for various tasks in the ARIAC.
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
 
 #include "../include/ariac_collection_bot/ccs.hpp"
 
-
+/**
+ * @brief Callback function for the Competition State in ARIAC.
+ * 
+ * This function handles updates to the competition state. If the competition state is READY, it triggers the
+ * start of the competition. It logs the current state and performs actions based on the competition's state changes.
+ * 
+ * @param msg Shared pointer to the CompetitionState message, containing the current state of the competition.
+ */
+ 
 void CompetitionARIAC::CompetitionStateCallback(const ariac_msgs::msg::CompetitionState::SharedPtr msg)
 {
     if (msg->competition_state == ariac_msgs::msg::CompetitionState::READY)
