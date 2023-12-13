@@ -43,10 +43,6 @@ jobs:
           sudo apt update
           sudo apt install -y software-properties-common
           sudo apt install -y doxygen lcov gcovr
-      - name: install opencv
-        run: |
-            sudo apt-get install libopencv-dev=4.2
-            sudo apt-get install libopencv-contrib-dev=4.2
       # Build, run unit test, and generate coverage report
       - name: Configure CMake flags and build exectables
         run: |
@@ -54,10 +50,7 @@ jobs:
           cmake --build build/ --clean-first --target all test_coverage
 
       # Upload coverage result to CodeCov
-      - name: Upload coverage result to CodeCov
+      - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          files: ${{github.workspace}}/build/test_coverage.info
-          fail_ci_if_error: true # optional (default = false)
-          verbose: true # optional (default = false)
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
