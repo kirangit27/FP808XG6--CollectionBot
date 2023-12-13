@@ -304,9 +304,10 @@ class CompetitionARIAC : public rclcpp::Node
         }
 
         // Member Variables
-        bool order_retrived{false}; ///< Indicates if an order has been retrieved.
-        bool bin_flag{false};       ///< Status flag for bins.
-        bool tray_flag{false};      ///< Status flag for trays.
+        bool order_retrived{false};  ///< Indicates if an order has been retrieved.
+        bool order_submitted{false}; ///< Flag to indicate whether an order has been submitted.
+        bool bin_flag{false};        ///< Status flag for bins.
+        bool tray_flag{false};       ///< Status flag for trays.
         bool quality_check_flag{false}; ///< Indicates if a quality check is needed.
 
         std::vector<int> bin_space{1,2,3,4,5,6,7,8}; ///< List of bin spaces.
@@ -409,11 +410,6 @@ class CompetitionARIAC : public rclcpp::Node
 	     * @brief Indicates if the competition has started.
 	     */
 	    bool comp_start{false};
-
-	    /**
-	     * @brief Flag to indicate whether an order has been submitted.
-	     */
-	    bool order_submitted{false};
 
 	    /**
 	     * @brief Flag to indicate if the current order is a priority order.
@@ -541,40 +537,6 @@ class CompetitionARIAC : public rclcpp::Node
 	     */
 	    geometry_msgs::msg::Pose conveyor_camera_pick_pose_;
 
-    private:
-
-        bool comp_start{false};
-        bool order_submitted{false};
-        bool priority_order = false;
-        int priority_index = -1;
-        int list_size{0};
-        
-        std::vector<order_::Orders> orders_list;
-        std::vector<order_::Orders> orders_list_submit;
-
-        // Gripper State
-        ariac_msgs::msg::VacuumGripperState floor_gripper_state_;
-        ariac_msgs::msg::Part floor_robot_attached_part_comb;
-        order_::KittingPart floor_robot_attached_part_;
-
-        moveit::planning_interface::MoveGroupInterface floor_robot_;
-        moveit::planning_interface::PlanningSceneInterface planning_scene_;
-        trajectory_processing::TimeOptimalTrajectoryGeneration totg_;
-
-        std::vector<ariac_msgs::msg::PartPose> left_bins_parts_;
-        std::vector<ariac_msgs::msg::PartPose> right_bins_parts_;
-        geometry_msgs::msg::Pose lbin_pose;
-        geometry_msgs::msg::Pose rbin_pose;
-        std::vector<ariac_msgs::msg::KitTrayPose> kts1_trays_;
-        std::vector<ariac_msgs::msg::KitTrayPose> kts2_trays_;
-        geometry_msgs::msg::Pose kit1_pose;
-        geometry_msgs::msg::Pose kit2_pose;
-        geometry_msgs::msg::Pose kts1_camera_pose_;
-        geometry_msgs::msg::Pose kts2_camera_pose_;
-        geometry_msgs::msg::Pose left_bins_camera_pose_;
-        geometry_msgs::msg::Pose right_bins_camera_pose_;
-        geometry_msgs::msg::Pose conveyor_camera_pose_;
-        geometry_msgs::msg::Pose conveyor_camera_pick_pose_;
 
         // TF
         /**
@@ -647,6 +609,16 @@ class CompetitionARIAC : public rclcpp::Node
         rclcpp::Subscription<ariac_msgs::msg::BinParts>::SharedPtr bin_part_sub;
 
 
+        /*!< Subscriber to camera image over kit tray table1. */
+        rclcpp::Subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>::SharedPtr kit_tray_table1_camera_sub_;
+        /*!< Subscriber to camera image over kit tray table2. */
+        rclcpp::Subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>::SharedPtr kit_tray_table2_camera_sub_;
+        /*!< Subscriber to camera image over left bins. */
+        rclcpp::Subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>::SharedPtr left_bins_camera_sub_;
+        /*!< Subscriber to camera image over right bins. */
+        rclcpp::Subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>::SharedPtr right_bins_camera_sub_;
+        /*!< Subscriber to floor gripper state */
+        rclcpp::Subscription<ariac_msgs::msg::VacuumGripperState>::SharedPtr floor_gripper_state_sub_;
 
         // Floor Robot Move Functions
         /**
