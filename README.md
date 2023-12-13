@@ -71,3 +71,15 @@ For further installation steps follow the guide at : https://pages.nist.gov/ARIA
 | Proposal Video            | [link](https://drive.google.com/drive/folders/1-OMwoqAwp02GAUaVJTIPztD0t-gRjUfr) |
 | AIP                       | [link](https://docs.google.com/spreadsheets/d/1FtwduI0UeLAkzt9SnpAClorMw1jcahy9qjM6wzhxDfg/edit#gid=0) |
 | Sprint Planning & Review  | [link](https://docs.google.com/document/d/1ZsBr0pjIIcKHEvNL5tI986ulKs6IyMRJGUegzvP9S6Y/edit) |
+
+
+### cppcheck
+Run the following command from the root directory of your ROS package
+```
+cppcheck --enable=all --std=c++17 ./src/*.cpp --suppress=missingIncludeSystem --suppress=unmatchedSuppression --suppress=unusedFunction --suppress=missingInclude --suppress=useInitializationList > results/cppcheck.txt
+```
+### cpplint
+Run the following command from the root directory of your ROS package
+```
+ cpplint --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_order ./src/*.cpp ./include/collection_bot/*.hpp > ./results/cpplint.txt
+```
