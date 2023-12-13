@@ -17,11 +17,6 @@ The Collection Robot is an important mechanism in any industrial automation proc
 3. Suryavardhan Reddy Chappidi
 
 ## Steps to Install ARIAC Competition Platform
-
-# Project Title
-
-A brief description of what this project does and who it's for
-
 Create a new ROS2 workspace:
 ```
     source /opt/ros/galactic/setup.bash
