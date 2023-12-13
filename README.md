@@ -76,10 +76,10 @@ For further installation steps follow the guide at : https://pages.nist.gov/ARIA
 ### cppcheck
 Run the following command from the root directory of your ROS package
 ```
-cppcheck --enable=all --std=c++17 ./src/*.cpp --suppress=missingIncludeSystem --suppress=unmatchedSuppression --suppress=unusedFunction --suppress=missingInclude --suppress=useInitializationList > results/cppcheck.txt
+cppcheck --enable=all --std=c++17 ./src/*.cpp ./include/collection_bot/*.hpp ./test/*.cpp --suppress=missingIncludeSystem --suppress=unmatchedSuppression --suppress=unusedFunction --suppress=missingInclude --suppress=useInitializationList > results/cppcheck.txt
 ```
 ### cpplint
 Run the following command from the root directory of your ROS package
 ```
- cpplint --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_order ./src/*.cpp ./include/collection_bot/*.hpp > ./results/cpplint.txt
+ cpplint --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_order ./src/*.cpp ./include/collection_bot/*.hpp ./test/*.cpp > ./results/cpplint.txt
 ```
