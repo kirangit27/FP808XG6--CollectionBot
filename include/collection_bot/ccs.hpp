@@ -287,35 +287,94 @@ class CompetitionARIAC : public rclcpp::Node
          */
         void FloorRobotWaitForAttach(double timeout);
 
-	    /**
-	     * @brief Indicates if the competition has started.
-	     */
-	    bool comp_start{false};
+                /**
+         * @brief Sets the orientation of the robot based on a given rotation.
+         * 
+         * @param rotation The desired rotation angle.
+         * @return The new orientation as a quaternion.
+         */
+        geometry_msgs::msg::Quaternion SetRobotOrientation(double rotation);
 
-	    /**
-	     * @brief Flag to indicate if the current order is a priority order.
-	     */
-	    bool priority_order = false;
+        /**
+         * @brief Logs the pose of the robot.
+         * 
+         * @param p The pose to be logged.
+         */
+        void LogPose(geometry_msgs::msg::Pose p);
 
-	    /**
-	     * @brief Index of the priority order in the order list.
-	     */
-	    int priority_index = -1;
+        /**
+         * @brief Multiplies two poses to calculate the resultant pose.
+         * 
+         * @param p1 The first pose.
+         * @param p2 The second pose.
+         * @return The resultant pose.
+         */
+        geometry_msgs::msg::Pose MultiplyPose(geometry_msgs::msg::Pose p1, geometry_msgs::msg::Pose p2);
 
-	    /**
-	     * @brief Size of the orders list.
-	     */
-	    int list_size{0};
+        /**
+         * @brief Builds a pose from specified x, y, z coordinates and an orientation.
+         * 
+         * @param x X coordinate.
+         * @param y Y coordinate.
+         * @param z Z coordinate.
+         * @param orientation The orientation as a quaternion.
+         * @return The constructed pose.
+         */
+        geometry_msgs::msg::Pose BuildPose(double x, double y, double z, geometry_msgs::msg::Quaternion orientation);
 
-	    /**
-	     * @brief List of orders currently being processed.
-	     */
-	    std::vector<order_::Orders> orders_list;
+        /**
+         * @brief Retrieves the pose of a frame in the world coordinate system.
+         * 
+         * @param frame_id The ID of the frame.
+         * @return The pose of the frame.
+         */
+        geometry_msgs::msg::Pose FrameWorldPose(std::string frame_id);
 
-	    /**
-	     * @brief List of orders ready to be submitted.
-	     */
-	    std::vector<order_::Orders> orders_list_submit;
+        /**
+         * @brief Gets the yaw (rotation around the z-axis) from a pose.
+         * 
+         * @param pose The pose from which to extract the yaw.
+         * @return The yaw value.
+         */
+        double GetYaw(geometry_msgs::msg::Pose pose);
+
+        /**
+         * @brief Gets the pitch (rotation around the y-axis) from a pose.
+         * 
+         * @param pose The pose from which to extract the pitch.
+         * @return The pitch value.
+         */
+        double GetPitch(geometry_msgs::msg::Pose pose);
+
+        /**
+         * @brief Creates a quaternion from roll, pitch, and yaw angles.
+         * 
+         * @param r Roll angle.
+         * @param p Pitch angle.
+         * @param y Yaw angle.
+         * @return The resulting quaternion.
+         */
+        geometry_msgs::msg::Quaternion QuaternionFromRPY(double r, double p, double y);
+
+
+        /**
+         * @brief Adds a model to the planning scene.
+         * 
+         * @param name The name of the model.
+         * @param mesh_file The file path of the mesh representing the model.
+         * @param model_pose The pose of the model in the planning scene.
+         */
+        void AddModelToPlanningScene(std::string name, std::string mesh_file, geometry_msgs::msg::Pose model_pose);
+
+        /**
+         * @brief Adds multiple models to the planning scene.
+         * 
+         * This function is typically used to set up the initial state of the planning scene with all required models.
+         */
+        void AddModelsToPlanningScene();
+
+        // AGV location
+        std::map<int, int> agv_locations_ = {{1, -1}, {2, -1}, {3, -1}, {4, -1}};
 
 	    // Gripper State
 	    /**
@@ -516,93 +575,7 @@ class CompetitionARIAC : public rclcpp::Node
          */
         void FloorRobotMoveUp();
 
-        /**
-         * @brief Sets the orientation of the robot based on a given rotation.
-         * 
-         * @param rotation The desired rotation angle.
-         * @return The new orientation as a quaternion.
-         */
-        geometry_msgs::msg::Quaternion SetRobotOrientation(double rotation);
 
-        /**
-         * @brief Logs the pose of the robot.
-         * 
-         * @param p The pose to be logged.
-         */
-        void LogPose(geometry_msgs::msg::Pose p);
-
-        /**
-         * @brief Multiplies two poses to calculate the resultant pose.
-         * 
-         * @param p1 The first pose.
-         * @param p2 The second pose.
-         * @return The resultant pose.
-         */
-        geometry_msgs::msg::Pose MultiplyPose(geometry_msgs::msg::Pose p1, geometry_msgs::msg::Pose p2);
-
-        /**
-         * @brief Builds a pose from specified x, y, z coordinates and an orientation.
-         * 
-         * @param x X coordinate.
-         * @param y Y coordinate.
-         * @param z Z coordinate.
-         * @param orientation The orientation as a quaternion.
-         * @return The constructed pose.
-         */
-        geometry_msgs::msg::Pose BuildPose(double x, double y, double z, geometry_msgs::msg::Quaternion orientation);
-
-        /**
-         * @brief Retrieves the pose of a frame in the world coordinate system.
-         * 
-         * @param frame_id The ID of the frame.
-         * @return The pose of the frame.
-         */
-        geometry_msgs::msg::Pose FrameWorldPose(std::string frame_id);
-
-        /**
-         * @brief Gets the yaw (rotation around the z-axis) from a pose.
-         * 
-         * @param pose The pose from which to extract the yaw.
-         * @return The yaw value.
-         */
-        double GetYaw(geometry_msgs::msg::Pose pose);
-
-        /**
-         * @brief Gets the pitch (rotation around the y-axis) from a pose.
-         * 
-         * @param pose The pose from which to extract the pitch.
-         * @return The pitch value.
-         */
-        double GetPitch(geometry_msgs::msg::Pose pose);
-
-        /**
-         * @brief Creates a quaternion from roll, pitch, and yaw angles.
-         * 
-         * @param r Roll angle.
-         * @param p Pitch angle.
-         * @param y Yaw angle.
-         * @return The resulting quaternion.
-         */
-        geometry_msgs::msg::Quaternion QuaternionFromRPY(double r, double p, double y);
-
-
-
-
-        /**
-         * @brief Adds a model to the planning scene.
-         * 
-         * @param name The name of the model.
-         * @param mesh_file The file path of the mesh representing the model.
-         * @param model_pose The pose of the model in the planning scene.
-         */
-        void AddModelToPlanningScene(std::string name, std::string mesh_file, geometry_msgs::msg::Pose model_pose);
-
-        /**
-         * @brief Adds multiple models to the planning scene.
-         * 
-         * This function is typically used to set up the initial state of the planning scene with all required models.
-         */
-        void AddModelsToPlanningScene();
 
         /**
          * @brief Callback function for competition state updates.
