@@ -451,6 +451,12 @@ class CompetitionARIAC : public rclcpp::Node
         /*!< Subscriber to floor gripper state */
         rclcpp::Subscription<ariac_msgs::msg::VacuumGripperState>::SharedPtr floor_gripper_state_sub_;
 
+        // Orders List
+        ariac_msgs::msg::Order current_order_;
+        std::vector<ariac_msgs::msg::Order> orders_;
+
+        unsigned int competition_state_;
+
 
 	    // Gripper State
 	    /**
@@ -459,58 +465,10 @@ class CompetitionARIAC : public rclcpp::Node
 	    ariac_msgs::msg::VacuumGripperState floor_gripper_state_;
 
 	    /**
-	     * @brief Information about the part currently attached to the floor robot.
-	     */
-	    ariac_msgs::msg::Part floor_robot_attached_part_comb;
-
-	    /**
 	     * @brief Information about the kitting part currently attached to the floor robot.
 	     */
 	    order_::KittingPart floor_robot_attached_part_;
 
-
-
-
-
-	    /**
-	     * @brief List of parts in the left bins, as detected by sensors.
-	     */
-	    std::vector<ariac_msgs::msg::PartPose> left_bins_parts_;
-
-	    /**
-	     * @brief List of parts in the right bins, as detected by sensors.
-	     */
-	    std::vector<ariac_msgs::msg::PartPose> right_bins_parts_;
-
-	    /**
-	     * @brief Pose of the left bin.
-	     */
-	    geometry_msgs::msg::Pose lbin_pose;
-
-	    /**
-	     * @brief Pose of the right bin.
-	     */
-	    geometry_msgs::msg::Pose rbin_pose;
-
-	    /**
-	     * @brief List of kit tray poses in table 1.
-	     */
-	    std::vector<ariac_msgs::msg::KitTrayPose> kts1_trays_;
-
-	    /**
-	     * @brief List of kit tray poses in table 2.
-	     */
-	    std::vector<ariac_msgs::msg::KitTrayPose> kts2_trays_;
-
-	    /**
-	     * @brief Pose of kit tray 1.
-	     */
-	    geometry_msgs::msg::Pose kit1_pose;
-
-	    /**
-	     * @brief Pose of kit tray 2.
-	     */
-	    geometry_msgs::msg::Pose kit2_pose;
 
 	    /**
 	     * @brief Pose of the camera observing kit tray table 1.
@@ -531,6 +489,57 @@ class CompetitionARIAC : public rclcpp::Node
 	     * @brief Pose of the camera observing the right bins.
 	     */
 	    geometry_msgs::msg::Pose right_bins_camera_pose_;
+
+
+	    /**
+	     * @brief List of kit tray poses in table 1.
+	     */
+	    std::vector<ariac_msgs::msg::KitTrayPose> kts1_trays_;
+
+	    /**
+	     * @brief List of kit tray poses in table 2.
+	     */
+	    std::vector<ariac_msgs::msg::KitTrayPose> kts2_trays_;
+
+
+	    /**
+	     * @brief List of parts in the left bins, as detected by sensors.
+	     */
+	    std::vector<ariac_msgs::msg::PartPose> left_bins_parts_;
+
+	    /**
+	     * @brief List of parts in the right bins, as detected by sensors.
+	     */
+	    std::vector<ariac_msgs::msg::PartPose> right_bins_parts_;
+
+
+        // Sensor Callbacks
+        bool kts1_camera_recieved_data = false;
+        bool kts2_camera_recieved_data = false;
+        bool left_bins_camera_recieved_data = false;
+        bool right_bins_camera_recieved_data = false;
+
+
+	    /**
+	     * @brief Pose of the left bin.
+	     */
+	    geometry_msgs::msg::Pose lbin_pose;
+
+	    /**
+	     * @brief Pose of the right bin.
+	     */
+	    geometry_msgs::msg::Pose rbin_pose;
+
+
+	    /**
+	     * @brief Pose of kit tray 1.
+	     */
+	    geometry_msgs::msg::Pose kit1_pose;
+
+	    /**
+	     * @brief Pose of kit tray 2.
+	     */
+	    geometry_msgs::msg::Pose kit2_pose;
 
 	    /**
 	     * @brief Pose of the camera observing the conveyor.
