@@ -114,26 +114,26 @@ class CompetitionARIAC : public rclcpp::Node
             options.callback_group = topic_cb_group_;
 
             orders_sub_ = this->create_subscription<ariac_msgs::msg::Order>("/ariac/orders", 1,
-                                                                            std::bind(&CompetitionARIAC::orders_cb, this, std::placeholders::_1), options);
+                                                                            std::bind(&CompetitionARIAC::OrderCallback, this, std::placeholders::_1), options);
 
             competition_state_sub_ = this->create_subscription<ariac_msgs::msg::CompetitionState>("/ariac/competition_state", 1,
-                                                                                                    std::bind(&CompetitionARIAC::competition_state_cb, this, std::placeholders::_1), options);
+                                                                                                    std::bind(&CompetitionARIAC::CompetitionStateCallback, this, std::placeholders::_1), options);
 
             kts1_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>(
                 "/ariac/sensors/kts1_camera/image", rclcpp::SensorDataQoS(),
-                std::bind(&CompetitionARIAC::kts1_camera_cb, this, std::placeholders::_1), options);
+                std::bind(&CompetitionARIAC::KitTrayTable1Callback, this, std::placeholders::_1), options);
 
             kts2_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>(
                 "/ariac/sensors/kts2_camera/image", rclcpp::SensorDataQoS(),
-                std::bind(&CompetitionARIAC::kts2_camera_cb, this, std::placeholders::_1), options);
+                std::bind(&CompetitionARIAC::KitTrayTable2Callback, this, std::placeholders::_1), options);
 
             left_bins_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>(
                 "/ariac/sensors/left_bins_camera/image", rclcpp::SensorDataQoS(),
-                std::bind(&CompetitionARIAC::left_bins_camera_cb, this, std::placeholders::_1), options);
+                std::bind(&CompetitionARIAC::LeftBinsCameraCallback, this, std::placeholders::_1), options);
 
             right_bins_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>(
                 "/ariac/sensors/right_bins_camera/image", rclcpp::SensorDataQoS(),
-                std::bind(&CompetitionARIAC::right_bins_camera_cb, this, std::placeholders::_1), options);
+                std::bind(&CompetitionARIAC::RightBinsCameraCallback, this, std::placeholders::_1), options);
 
             floor_gripper_state_sub_ = this->create_subscription<ariac_msgs::msg::VacuumGripperState>(
                 "/ariac/floor_robot_gripper_state", rclcpp::SensorDataQoS(),
@@ -227,7 +227,18 @@ class CompetitionARIAC : public rclcpp::Node
          */
         bool FloorRobotPlacePartOnKitTray(int agv_num, int quadrant);
 
+        /**
+         * @brief Calls the service to start the competition.
+         * 
+         * This function sends a request to the competition's start service.
+         */
         bool StartCompetition();
+
+        /**
+         * @brief Calls the service to end the competition.
+         * 
+         * This function sends a request to the competition's end service.
+         */
         bool EndCompetition();  
 
         /**
@@ -252,6 +263,12 @@ class CompetitionARIAC : public rclcpp::Node
          * @return false If the operation fails.
          */
         bool LockAGV(int agv_num);
+
+        /**
+         * @brief Calls the service to submit an order.
+         * 
+         * @param order_id The order to be submitted.
+         */
 
         bool SubmitOrder(std::string order_id);
 
@@ -520,81 +537,6 @@ class CompetitionARIAC : public rclcpp::Node
         bool right_bins_camera_recieved_data = false;
 
 
-	    /**
-	     * @brief Pose of the left bin.
-	     */
-	    geometry_msgs::msg::Pose lbin_pose;
-
-	    /**
-	     * @brief Pose of the right bin.
-	     */
-	    geometry_msgs::msg::Pose rbin_pose;
-
-
-	    /**
-	     * @brief Pose of kit tray 1.
-	     */
-	    geometry_msgs::msg::Pose kit1_pose;
-
-	    /**
-	     * @brief Pose of kit tray 2.
-	     */
-	    geometry_msgs::msg::Pose kit2_pose;
-
-	    /**
-	     * @brief Pose of the camera observing the conveyor.
-	     */
-	    geometry_msgs::msg::Pose conveyor_camera_pose_;
-
-	    /**
-	     * @brief Pose for picking parts from the conveyor.
-	     */
-	    geometry_msgs::msg::Pose conveyor_camera_pick_pose_;
-
-
-        
-
-
-
-
-
-
-
-        /**
-         * @brief Waits for a specified duration for a part to drop.
-         * 
-         * @param timeout The maximum time to wait in seconds.
-         */
-        void FloorRobotWaitForDrop(double timeout);
-
-        /**
-         * @brief Moves the floor robot upwards to a predefined position.
-         */
-        void FloorRobotMoveUp();
-
-
-
-        /**
-         * @brief Callback function for competition state updates.
-         * 
-         * @param msg Shared pointer to the CompetitionState message.
-         */
-        void CompetitionStateCallback(const ariac_msgs::msg::CompetitionState::SharedPtr msg);
-
-        /**
-         * @brief Callback function for receiving new orders.
-         * 
-         * @param order_msg Shared pointer to the Order message.
-         */
-        void OrderCallback(const ariac_msgs::msg::Order::SharedPtr order_msg);
-
-        /**
-         * @brief Callback function for bin part updates.
-         * 
-         * @param bin_part_msg Shared pointer to the BinParts message.
-         */
-        void BinPartCallback(const ariac_msgs::msg::BinParts::SharedPtr bin_part_msg);
-
         /**
          * @brief Callback function for the kit tray table 1 camera.
          * 
@@ -623,7 +565,7 @@ class CompetitionARIAC : public rclcpp::Node
          */
         void RightBinsCameraCallback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg);
 
-        /**
+                /**
          * @brief Callback function for the state of the floor gripper.
          * 
          * @param msg Shared pointer to the VacuumGripperState message.
@@ -631,48 +573,27 @@ class CompetitionARIAC : public rclcpp::Node
         void floor_gripper_state_cb(const ariac_msgs::msg::VacuumGripperState::ConstSharedPtr msg);
 
         /**
-         * @brief Calls the service to start the competition.
+         * @brief Callback function for receiving new orders.
          * 
-         * This function sends a request to the competition's start service.
+         * @param order_msg Shared pointer to the Order message.
          */
-        void callServiceStart();
+        void OrderCallback(const ariac_msgs::msg::Order::ConstSharedPtr msg);
 
         /**
-         * @brief Calls the service to end the competition.
+         * @brief Callback function for competition state updates.
          * 
-         * This function sends a request to the competition's end service.
+         * @param msg Shared pointer to the CompetitionState message.
          */
-        void callServiceEnd();
+        void CompetitionStateCallback(const ariac_msgs::msg::CompetitionState::ConstSharedPtr msg);
 
         /**
-         * @brief Calls the service to submit an order.
+         * @brief Client for performing quality checks on parts in the ARIAC competition.
          * 
-         * @param order The order to be submitted.
+         * This client sends requests to perform quality checks on assembled parts.
          */
-        void callService_submit(std::string order);
+        rclcpp::Client<ariac_msgs::srv::PerformQualityCheck>::SharedPtr quality_checker_;
 
-
-        // ARIAC Services
-        /**
-         * @brief Client for the service to start the ARIAC competition.
-         * 
-         * This client communicates with the competition's service to initiate the start of the competition.
-         */
-        rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr start_comp_client_;
-
-        /**
-         * @brief Client for the service to end the ARIAC competition.
-         * 
-         * This client communicates with the competition's service to initiate the end of the competition.
-         */
-        rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr end_comp_client_;
-
-        /**
-         * @brief Client for submitting orders in the ARIAC competition.
-         * 
-         * This client sends orders to be processed during the competition.
-         */
-        rclcpp::Client<ariac_msgs::srv::SubmitOrder>::SharedPtr submit_order_client_;
+        rclcpp::Client<ariac_msgs::srv::GetPreAssemblyPoses>::SharedPtr pre_assembly_poses_getter_;
 
         /**
          * @brief Client for changing the gripper tool of the floor robot.
@@ -688,13 +609,73 @@ class CompetitionARIAC : public rclcpp::Node
          */
         rclcpp::Client<ariac_msgs::srv::VacuumGripperControl>::SharedPtr floor_robot_gripper_enable_;
 
-        /**
-         * @brief Client for performing quality checks on parts in the ARIAC competition.
-         * 
-         * This client sends requests to perform quality checks on assembled parts.
-         */
-        rclcpp::Client<ariac_msgs::srv::PerformQualityCheck>::SharedPtr quality_checker_;
 
+        // Constants
+        double kit_tray_thickness_ = 0.01;
+        double drop_height_ = 0.002;
+        double pick_offset_ = 0.003;
+        double battery_grip_offset_ = -0.05;
+
+        std::map<int, std::string> part_types_ = {
+            {ariac_msgs::msg::Part::BATTERY, "battery"},
+            {ariac_msgs::msg::Part::PUMP, "pump"},
+            {ariac_msgs::msg::Part::REGULATOR, "regulator"},
+            {ariac_msgs::msg::Part::SENSOR, "sensor"}
+        };
+
+        std::map<int, std::string> part_colors_ = {
+            {ariac_msgs::msg::Part::RED, "red"},
+            {ariac_msgs::msg::Part::BLUE, "blue"},
+            {ariac_msgs::msg::Part::GREEN, "green"},
+            {ariac_msgs::msg::Part::ORANGE, "orange"},
+            {ariac_msgs::msg::Part::PURPLE, "purple"},
+        };
+
+        // Part heights
+        std::map<int, double> part_heights_ = {
+            {ariac_msgs::msg::Part::BATTERY, 0.04},
+            {ariac_msgs::msg::Part::PUMP, 0.12},
+            {ariac_msgs::msg::Part::REGULATOR, 0.07},
+            {ariac_msgs::msg::Part::SENSOR, 0.07}
+        };
+
+        // Quadrant Offsets
+        std::map<int, std::pair<double, double>> quad_offsets_ = {
+            {ariac_msgs::msg::KittingPart::QUADRANT1, std::pair<double, double>(-0.08, 0.12)},
+            {ariac_msgs::msg::KittingPart::QUADRANT2, std::pair<double, double>(0.08, 0.12)},
+            {ariac_msgs::msg::KittingPart::QUADRANT3, std::pair<double, double>(-0.08, -0.12)},
+            {ariac_msgs::msg::KittingPart::QUADRANT4, std::pair<double, double>(0.08, -0.12)},
+        };
+
+        std::map<std::string, double> rail_positions_ = {
+            {"agv1", -4.5},
+            {"agv2", -1.2},
+            {"agv3", 1.2},
+            {"agv4", 4.5},
+            {"left_bins", 3}, 
+            {"right_bins", -3}
+        };
+
+        // Joint value targets for kitting stations
+        std::map<std::string, double> floor_kts1_js_ = {
+            {"linear_actuator_joint", 4.0},
+            {"floor_shoulder_pan_joint", 1.57},
+            {"floor_shoulder_lift_joint", -1.57},
+            {"floor_elbow_joint", 1.57},
+            {"floor_wrist_1_joint", -1.57},
+            {"floor_wrist_2_joint", -1.57},
+            {"floor_wrist_3_joint", 0.0}
+        };
+
+        std::map<std::string, double> floor_kts2_js_ = {
+            {"linear_actuator_joint", -4.0},
+            {"floor_shoulder_pan_joint", -1.57},
+            {"floor_shoulder_lift_joint", -1.57},
+            {"floor_elbow_joint", 1.57},
+            {"floor_wrist_1_joint", -1.57},
+            {"floor_wrist_2_joint", -1.57},
+            {"floor_wrist_3_joint", 0.0}
+        };
 
 };
 
