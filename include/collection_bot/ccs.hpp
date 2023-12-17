@@ -79,143 +79,6 @@
 #include <ament_index_cpp/get_package_share_directory.hpp>
 
 
-// namespace order_
-// {   
-//     struct KittingPart{
-//     uint8_t quadrant;
-//     uint8_t color;
-//     uint8_t type;
-//     bool part_status{0};
-//     };
-
-//     struct KittingType{
-//         uint8_t quadrant;
-//         uint8_t agv_number;
-//         int tray_id;
-//         uint8_t destination;
-//         std::vector<KittingPart> parts;
-//     };
-
-//     class Orders{
-//     public:
-//         std::string id;
-//         uint8_t type;
-//         bool priority;
-//         KittingType kitting_type;
-//         bool order_status{0};
-
-//         std::map<int,std::string> order_type={
-//             {0,"KITTING"},
-//             {1,"ASSEMBLY"},
-//             {2,"COMBINED"}};
-//     };
-// }
-
-// namespace color_
-// {   
-//     class ColorParts{
-        
-//         public:
-
-//         std::map<int, std::string> COLOR = {
-//             {ariac_msgs::msg::Part::RED, "red"},
-//             {ariac_msgs::msg::Part::GREEN, "green"},
-//             {ariac_msgs::msg::Part::BLUE, "blue"},
-//             {ariac_msgs::msg::Part::ORANGE, "orange"},
-//             {ariac_msgs::msg::Part::PURPLE, "purple"}};
-
-//         std::map<int,std::string> PART={
-//             {ariac_msgs::msg::Part::BATTERY,"battery"},
-//             {ariac_msgs::msg::Part::PUMP,"pump"},
-//             {ariac_msgs::msg::Part::SENSOR,"sensor"},
-//             {ariac_msgs::msg::Part::REGULATOR,"regulator"}};
-
-//         std::map<int,std::string> DEST={
-//             {ariac_msgs::msg::KittingTask::KITTING, "KITTING"},
-//             {ariac_msgs::msg::KittingTask::ASSEMBLY_FRONT, "ASSEMBLY_FRONT"},
-//             {ariac_msgs::msg::KittingTask::ASSEMBLY_BACK, "ASSEMBLY_BACK"},
-//             {ariac_msgs::msg::KittingTask::WAREHOUSE, "WAREHOUSE"}};
-            
-//     };
-    
-// }
-
-// namespace pick_part 
-// {   
-
-//     struct Part{
-//         uint8_t color;
-//         uint8_t type;
-//         geometry_msgs::msg::Pose pose;
-//     };
-
-//     struct PartInfo{
-//         uint8_t quantity;
-//         std::string pickup_type;
-//         uint8_t color;
-//         uint8_t type;
-//         uint8_t bin_number;
-//         geometry_msgs::msg::Pose pose;
-//     };
-
-//     class Parts {
-//         public:
-//         std::vector<PartInfo> parts;
-//     };
-// }
-
-// namespace constants
-// {   /**
-//     * @brief Class that stores constants
-//     * 
-//     */
-//     class Constants{
-
-//         public:
-
-//             double kit_tray_thickness_ = 0.01;        
-//             double drop_height_ = 0.002;
-//             double pick_offset_ = 0.007;
-//             double pick_offset_2 = 0.008;
-//             double battery_grip_offset_ = -0.05;
-
-//             // Part heights
-//             std::map<int, double> part_heights_ = {
-//                 {ariac_msgs::msg::Part::BATTERY, 0.04},
-//                 {ariac_msgs::msg::Part::PUMP, 0.12},
-//                 {ariac_msgs::msg::Part::REGULATOR, 0.07},
-//                 {ariac_msgs::msg::Part::SENSOR, 0.07}};
-
-//             // Part heights
-//             std::map<int, double> part_heights_kit_pick = {
-//                 {ariac_msgs::msg::Part::BATTERY, 0.0},
-//                 {ariac_msgs::msg::Part::PUMP, 0.08},
-//                 {ariac_msgs::msg::Part::REGULATOR, 0.02},
-//                 {ariac_msgs::msg::Part::SENSOR, 0.02}};
-
-//             // Quadrant Offsets
-//             std::map<int, std::pair<double, double>> quad_offsets_ = {
-//                 {ariac_msgs::msg::KittingPart::QUADRANT1, std::pair<double, double>(-0.08, 0.12)},
-//                 {ariac_msgs::msg::KittingPart::QUADRANT2, std::pair<double, double>(0.08, 0.12)},
-//                 {ariac_msgs::msg::KittingPart::QUADRANT3, std::pair<double, double>(-0.08, -0.12)},
-//                 {ariac_msgs::msg::KittingPart::QUADRANT4, std::pair<double, double>(0.08, -0.12)}};
-
-//             std::map<std::string, double> rail_positions_ = {
-//                 {"agv1", -4.5},
-//                 {"agv2", -1.2},
-//                 {"agv3", 1.2},
-//                 {"agv4", 4.5},
-//                 {"left_bins", 3},
-//                 {"right_bins", -3}};
-
-//             std::map<int, std::pair<int,int>> quad_parts_map = {
-//                 {1, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::BATTERY)},
-//                 {2, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::PUMP)},
-//                 {3, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::REGULATOR)},
-//                 {4, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::SENSOR)}};
-    
-//     };
-// }
 
 /**
  * @class CompetitionARIAC
@@ -301,22 +164,6 @@ class CompetitionARIAC : public rclcpp::Node
             floor_robot_.~MoveGroupInterface();
         }
 
-        // Member Variables
-        bool order_retrived{false};  ///< Indicates if an order has been retrieved.
-        bool order_submitted{false}; ///< Flag to indicate whether an order has been submitted.
-        bool bin_flag{false};        ///< Status flag for bins.
-        bool tray_flag{false};       ///< Status flag for trays.
-        bool quality_check_flag{false}; ///< Indicates if a quality check is needed.
-
-        std::vector<int> bin_space{1,2,3,4,5,6,7,8}; ///< List of bin spaces.
-        std::vector<int> p_bins{6,5,2,1,7,8,3,4};    ///< Priority bins.
-        std::vector<int> empty_bins;                 ///< List of empty bins.
-        int empty_bin{0};                            ///< Identifier for an empty bin.
-        int order_counter{0};                        ///< Counter for the number of orders processed.
-        std::vector<int> order_bins;                 ///< List of bins associated with orders.
-        std::vector<bool> quality_check_vec{};       ///< Vector indicating the status of quality checks.
-        int slot{2};                                 ///< Slot number for a task.
-
         // Floor Robot Public Functions
         /**
          * @brief Sends the robot to its home position.
@@ -365,7 +212,7 @@ class CompetitionARIAC : public rclcpp::Node
          * @return true If the part is successfully picked.
          * @return false If the operation fails.
          */
-        bool FloorRobotPickBinPart(order_::KittingPart part_to_pick);
+         bool FloorRobotPickBinPart(ariac_msgs::msg::Part part_to_pick);
 
         /**
          * @brief Places a part on the kitting tray.
@@ -379,6 +226,9 @@ class CompetitionARIAC : public rclcpp::Node
          * @return false If the operation fails.
          */
         bool FloorRobotPlacePartOnKitTray(int agv_num, int quadrant);
+
+        bool StartCompetition();
+        bool EndCompetition();  
 
         /**
          * @brief Moves an AGV to a specified destination.
@@ -403,7 +253,40 @@ class CompetitionARIAC : public rclcpp::Node
          */
         bool LockAGV(int agv_num);
 
+        bool SubmitOrder(std::string order_id);
+
+        bool CompleteOrders();
+        bool CompleteKittingTask(ariac_msgs::msg::KittingTask task);
+
 	private:
+
+        // Floor Robot Move Functions
+        /**
+         * @brief Moves the floor robot to a predefined target position.
+         * 
+         * @return true If the robot successfully moves to the target.
+         * @return false If the robot fails to reach the target.
+         */
+        bool FloorRobotMovetoTarget();
+
+        /**
+         * @brief Moves the floor robot along a specified Cartesian path.
+         * 
+         * @param waypoints A vector of poses defining the path.
+         * @param vsf Velocity scaling factor.
+         * @param asf Acceleration scaling factor.
+         * @return true If the movement is successful.
+         * @return false If the movement fails.
+         */
+        bool FloorRobotMoveCartesian(std::vector<geometry_msgs::msg::Pose> waypoints, double vsf, double asf);
+
+        /**
+         * @brief Waits for a specified duration for the robot to attach to an object.
+         * 
+         * @param timeout The maximum time to wait in seconds.
+         */
+        void FloorRobotWaitForAttach(double timeout);
+
 	    /**
 	     * @brief Indicates if the competition has started.
 	     */
@@ -618,39 +501,8 @@ class CompetitionARIAC : public rclcpp::Node
         /*!< Subscriber to floor gripper state */
         rclcpp::Subscription<ariac_msgs::msg::VacuumGripperState>::SharedPtr floor_gripper_state_sub_;
 
-        // Floor Robot Move Functions
-        /**
-         * @brief Moves the floor robot to a predefined target position.
-         * 
-         * @return true If the robot successfully moves to the target.
-         * @return false If the robot fails to reach the target.
-         */
-        bool FloorRobotMovetoTarget();
 
-        /**
-         * @brief Moves the floor robot along a specified Cartesian path.
-         * 
-         * @param waypoints A vector of poses defining the path.
-         * @param vsf Velocity scaling factor.
-         * @param asf Acceleration scaling factor.
-         * @return true If the movement is successful.
-         * @return false If the movement fails.
-         */
-        bool FloorRobotMoveCartesian(std::vector<geometry_msgs::msg::Pose> waypoints, double vsf, double asf);
 
-        /**
-         * @brief Waits for a specified duration for the robot to attach to an object.
-         * 
-         * @param timeout The maximum time to wait in seconds.
-         */
-        void FloorRobotWaitForAttach(double timeout);
-
-        /**
-         * @brief Waits for a specified duration for the robot to attach to a part on the kit tray.
-         * 
-         * @param timeout The maximum time to wait in seconds.
-         */
-        void FloorRobotWaitForAttachKitTrayPart(double timeout);
 
         /**
          * @brief Waits for a specified duration for a part to drop.
