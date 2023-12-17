@@ -376,6 +376,82 @@ class CompetitionARIAC : public rclcpp::Node
         // AGV location
         std::map<int, int> agv_locations_ = {{1, -1}, {2, -1}, {3, -1}, {4, -1}};
 
+        // Callback Groups
+        /**
+         * @brief Shared pointer for the first callback group.
+         * 
+         * Manages callbacks for ROS subscriptions and services.
+         */
+        rclcpp::CallbackGroup::SharedPtr client_cb_group_;
+
+        /**
+         * @brief Shared pointer for the second callback group.
+         */
+        rclcpp::CallbackGroup::SharedPtr topic_cb_group_;
+
+        /**
+	     * @brief Interface to the MoveGroup for robot movement planning.
+	     */
+	    moveit::planning_interface::MoveGroupInterface floor_robot_;
+
+	    /**
+	     * @brief Interface to the planning scene for managing the robot's understanding of the environment.
+	     */
+	    moveit::planning_interface::PlanningSceneInterface planning_scene_;
+
+	    /**
+	     * @brief Time-optimal trajectory generation for robot movement planning.
+	     */
+	    trajectory_processing::TimeOptimalTrajectoryGeneration totg_;
+
+        // TF
+        /**
+         * @brief Unique pointer to a tf2_ros::Buffer.
+         * 
+         * Used for managing transformations in the robot's coordinate frames.
+         */
+        std::unique_ptr<tf2_ros::Buffer> tf_buffer = std::make_unique<tf2_ros::Buffer>(get_clock());
+
+        /**
+         * @brief Shared pointer to a tf2_ros::TransformListener.
+         * 
+         * Listens for transformations published to the tf2 buffer.
+         */
+        std::shared_ptr<tf2_ros::TransformListener> tf_listener = std::make_shared<tf2_ros::TransformListener>(*tf_buffer);
+
+
+        // ROS Subscriptions
+        /**
+         * @brief Subscription to the competition state topic.
+         * 
+         * Receives updates about the state of the ARIAC competition.
+         */
+        rclcpp::Subscription<ariac_msgs::msg::CompetitionState>::SharedPtr competition_state_sub_;
+
+        /**
+         * @brief Subscription to the orders topic.
+         * 
+         * Receives new orders for the ARIAC competition.
+         */
+        rclcpp::Subscription<ariac_msgs::msg::Order>::SharedPtr orders_sub_;
+
+        rclcpp::Subscription<ariac_msgs::msg::AGVStatus>::SharedPtr agv1_status_sub_;
+        rclcpp::Subscription<ariac_msgs::msg::AGVStatus>::SharedPtr agv2_status_sub_;
+        rclcpp::Subscription<ariac_msgs::msg::AGVStatus>::SharedPtr agv3_status_sub_;
+        rclcpp::Subscription<ariac_msgs::msg::AGVStatus>::SharedPtr agv4_status_sub_;
+
+        /*!< Subscriber to camera image over kit tray table1. */
+        rclcpp::Subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>::SharedPtr kts1_camera_sub_;
+        /*!< Subscriber to camera image over kit tray table2. */
+        rclcpp::Subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>::SharedPtr kts2_camera_sub_;
+        /*!< Subscriber to camera image over left bins. */
+        rclcpp::Subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>::SharedPtr left_bins_camera_sub_;
+        /*!< Subscriber to camera image over right bins. */
+        rclcpp::Subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>::SharedPtr right_bins_camera_sub_;
+        /*!< Subscriber to floor gripper state */
+        rclcpp::Subscription<ariac_msgs::msg::VacuumGripperState>::SharedPtr floor_gripper_state_sub_;
+
+
 	    // Gripper State
 	    /**
 	     * @brief Current state of the vacuum gripper.
@@ -392,20 +468,9 @@ class CompetitionARIAC : public rclcpp::Node
 	     */
 	    order_::KittingPart floor_robot_attached_part_;
 
-	    /**
-	     * @brief Interface to the MoveGroup for robot movement planning.
-	     */
-	    moveit::planning_interface::MoveGroupInterface floor_robot_;
 
-	    /**
-	     * @brief Interface to the planning scene for managing the robot's understanding of the environment.
-	     */
-	    moveit::planning_interface::PlanningSceneInterface planning_scene_;
 
-	    /**
-	     * @brief Time-optimal trajectory generation for robot movement planning.
-	     */
-	    trajectory_processing::TimeOptimalTrajectoryGeneration totg_;
+
 
 	    /**
 	     * @brief List of parts in the left bins, as detected by sensors.
@@ -478,87 +543,10 @@ class CompetitionARIAC : public rclcpp::Node
 	    geometry_msgs::msg::Pose conveyor_camera_pick_pose_;
 
 
-        // TF
-        /**
-         * @brief Unique pointer to a tf2_ros::Buffer.
-         * 
-         * Used for managing transformations in the robot's coordinate frames.
-         */
-        std::unique_ptr<tf2_ros::Buffer> tf_buffer = std::make_unique<tf2_ros::Buffer>(get_clock());
-
-        /**
-         * @brief Shared pointer to a tf2_ros::TransformListener.
-         * 
-         * Listens for transformations published to the tf2 buffer.
-         */
-        std::shared_ptr<tf2_ros::TransformListener> tf_listener = std::make_shared<tf2_ros::TransformListener>(*tf_buffer);
-
-        // Callback Groups
-        /**
-         * @brief Shared pointer for the first callback group.
-         * 
-         * Manages callbacks for ROS subscriptions and services.
-         */
-        rclcpp::CallbackGroup::SharedPtr m_callback_group_1;
-
-        /**
-         * @brief Shared pointer for the second callback group.
-         */
-        rclcpp::CallbackGroup::SharedPtr m_callback_group_2;
-
-        /**
-         * @brief Shared pointer for the third callback group.
-         */
-        rclcpp::CallbackGroup::SharedPtr m_callback_group_3;
-
-        /**
-         * @brief Shared pointer for the callback group for bin cameras.
-         */
-        rclcpp::CallbackGroup::SharedPtr cb_group_bin_cameras_;
-
-        /**
-         * @brief Shared pointer for the callback group for kit tray cameras.
-         */
-        rclcpp::CallbackGroup::SharedPtr cb_group_kit_tray_cameras_;
-
-        /**
-         * @brief Shared pointer for the sixth callback group.
-         */
-        rclcpp::CallbackGroup::SharedPtr m_callback_group_6;
-
-        // ROS Subscriptions
-        /**
-         * @brief Subscription to the competition state topic.
-         * 
-         * Receives updates about the state of the ARIAC competition.
-         */
-        rclcpp::Subscription<ariac_msgs::msg::CompetitionState>::SharedPtr comp_state_sub;
-
-        /**
-         * @brief Subscription to the orders topic.
-         * 
-         * Receives new orders for the ARIAC competition.
-         */
-        rclcpp::Subscription<ariac_msgs::msg::Order>::SharedPtr order_sub;
-
-        /**
-         * @brief Subscription to the bin parts topic.
-         * 
-         * Receives updates about the parts available in bins.
-         */
-        rclcpp::Subscription<ariac_msgs::msg::BinParts>::SharedPtr bin_part_sub;
+        
 
 
-        /*!< Subscriber to camera image over kit tray table1. */
-        rclcpp::Subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>::SharedPtr kit_tray_table1_camera_sub_;
-        /*!< Subscriber to camera image over kit tray table2. */
-        rclcpp::Subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>::SharedPtr kit_tray_table2_camera_sub_;
-        /*!< Subscriber to camera image over left bins. */
-        rclcpp::Subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>::SharedPtr left_bins_camera_sub_;
-        /*!< Subscriber to camera image over right bins. */
-        rclcpp::Subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>::SharedPtr right_bins_camera_sub_;
-        /*!< Subscriber to floor gripper state */
-        rclcpp::Subscription<ariac_msgs::msg::VacuumGripperState>::SharedPtr floor_gripper_state_sub_;
+
 
 
 
