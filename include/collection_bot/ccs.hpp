@@ -79,143 +79,143 @@
 #include <ament_index_cpp/get_package_share_directory.hpp>
 
 
-namespace order_
-{   
-    struct KittingPart{
-    uint8_t quadrant;
-    uint8_t color;
-    uint8_t type;
-    bool part_status{0};
-    };
+// namespace order_
+// {   
+//     struct KittingPart{
+//     uint8_t quadrant;
+//     uint8_t color;
+//     uint8_t type;
+//     bool part_status{0};
+//     };
 
-    struct KittingType{
-        uint8_t quadrant;
-        uint8_t agv_number;
-        int tray_id;
-        uint8_t destination;
-        std::vector<KittingPart> parts;
-    };
+//     struct KittingType{
+//         uint8_t quadrant;
+//         uint8_t agv_number;
+//         int tray_id;
+//         uint8_t destination;
+//         std::vector<KittingPart> parts;
+//     };
 
-    class Orders{
-    public:
-        std::string id;
-        uint8_t type;
-        bool priority;
-        KittingType kitting_type;
-        bool order_status{0};
+//     class Orders{
+//     public:
+//         std::string id;
+//         uint8_t type;
+//         bool priority;
+//         KittingType kitting_type;
+//         bool order_status{0};
 
-        std::map<int,std::string> order_type={
-            {0,"KITTING"},
-            {1,"ASSEMBLY"},
-            {2,"COMBINED"}};
-    };
-}
+//         std::map<int,std::string> order_type={
+//             {0,"KITTING"},
+//             {1,"ASSEMBLY"},
+//             {2,"COMBINED"}};
+//     };
+// }
 
-namespace color_
-{   
-    class ColorParts{
+// namespace color_
+// {   
+//     class ColorParts{
         
-        public:
+//         public:
 
-        std::map<int, std::string> COLOR = {
-            {ariac_msgs::msg::Part::RED, "red"},
-            {ariac_msgs::msg::Part::GREEN, "green"},
-            {ariac_msgs::msg::Part::BLUE, "blue"},
-            {ariac_msgs::msg::Part::ORANGE, "orange"},
-            {ariac_msgs::msg::Part::PURPLE, "purple"}};
+//         std::map<int, std::string> COLOR = {
+//             {ariac_msgs::msg::Part::RED, "red"},
+//             {ariac_msgs::msg::Part::GREEN, "green"},
+//             {ariac_msgs::msg::Part::BLUE, "blue"},
+//             {ariac_msgs::msg::Part::ORANGE, "orange"},
+//             {ariac_msgs::msg::Part::PURPLE, "purple"}};
 
-        std::map<int,std::string> PART={
-            {ariac_msgs::msg::Part::BATTERY,"battery"},
-            {ariac_msgs::msg::Part::PUMP,"pump"},
-            {ariac_msgs::msg::Part::SENSOR,"sensor"},
-            {ariac_msgs::msg::Part::REGULATOR,"regulator"}};
+//         std::map<int,std::string> PART={
+//             {ariac_msgs::msg::Part::BATTERY,"battery"},
+//             {ariac_msgs::msg::Part::PUMP,"pump"},
+//             {ariac_msgs::msg::Part::SENSOR,"sensor"},
+//             {ariac_msgs::msg::Part::REGULATOR,"regulator"}};
 
-        std::map<int,std::string> DEST={
-            {ariac_msgs::msg::KittingTask::KITTING, "KITTING"},
-            {ariac_msgs::msg::KittingTask::ASSEMBLY_FRONT, "ASSEMBLY_FRONT"},
-            {ariac_msgs::msg::KittingTask::ASSEMBLY_BACK, "ASSEMBLY_BACK"},
-            {ariac_msgs::msg::KittingTask::WAREHOUSE, "WAREHOUSE"}};
+//         std::map<int,std::string> DEST={
+//             {ariac_msgs::msg::KittingTask::KITTING, "KITTING"},
+//             {ariac_msgs::msg::KittingTask::ASSEMBLY_FRONT, "ASSEMBLY_FRONT"},
+//             {ariac_msgs::msg::KittingTask::ASSEMBLY_BACK, "ASSEMBLY_BACK"},
+//             {ariac_msgs::msg::KittingTask::WAREHOUSE, "WAREHOUSE"}};
             
-    };
+//     };
     
-}
+// }
 
-namespace pick_part 
-{   
+// namespace pick_part 
+// {   
 
-    struct Part{
-        uint8_t color;
-        uint8_t type;
-        geometry_msgs::msg::Pose pose;
-    };
+//     struct Part{
+//         uint8_t color;
+//         uint8_t type;
+//         geometry_msgs::msg::Pose pose;
+//     };
 
-    struct PartInfo{
-        uint8_t quantity;
-        std::string pickup_type;
-        uint8_t color;
-        uint8_t type;
-        uint8_t bin_number;
-        geometry_msgs::msg::Pose pose;
-    };
+//     struct PartInfo{
+//         uint8_t quantity;
+//         std::string pickup_type;
+//         uint8_t color;
+//         uint8_t type;
+//         uint8_t bin_number;
+//         geometry_msgs::msg::Pose pose;
+//     };
 
-    class Parts {
-        public:
-        std::vector<PartInfo> parts;
-    };
-}
+//     class Parts {
+//         public:
+//         std::vector<PartInfo> parts;
+//     };
+// }
 
-namespace constants
-{   /**
-    * @brief Class that stores constants
-    * 
-    */
-    class Constants{
+// namespace constants
+// {   /**
+//     * @brief Class that stores constants
+//     * 
+//     */
+//     class Constants{
 
-        public:
+//         public:
 
-            double kit_tray_thickness_ = 0.01;        
-            double drop_height_ = 0.002;
-            double pick_offset_ = 0.007;
-            double pick_offset_2 = 0.008;
-            double battery_grip_offset_ = -0.05;
+//             double kit_tray_thickness_ = 0.01;        
+//             double drop_height_ = 0.002;
+//             double pick_offset_ = 0.007;
+//             double pick_offset_2 = 0.008;
+//             double battery_grip_offset_ = -0.05;
 
-            // Part heights
-            std::map<int, double> part_heights_ = {
-                {ariac_msgs::msg::Part::BATTERY, 0.04},
-                {ariac_msgs::msg::Part::PUMP, 0.12},
-                {ariac_msgs::msg::Part::REGULATOR, 0.07},
-                {ariac_msgs::msg::Part::SENSOR, 0.07}};
+//             // Part heights
+//             std::map<int, double> part_heights_ = {
+//                 {ariac_msgs::msg::Part::BATTERY, 0.04},
+//                 {ariac_msgs::msg::Part::PUMP, 0.12},
+//                 {ariac_msgs::msg::Part::REGULATOR, 0.07},
+//                 {ariac_msgs::msg::Part::SENSOR, 0.07}};
 
-            // Part heights
-            std::map<int, double> part_heights_kit_pick = {
-                {ariac_msgs::msg::Part::BATTERY, 0.0},
-                {ariac_msgs::msg::Part::PUMP, 0.08},
-                {ariac_msgs::msg::Part::REGULATOR, 0.02},
-                {ariac_msgs::msg::Part::SENSOR, 0.02}};
+//             // Part heights
+//             std::map<int, double> part_heights_kit_pick = {
+//                 {ariac_msgs::msg::Part::BATTERY, 0.0},
+//                 {ariac_msgs::msg::Part::PUMP, 0.08},
+//                 {ariac_msgs::msg::Part::REGULATOR, 0.02},
+//                 {ariac_msgs::msg::Part::SENSOR, 0.02}};
 
-            // Quadrant Offsets
-            std::map<int, std::pair<double, double>> quad_offsets_ = {
-                {ariac_msgs::msg::KittingPart::QUADRANT1, std::pair<double, double>(-0.08, 0.12)},
-                {ariac_msgs::msg::KittingPart::QUADRANT2, std::pair<double, double>(0.08, 0.12)},
-                {ariac_msgs::msg::KittingPart::QUADRANT3, std::pair<double, double>(-0.08, -0.12)},
-                {ariac_msgs::msg::KittingPart::QUADRANT4, std::pair<double, double>(0.08, -0.12)}};
+//             // Quadrant Offsets
+//             std::map<int, std::pair<double, double>> quad_offsets_ = {
+//                 {ariac_msgs::msg::KittingPart::QUADRANT1, std::pair<double, double>(-0.08, 0.12)},
+//                 {ariac_msgs::msg::KittingPart::QUADRANT2, std::pair<double, double>(0.08, 0.12)},
+//                 {ariac_msgs::msg::KittingPart::QUADRANT3, std::pair<double, double>(-0.08, -0.12)},
+//                 {ariac_msgs::msg::KittingPart::QUADRANT4, std::pair<double, double>(0.08, -0.12)}};
 
-            std::map<std::string, double> rail_positions_ = {
-                {"agv1", -4.5},
-                {"agv2", -1.2},
-                {"agv3", 1.2},
-                {"agv4", 4.5},
-                {"left_bins", 3},
-                {"right_bins", -3}};
+//             std::map<std::string, double> rail_positions_ = {
+//                 {"agv1", -4.5},
+//                 {"agv2", -1.2},
+//                 {"agv3", 1.2},
+//                 {"agv4", 4.5},
+//                 {"left_bins", 3},
+//                 {"right_bins", -3}};
 
-            std::map<int, std::pair<int,int>> quad_parts_map = {
-                {1, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::BATTERY)},
-                {2, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::PUMP)},
-                {3, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::REGULATOR)},
-                {4, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::SENSOR)}};
+//             std::map<int, std::pair<int,int>> quad_parts_map = {
+//                 {1, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::BATTERY)},
+//                 {2, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::PUMP)},
+//                 {3, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::REGULATOR)},
+//                 {4, std::pair<int,int>(ariac_msgs::msg::Part::RED,ariac_msgs::msg::Part::SENSOR)}};
     
-    };
-}
+//     };
+// }
 
 /**
  * @class CompetitionARIAC
@@ -235,62 +235,60 @@ class CompetitionARIAC : public rclcpp::Node
          * Sets up ROS node, initializes MoveGroup for robot control, and subscribes to necessary topics.
          */
 
-        CompetitionARIAC() : Node("competition_subscriber"),floor_robot_(std::shared_ptr<rclcpp::Node>(std::move(this)), "floor_robot")
+        CompetitionARIAC()
+            : Node("ccs_node"),
+            floor_robot_(std::shared_ptr<rclcpp::Node>(std::move(this)), "floor_robot"),
+            planning_scene_()
         {
             floor_robot_.setMaxAccelerationScalingFactor(1.0);
             floor_robot_.setMaxVelocityScalingFactor(1.0);
 
-            m_callback_group_1 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
-            m_callback_group_2 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+            // Subscribe to topics
+            rclcpp::SubscriptionOptions options;
 
-            //subscription callback groups
-            auto subscription_option1 = rclcpp::SubscriptionOptions();
-            subscription_option1.callback_group = m_callback_group_1;
-            auto subscription_option2 = rclcpp::SubscriptionOptions();
-            subscription_option2.callback_group = m_callback_group_2;
-            auto subscription_option3 = rclcpp::SubscriptionOptions();
-            subscription_option3.callback_group = m_callback_group_3;
+            topic_cb_group_ = create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
 
-            auto bin_cameras_option = rclcpp::SubscriptionOptions();
-            bin_cameras_option.callback_group = cb_group_bin_cameras_;
-            auto kit_tray_cameras_option = rclcpp::SubscriptionOptions();
-            kit_tray_cameras_option.callback_group = cb_group_kit_tray_cameras_;
+            options.callback_group = topic_cb_group_;
 
-            auto subscription_option6 = rclcpp::SubscriptionOptions();
-            subscription_option6.callback_group = m_callback_group_6;
+            orders_sub_ = this->create_subscription<ariac_msgs::msg::Order>("/ariac/orders", 1,
+                                                                            std::bind(&CompetitionARIAC::orders_cb, this, std::placeholders::_1), options);
 
-            // Subscriber objects            
-            comp_state_sub = this->create_subscription<ariac_msgs::msg::CompetitionState>("/ariac/competition_state", 10, 
-                                                                        std::bind(&CompetitionARIAC::CompetitionStateCallback, this, std::placeholders::_1),subscription_option1);
-        
-            order_sub = this->create_subscription<ariac_msgs::msg::Order>("/ariac/orders", 10, 
-                                                                        std::bind(&CompetitionARIAC::OrderCallback, this, std::placeholders::_1),subscription_option2);
-            
-            bin_part_sub = this->create_subscription<ariac_msgs::msg::BinParts>("/ariac/bin_parts", 10, 
-                                                                            std::bind(&CompetitionARIAC::BinPartCallback, this, std::placeholders::_1),subscription_option3); 
+            competition_state_sub_ = this->create_subscription<ariac_msgs::msg::CompetitionState>("/ariac/competition_state", 1,
+                                                                                                    std::bind(&CompetitionARIAC::competition_state_cb, this, std::placeholders::_1), options);
 
-            kit_tray_table1_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>("/ariac/sensors/kts1_camera/image", rclcpp::SensorDataQoS(),
-                                                                    std::bind(&CompetitionARIAC::KitTrayTable1Callback, this, std::placeholders::_1), kit_tray_cameras_option);
+            kts1_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>(
+                "/ariac/sensors/kts1_camera/image", rclcpp::SensorDataQoS(),
+                std::bind(&CompetitionARIAC::kts1_camera_cb, this, std::placeholders::_1), options);
 
-            kit_tray_table2_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>("/ariac/sensors/kts2_camera/image", rclcpp::SensorDataQoS(),
-                                                                    std::bind(&CompetitionARIAC::KitTrayTable2Callback, this, std::placeholders::_1), kit_tray_cameras_option);
+            kts2_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>(
+                "/ariac/sensors/kts2_camera/image", rclcpp::SensorDataQoS(),
+                std::bind(&CompetitionARIAC::kts2_camera_cb, this, std::placeholders::_1), options);
 
-            left_bins_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>("/ariac/sensors/left_bins_camera/image", rclcpp::SensorDataQoS(),
-                                                                    std::bind(&CompetitionARIAC::LeftBinsCameraCallback, this, std::placeholders::_1), bin_cameras_option);
+            left_bins_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>(
+                "/ariac/sensors/left_bins_camera/image", rclcpp::SensorDataQoS(),
+                std::bind(&CompetitionARIAC::left_bins_camera_cb, this, std::placeholders::_1), options);
 
-            right_bins_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>("/ariac/sensors/right_bins_camera/image", rclcpp::SensorDataQoS(),
-                                                                    std::bind(&CompetitionARIAC::RightBinsCameraCallback, this, std::placeholders::_1), bin_cameras_option);    
-            
-            floor_gripper_state_sub_ = this->create_subscription<ariac_msgs::msg::VacuumGripperState>("/ariac/floor_robot_gripper_state", rclcpp::SensorDataQoS(),
-                                                                    std::bind(&CompetitionARIAC::floor_gripper_state_cb, this, std::placeholders::_1), subscription_option6);
-            
-            submit_order_client_ = create_client<ariac_msgs::srv::SubmitOrder>("/ariac/submit_order");
+            right_bins_camera_sub_ = this->create_subscription<ariac_msgs::msg::AdvancedLogicalCameraImage>(
+                "/ariac/sensors/right_bins_camera/image", rclcpp::SensorDataQoS(),
+                std::bind(&CompetitionARIAC::right_bins_camera_cb, this, std::placeholders::_1), options);
 
+            floor_gripper_state_sub_ = this->create_subscription<ariac_msgs::msg::VacuumGripperState>(
+                "/ariac/floor_robot_gripper_state", rclcpp::SensorDataQoS(),
+                std::bind(&CompetitionARIAC::floor_gripper_state_cb, this, std::placeholders::_1), options);
+
+
+            // Initialize service clients
             quality_checker_ = this->create_client<ariac_msgs::srv::PerformQualityCheck>("/ariac/perform_quality_check");
+            pre_assembly_poses_getter_ = this->create_client<ariac_msgs::srv::GetPreAssemblyPoses>("/ariac/get_pre_assembly_poses");
+            floor_robot_tool_changer_ = this->create_client<ariac_msgs::srv::ChangeGripper>("/ariac/floor_robot_change_gripper");
+            floor_robot_gripper_enable_ = this->create_client<ariac_msgs::srv::VacuumGripperControl>("/ariac/floor_robot_enable_gripper");
 
 
             AddModelsToPlanningScene();
-        };
+
+            RCLCPP_INFO(this->get_logger(), "Initialization successful.");
+        }
+
 
         /**
          * @brief Destroy the CompetitionARIAC object.
