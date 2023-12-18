@@ -197,6 +197,23 @@ bool CompetitionARIAC::CompleteOrders()
         CompetitionARIAC::CompleteKittingTask(current_order_.kitting_task);
         kitting_agv_num = current_order_.kitting_task.agv_number;
         }
+         // loop until the AGV is at the warehouse
+        auto agv_location = -1;
+        while (agv_location != ariac_msgs::msg::AGVStatus::WAREHOUSE)
+        {
+        if (kitting_agv_num == 1)
+            agv_location = agv_locations_[1];
+        else if (kitting_agv_num == 2)
+            agv_location = agv_locations_[2];
+        else if (kitting_agv_num == 3)
+            agv_location = agv_locations_[3];
+        else if (kitting_agv_num == 4)
+            agv_location = agv_locations_[4];
+        }
+
+        CompetitionARIAC::SubmitOrder(current_order_.id);
+    }
+    return success;
 
 }
 
