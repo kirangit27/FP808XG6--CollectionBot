@@ -264,6 +264,16 @@ bool CompetitionARIAC::EndCompetition()
 
 bool CompetitionARIAC::SubmitOrder(std::string order_id)
 {
+  rclcpp::Client<ariac_msgs::srv::SubmitOrder>::SharedPtr client;
+  std::string srv_name = "/ariac/submit_order";
+  client = this->create_client<ariac_msgs::srv::SubmitOrder>(srv_name);
+  auto request = std::make_shared<ariac_msgs::srv::SubmitOrder::Request>();
+  request->order_id = order_id;
+
+  auto result = client->async_send_request(request);
+  result.wait();
+
+  return result.get()->success;
 
 }
 
