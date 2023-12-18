@@ -45,7 +45,7 @@ foreach(Dependency IN ITEMS ${SENSOR_CAMERA_DEPENDENCIES})
 endforeach()
 
 add_executable(ccs src/ccs.cpp src/ccs_main.cpp)			     
-ament_target_dependencies(ccs rclcpp ariac_msgs std_srvs)
+ament_target_dependencies(ccs rclcpp ariac_msgs std_srvs shape_msgs moveit_ros_planning_interface)
 
 install(TARGETS				
 	ccs			
