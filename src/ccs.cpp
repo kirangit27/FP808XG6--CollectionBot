@@ -19,6 +19,7 @@
 
 void CompetitionARIAC::OrderCallback(const ariac_msgs::msg::Order::SharedPtr order_msg)
 {
+     orders_.push_back(*msg);
     
 }
 
@@ -157,6 +158,36 @@ bool CompetitionARIAC::FloorRobotPlacePartOnKitTray(int agv_num, int quadrant)
 
 bool CompetitionARIAC::CompleteOrders()
 {
+    while (orders_.size() == 0)
+    {
+    }
+
+    bool success;
+    while (true)
+    {
+        if (competition_state_ == ariac_msgs::msg::CompetitionState::ENDED)
+        {
+        success = false;
+        break;
+        }
+
+        if (orders_.size() == 0)
+        {
+        if (competition_state_ != ariac_msgs::msg::CompetitionState::ORDER_ANNOUNCEMENTS_DONE)
+        {
+            // wait for more orders
+            RCLCPP_INFO(get_logger(), "Waiting for orders...");
+            while (orders_.size() == 0)
+            {
+            }
+        }
+        else
+        {
+            RCLCPP_INFO(get_logger(), "Completed all orders");
+            success = true;
+            break;
+        }
+        }
 
 }
 
