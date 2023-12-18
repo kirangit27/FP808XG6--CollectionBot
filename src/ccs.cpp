@@ -188,6 +188,15 @@ bool CompetitionARIAC::CompleteOrders()
             break;
         }
         }
+        current_order_ = orders_.front();
+        orders_.erase(orders_.begin());
+        int kitting_agv_num = -1;
+
+        if (current_order_.type == ariac_msgs::msg::Order::KITTING)
+        {
+        CompetitionARIAC::CompleteKittingTask(current_order_.kitting_task);
+        kitting_agv_num = current_order_.kitting_task.agv_number;
+        }
 
 }
 
