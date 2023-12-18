@@ -25,7 +25,7 @@ void CompetitionARIAC::OrderCallback(const ariac_msgs::msg::Order::SharedPtr ord
 
 void CompetitionARIAC::CompetitionStateCallback(const ariac_msgs::msg::CompetitionState::ConstSharedPtr msg)
 {
-    
+    competition_state_ = msg->competition_state;
 }
 
 
@@ -224,6 +224,22 @@ bool CompetitionARIAC::CompleteKittingTask(ariac_msgs::msg::KittingTask task)
 
 bool CompetitionARIAC::StartCompetition()
 {
+      while (competition_state_ != ariac_msgs::msg::CompetitionState::READY)
+  {
+  }
+
+  rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr client;
+
+  std::string srv_name = "/ariac/start_competition";
+
+  client = this->create_client<std_srvs::srv::Trigger>(srv_name);
+
+  auto request = std::make_shared<std_srvs::srv::Trigger::Request>();
+
+  auto result = client->async_send_request(request);
+  result.wait();
+
+  return result.get()->success;
 
 }
 
