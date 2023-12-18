@@ -246,6 +246,15 @@ bool CompetitionARIAC::StartCompetition()
 
 bool CompetitionARIAC::EndCompetition()
 {
+    rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr client;
+
+  std::string srv_name = "/ariac/end_competition";
+
+  client = this->create_client<std_srvs::srv::Trigger>(srv_name);
+
+  auto request = std::make_shared<std_srvs::srv::Trigger::Request>();
+
+    result = client->async_send_request(request);
 
 }
 
