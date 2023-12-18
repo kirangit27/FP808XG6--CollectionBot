@@ -219,6 +219,16 @@ bool CompetitionARIAC::CompleteOrders()
 
 bool CompetitionARIAC::CompleteKittingTask(ariac_msgs::msg::KittingTask task)
 {
+    for (auto s : task.parts)
+  {
+    //FloorRobot methods
+  }
+
+  // Check quality
+  auto request = std::make_shared<ariac_msgs::srv::PerformQualityCheck::Request>();
+  request->order_id = current_order_.id;
+  auto result = quality_checker_->async_send_request(request);
+  result.wait();
 
 }
 
