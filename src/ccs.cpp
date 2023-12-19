@@ -89,11 +89,36 @@ void CompetitionARIAC::floor_gripper_state_cb(
 geometry_msgs::msg::Pose CompetitionARIAC::MultiplyPose(
     geometry_msgs::msg::Pose p1, geometry_msgs::msg::Pose p2)
     {
+        KDL::Frame f1;
+        KDL::Frame f2;
+
+        tf2::fromMsg(p1, f1);
+        tf2::fromMsg(p2, f2);
+
+        KDL::Frame f3 = f1 * f2;
+
+        return tf2::toMsg(f3);
 
     }
 
 void CompetitionARIAC::LogPose(geometry_msgs::msg::Pose p)
 {
+    tf2::Quaternion q(
+      p.orientation.x,
+      p.orientation.y,
+      p.orientation.z,
+      p.orientation.w);
+    tf2::Matrix3x3 m(q);
+    double roll, pitch, yaw;
+    m.getRPY(roll, pitch, yaw);
+
+    roll *= 180 / M_PI;
+    pitch *= 180 / M_PI;
+    yaw *= 180 / M_PI;
+
+    RCLCPP_INFO(get_logger(), "(X: %.2f, Y: %.2f, Z: %.2f, R: %.2f, P: %.2f, Y: %.2f)",
+                p.position.x, p.position.y, p.position.z,
+                roll, pitch, yaw);
 
 }
 
