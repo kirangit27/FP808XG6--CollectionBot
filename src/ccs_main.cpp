@@ -28,10 +28,24 @@
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
-    auto node = std::make_shared<CompetitionARIAC>();
-    rclcpp::executors::MultiThreadedExecutor executor;
-    executor.add_node(node);
-    executor.spin();
-    rclcpp::shutdown();
-    return 0;
+
+  auto test_competitor = std::make_shared<CompetitionARIAC>();
+
+  rclcpp::executors::MultiThreadedExecutor executor;
+  executor.add_node(test_competitor);
+  std::thread([&executor]() { executor.spin(); }).detach();
+
+  // Start Competition
+  test_competitor->StartCompetition();
+
+  // Move Robots to Home Poses
+  test_competitor->FloorRobotSendHome();
+
+  // Complete Orders
+  test_competitor->CompleteOrders();
+
+  test_competitor->EndCompetition();
+
+  rclcpp::shutdown();
+
 }
