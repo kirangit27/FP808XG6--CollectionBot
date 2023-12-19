@@ -230,6 +230,26 @@ void CompetitionARIAC::AddModelToPlanningScene(
 
 void CompetitionARIAC::AddModelsToPlanningScene()
 {
+    // Add bins
+  std::map<std::string, std::pair<double, double>> bin_positions = {
+      {"bin1", std::pair<double, double>(-1.9, 3.375)},
+      {"bin2", std::pair<double, double>(-1.9, 2.625)},
+      {"bin3", std::pair<double, double>(-2.65, 2.625)},
+      {"bin4", std::pair<double, double>(-2.65, 3.375)},
+      {"bin5", std::pair<double, double>(-1.9, -3.375)},
+      {"bin6", std::pair<double, double>(-1.9, -2.625)},
+      {"bin7", std::pair<double, double>(-2.65, -2.625)},
+      {"bin8", std::pair<double, double>(-2.65, -3.375)}};
+
+  geometry_msgs::msg::Pose bin_pose;
+  for (auto const &bin : bin_positions)
+  {
+    bin_pose.position.x = bin.second.first;
+    bin_pose.position.y = bin.second.second;
+    bin_pose.position.z = 0;
+    bin_pose.orientation = QuaternionFromRPY(0, 0, 3.14159);
+
+    AddModelToPlanningScene(bin.first, "bin.stl", bin_pose);
 
 }
 
