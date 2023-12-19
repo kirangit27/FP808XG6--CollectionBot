@@ -80,12 +80,10 @@ void CompetitionARIAC::RightBinsCameraCallback(const ariac_msgs::msg::AdvancedLo
   right_bins_camera_pose_ = msg->sensor_pose;
 }
 
-}
-
 void CompetitionARIAC::floor_gripper_state_cb(
     const ariac_msgs::msg::VacuumGripperState::ConstSharedPtr msg)
 {
-
+    floor_gripper_state_ = *msg;
 }
 
 geometry_msgs::msg::Pose CompetitionARIAC::MultiplyPose(
