@@ -840,9 +840,14 @@ bool CompetitionARIAC::CompleteOrders()
 
 bool CompetitionARIAC::CompleteKittingTask(ariac_msgs::msg::KittingTask task)
 {
-    for (auto s : task.parts)
+    FloorRobotSendHome();
+
+  FloorRobotPickandPlaceTray(task.tray_id, task.agv_number);
+
+  for (auto kit_part : task.parts)
   {
-    //FloorRobot methods
+    FloorRobotPickBinPart(kit_part.part);
+    FloorRobotPlacePartOnKitTray(task.agv_number, kit_part.quadrant);
   }
 
   // Check quality
@@ -850,6 +855,16 @@ bool CompetitionARIAC::CompleteKittingTask(ariac_msgs::msg::KittingTask task)
   request->order_id = current_order_.id;
   auto result = quality_checker_->async_send_request(request);
   result.wait();
+
+  if (!result.get()->all_passed)
+  {
+    RCLCPP_ERROR(get_logger(), "Issue with shipment");
+  }
+
+  MoveAGV(task.agv_number, task.destination);
+
+  return true;
+
 
 }
 
