@@ -437,36 +437,6 @@ void CompetitionARIAC::FloorRobotSendHome()
 
 }
 
-bool CompetitionARIAC::FloorRobotSetGripperState(bool enable)
-{
-      if (floor_gripper_state_.enabled == enable)
-  {
-    if (floor_gripper_state_.enabled)
-      RCLCPP_INFO(get_logger(), "Already enabled");
-    else
-      RCLCPP_INFO(get_logger(), "Already disabled");
-
-    return false;
-      }
-
-  // Call enable service
-  auto request = std::make_shared<ariac_msgs::srv::VacuumGripperControl::Request>();
-  request->enable = enable;
-
-  auto result = floor_robot_gripper_enable_->async_send_request(request);
-  result.wait();
-
-  if (!result.get()->success)
-  {
-    RCLCPP_ERROR(get_logger(), "Error calling gripper enable service");
-    return false;
-  }
-
-  return true;
-    
-    
-}
-
 bool CompetitionARIAC::FloorRobotChangeGripper(std::string station, std::string gripper_type)
 {
     // Move gripper into tool changer
