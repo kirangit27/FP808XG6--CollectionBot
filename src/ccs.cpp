@@ -31,6 +31,14 @@ void CompetitionARIAC::CompetitionStateCallback(const ariac_msgs::msg::Competiti
 
 void CompetitionARIAC::KitTrayTable1Callback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg)
 {
+    if (!kts1_camera_recieved_data)
+  {
+    RCLCPP_INFO(get_logger(), "Received data from kts1 camera");
+    kts1_camera_recieved_data = true;
+  }
+
+  kts1_trays_ = msg->tray_poses;
+  kts1_camera_pose_ = msg->sensor_pose;
 
 }
 
