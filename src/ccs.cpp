@@ -324,6 +324,18 @@ geometry_msgs::msg::Quaternion CompetitionARIAC::SetRobotOrientation(double rota
 
 bool CompetitionARIAC::FloorRobotMovetoTarget()
 {
+  moveit::planning_interface::MoveGroupInterface::Plan plan;
+  bool success = static_cast<bool>(floor_robot_.plan(plan));
+
+  if (success)
+  {
+    return static_cast<bool>(floor_robot_.execute(plan));
+  }
+  else
+  {
+    RCLCPP_ERROR(get_logger(), "Unable to generate plan");
+    return false;
+  }
 
 }
 
