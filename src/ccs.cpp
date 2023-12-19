@@ -403,16 +403,89 @@ void CompetitionARIAC::FloorRobotWaitForAttach(double timeout)
 
 void CompetitionARIAC::FloorRobotSendHome()
 {
+    // Move floor robot to home joint state
+    floor_robot_.setNamedTarget("home");
+    FloorRobotMovetoTarget();
+    }
+
+    bool CompetitionARIAC::FloorRobotSetGripperState(bool enable)
+    {
+    if (floor_gripper_state_.enabled == enable)
+    {
+        if (floor_gripper_state_.enabled)
+        RCLCPP_INFO(get_logger(), "Already enabled");
+        else
+        RCLCPP_INFO(get_logger(), "Already disabled");
+
+        return false;
+    }
+
+    // Call enable service
+    auto request = std::make_shared<ariac_msgs::srv::VacuumGripperControl::Request>();
+    request->enable = enable;
+
+    auto result = floor_robot_gripper_enable_->async_send_request(request);
+    result.wait();
+
+    if (!result.get()->success)
+    {
+        RCLCPP_ERROR(get_logger(), "Error calling gripper enable service");
+        return false;
+    }
+
+    return true;
 
 }
 
 bool CompetitionARIAC::FloorRobotSetGripperState(bool enable)
 {
     
+    
 }
 
 bool CompetitionARIAC::FloorRobotChangeGripper(std::string station, std::string gripper_type)
 {
+    // Move gripper into tool changer
+  auto tc_pose = FrameWorldPose(station + "_tool_changer_" + gripper_type + "_frame");
+
+  std::vector<geometry_msgs::msg::Pose> waypoints;
+  waypoints.push_back(BuildPose(tc_pose.position.x, tc_pose.position.y,
+                                tc_pose.position.z + 0.4, SetRobotOrientation(0.0)));
+
+  waypoints.push_back(BuildPose(tc_pose.position.x, tc_pose.position.y,
+                                tc_pose.position.z, SetRobotOrientation(0.0)));
+
+  if (!FloorRobotMoveCartesian(waypoints, 0.2, 0.1))
+    return false;
+
+  // Call service to change gripper
+  auto request = std::make_shared<ariac_msgs::srv::ChangeGripper::Request>();
+
+  if (gripper_type == "trays")
+  {
+    request->gripper_type = ariac_msgs::srv::ChangeGripper::Request::TRAY_GRIPPER;
+  }
+  else if (gripper_type == "parts")
+  {
+    request->gripper_type = ariac_msgs::srv::ChangeGripper::Request::PART_GRIPPER;
+  }
+
+  auto result = floor_robot_tool_changer_->async_send_request(request);
+  result.wait();
+  if (!result.get()->success)
+  {
+    RCLCPP_ERROR(get_logger(), "Error calling gripper change service");
+    return false;
+  }
+
+  waypoints.clear();
+  waypoints.push_back(BuildPose(tc_pose.position.x, tc_pose.position.y,
+                                tc_pose.position.z + 0.4, SetRobotOrientation(0.0)));
+
+  if (!FloorRobotMoveCartesian(waypoints, 0.2, 0.1))
+    return false;
+
+  return true;
 
 }
 
