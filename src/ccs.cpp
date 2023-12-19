@@ -57,11 +57,28 @@ void CompetitionARIAC::KitTrayTable2Callback(const ariac_msgs::msg::AdvancedLogi
 
 void CompetitionARIAC::LeftBinsCameraCallback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg)
 {
+    if (!left_bins_camera_recieved_data)
+  {
+    RCLCPP_INFO(get_logger(), "Received data from left bins camera");
+    left_bins_camera_recieved_data = true;
+  }
+
+  left_bins_parts_ = msg->part_poses;
+  left_bins_camera_pose_ = msg->sensor_pose;
 
 }
 
 void CompetitionARIAC::RightBinsCameraCallback(const ariac_msgs::msg::AdvancedLogicalCameraImage::ConstSharedPtr msg)
 {
+    if (!right_bins_camera_recieved_data)
+  {
+    RCLCPP_INFO(get_logger(), "Received data from right bins camera");
+    right_bins_camera_recieved_data = true;
+  }
+
+  right_bins_parts_ = msg->part_poses;
+  right_bins_camera_pose_ = msg->sensor_pose;
+}
 
 }
 
