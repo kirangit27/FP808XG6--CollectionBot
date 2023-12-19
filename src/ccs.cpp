@@ -160,6 +160,16 @@ geometry_msgs::msg::Pose CompetitionARIAC::FrameWorldPose(std::string frame_id)
 
 double CompetitionARIAC::GetYaw(geometry_msgs::msg::Pose pose)
 {
+  tf2::Quaternion q(
+      pose.orientation.x,
+      pose.orientation.y,
+      pose.orientation.z,
+      pose.orientation.w);
+  tf2::Matrix3x3 m(q);
+  double roll, pitch, yaw;
+  m.getRPY(roll, pitch, yaw);
+
+  return yaw;
 
 }
 
@@ -170,6 +180,17 @@ double CompetitionARIAC::GetPitch(geometry_msgs::msg::Pose pose)
 
 geometry_msgs::msg::Quaternion CompetitionARIAC::QuaternionFromRPY(double r, double p, double y)
 {
+    tf2::Quaternion q;
+  geometry_msgs::msg::Quaternion q_msg;
+
+  q.setRPY(r, p, y);
+
+  q_msg.x = q.x();
+  q_msg.y = q.y();
+  q_msg.z = q.z();
+  q_msg.w = q.w();
+
+  return q_msg;
     
 }
 
