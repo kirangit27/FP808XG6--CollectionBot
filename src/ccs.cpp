@@ -250,6 +250,69 @@ void CompetitionARIAC::AddModelsToPlanningScene()
     bin_pose.orientation = QuaternionFromRPY(0, 0, 3.14159);
 
     AddModelToPlanningScene(bin.first, "bin.stl", bin_pose);
+    }
+
+  // Add assembly stations
+  std::map<std::string, std::pair<double, double>> assembly_station_positions = {
+      {"as1", std::pair<double, double>(-7.3, 3)},
+      {"as2", std::pair<double, double>(-12.3, 3)},
+      {"as3", std::pair<double, double>(-7.3, -3)},
+      {"as4", std::pair<double, double>(-12.3, -3)},
+  };
+
+  geometry_msgs::msg::Pose assembly_station_pose;
+  for (auto const &station : assembly_station_positions)
+  {
+    assembly_station_pose.position.x = station.second.first;
+    assembly_station_pose.position.y = station.second.second;
+    assembly_station_pose.position.z = 0;
+    assembly_station_pose.orientation = QuaternionFromRPY(0, 0, 0);
+
+    AddModelToPlanningScene(station.first, "assembly_station.stl", assembly_station_pose);
+  }
+
+  // Add assembly briefcases
+  std::map<std::string, std::pair<double, double>> assembly_insert_positions = {
+      {"as1_insert", std::pair<double, double>(-7.7, 3)},
+      {"as2_insert", std::pair<double, double>(-12.7, 3)},
+      {"as3_insert", std::pair<double, double>(-7.7, -3)},
+      {"as4_insert", std::pair<double, double>(-12.7, -3)},
+  };
+
+  geometry_msgs::msg::Pose assembly_insert_pose;
+  for (auto const &insert : assembly_insert_positions)
+  {
+    assembly_insert_pose.position.x = insert.second.first;
+    assembly_insert_pose.position.y = insert.second.second;
+    assembly_insert_pose.position.z = 1.011;
+    assembly_insert_pose.orientation = QuaternionFromRPY(0, 0, 0);
+
+    AddModelToPlanningScene(insert.first, "assembly_insert.stl", assembly_insert_pose);
+  }
+
+  geometry_msgs::msg::Pose conveyor_pose;
+  conveyor_pose.position.x = -0.6;
+  conveyor_pose.position.y = 0;
+  conveyor_pose.position.z = 0;
+  conveyor_pose.orientation = QuaternionFromRPY(0, 0, 0);
+
+  AddModelToPlanningScene("conveyor", "conveyor.stl", conveyor_pose);
+
+  geometry_msgs::msg::Pose kts1_table_pose;
+  kts1_table_pose.position.x = -1.3;
+  kts1_table_pose.position.y = -5.84;
+  kts1_table_pose.position.z = 0;
+  kts1_table_pose.orientation = QuaternionFromRPY(0, 0, 3.14159);
+
+  AddModelToPlanningScene("kts1_table", "kit_tray_table.stl", kts1_table_pose);
+
+  geometry_msgs::msg::Pose kts2_table_pose;
+  kts2_table_pose.position.x = -1.3;
+  kts2_table_pose.position.y = 5.84;
+  kts2_table_pose.position.z = 0;
+  kts2_table_pose.orientation = QuaternionFromRPY(0, 0, 0);
+
+  AddModelToPlanningScene("kts2_table", "kit_tray_table.stl", kts2_table_pose);
 
 }
 
