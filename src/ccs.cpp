@@ -137,6 +137,24 @@ geometry_msgs::msg::Pose CompetitionARIAC::BuildPose(
 
 geometry_msgs::msg::Pose CompetitionARIAC::FrameWorldPose(std::string frame_id)
 {
+    geometry_msgs::msg::TransformStamped t;
+    geometry_msgs::msg::Pose pose;
+
+    try
+    {
+        t = tf_buffer->lookupTransform("world", frame_id, tf2::TimePointZero);
+    }
+    catch (const tf2::TransformException &ex)
+    {
+        RCLCPP_ERROR(get_logger(), "Could not get transform");
+    }
+
+    pose.position.x = t.transform.translation.x;
+    pose.position.y = t.transform.translation.y;
+    pose.position.z = t.transform.translation.z;
+    pose.orientation = t.transform.rotation;
+
+    return pose;
 
 } 
 
