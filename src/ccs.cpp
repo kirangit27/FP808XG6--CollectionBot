@@ -342,11 +342,51 @@ bool CompetitionARIAC::FloorRobotMovetoTarget()
 bool CompetitionARIAC::FloorRobotMoveCartesian(
     std::vector<geometry_msgs::msg::Pose> waypoints, double vsf, double asf)
     {
+        moveit_msgs::msg::RobotTrajectory trajectory;
+
+  double path_fraction = floor_robot_.computeCartesianPath(waypoints, 0.01, 0.0, trajectory);
+
+  if (path_fraction < 0.9)
+  {
+    RCLCPP_ERROR(get_logger(), "Unable to generate trajectory through waypoints");
+    return false;
+  }
+
+  // Retime trajectory
+  robot_trajectory::RobotTrajectory rt(floor_robot_.getCurrentState()->getRobotModel(), "floor_robot");
+  rt.setRobotTrajectoryMsg(*floor_robot_.getCurrentState(), trajectory);
+  totg_.computeTimeStamps(rt, vsf, asf);
+  rt.getRobotTrajectoryMsg(trajectory);
+
+  return static_cast<bool>(floor_robot_.execute(trajectory));
 
     }
 
 void CompetitionARIAC::FloorRobotWaitForAttach(double timeout)
 {
+      // Wait for part to be attached
+  rclcpp::Time start = now();
+  std::vector<geometry_msgs::msg::Pose> waypoints;
+  geometry_msgs::msg::Pose starting_pose = floor_robot_.getCurrentPose().pose;
+
+  while (!floor_gripper_state_.attached)
+  {
+    RCLCPP_INFO_THROTTLE(get_logger(), *get_clock(), 1000, "Waiting for gripper attach");
+
+    waypoints.clear();
+    starting_pose.position.z -= 0.001;
+    waypoints.push_back(starting_pose);
+
+    FloorRobotMoveCartesian(waypoints, 0.1, 0.1);
+
+    usleep(200);
+
+    if (now() - start > rclcpp::Duration::from_seconds(timeout))
+    {
+      RCLCPP_ERROR(get_logger(), "Unable to pick up object");
+      return;
+    }
+  }
 
 }
 
