@@ -318,6 +318,17 @@ void CompetitionARIAC::AddModelsToPlanningScene()
 
 geometry_msgs::msg::Quaternion CompetitionARIAC::SetRobotOrientation(double rotation)
 {
+  tf2::Quaternion tf_q;
+  tf_q.setRPY(0, 3.14159, rotation);
+
+  geometry_msgs::msg::Quaternion q;
+
+  q.x = tf_q.x();
+  q.y = tf_q.y();
+  q.z = tf_q.z();
+  q.w = tf_q.w();
+
+  return q;
 
 }
 
