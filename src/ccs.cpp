@@ -17,7 +17,7 @@
 #include "../include/ariac_collection_bot/ccs.hpp"
 
 
-void CompetitionARIAC::OrderCallback(const ariac_msgs::msg::Order::SharedPtr order_msg)
+void CompetitionARIAC::OrderCallback(const ariac_msgs::msg::Order::ConstSharedPtr msg)
 {
      orders_.push_back(*msg);
     
