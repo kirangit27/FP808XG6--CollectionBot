@@ -925,11 +925,36 @@ bool CompetitionARIAC::SubmitOrder(std::string order_id)
 
 bool CompetitionARIAC::MoveAGV(int agv_num , int destination)
 {
+      rclcpp::Client<ariac_msgs::srv::MoveAGV>::SharedPtr client;
+
+  std::string srv_name = "/ariac/move_agv" + std::to_string(agv_num);
+
+  client = this->create_client<ariac_msgs::srv::MoveAGV>(srv_name);
+
+  auto request = std::make_shared<ariac_msgs::srv::MoveAGV::Request>();
+  request->location = destination;
+
+  auto result = client->async_send_request(request);
+  result.wait();
+
+  return result.get()->success;
 
 }
         
 bool CompetitionARIAC::LockAGV(int agv_num)
 {
+      rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr client;
+
+  std::string srv_name = "/ariac/agv" + std::to_string(agv_num) + "_lock_tray";
+
+  client = this->create_client<std_srvs::srv::Trigger>(srv_name);
+
+  auto request = std::make_shared<std_srvs::srv::Trigger::Request>();
+
+  auto result = client->async_send_request(request);
+  result.wait();
+
+  return result.get()->success;
     
 }
 
