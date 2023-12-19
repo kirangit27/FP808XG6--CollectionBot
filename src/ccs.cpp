@@ -203,6 +203,33 @@ void CompetitionARIAC::AddModelToPlanningScene(
 
 void CompetitionARIAC::AddModelsToPlanningScene()
 {
+    moveit_msgs::msg::CollisionObject collision;
+
+  collision.id = name;
+  collision.header.frame_id = "world";
+
+  shape_msgs::msg::Mesh mesh;
+  shapes::ShapeMsg mesh_msg;
+
+  std::string package_share_directory = ament_index_cpp::get_package_share_directory("test_competitor");
+  std::stringstream path;
+  path << "file://" << package_share_directory << "/meshes/" << mesh_file;
+  std::string model_path = path.str();
+
+  shapes::Mesh *m = shapes::createMeshFromResource(model_path);
+  shapes::constructMsgFromShape(m, mesh_msg);
+
+  mesh = boost::get<shape_msgs::msg::Mesh>(mesh_msg);
+
+  collision.meshes.push_back(mesh);
+  collision.mesh_poses.push_back(model_pose);
+
+  collision.operation = collision.ADD;
+
+  std::vector<moveit_msgs::msg::CollisionObject> collision_objects;
+  collision_objects.push_back(collision);
+
+  planning_scene_.addCollisionObjects(collision_objects);
 
 }
 
