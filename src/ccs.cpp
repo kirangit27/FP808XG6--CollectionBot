@@ -612,7 +612,7 @@ bool CompetitionARIAC::FloorRobotPickandPlaceTray(int tray_id, int agv_num)
 
   floor_robot_.detachObject(tray_name);
 
-  LockAGVTray(agv_num);
+  LockAGV(agv_num);
 
   waypoints.clear();
   waypoints.push_back(BuildPose(agv_tray_pose.position.x, agv_tray_pose.position.y,
