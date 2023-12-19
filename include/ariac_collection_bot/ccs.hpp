@@ -484,7 +484,7 @@ class CompetitionARIAC : public rclcpp::Node
 	    /**
 	     * @brief Information about the kitting part currently attached to the floor robot.
 	     */
-	    order_::KittingPart floor_robot_attached_part_;
+	    ariac_msgs::msg::Part floor_robot_attached_part_;
 
 
 	    /**
