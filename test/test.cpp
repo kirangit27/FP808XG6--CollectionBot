@@ -115,3 +115,16 @@ TEST(competitionARIAC_test, TestConstants)
   ASSERT_DOUBLE_EQ(ctest.battery_grip_offset_, -0.05);
 }
 
+TEST(competitionARIAC_test, TestPartTypes)
+{
+  // Test part_types_
+  ASSERT_EQ(ctest.part_types_[ariac_msgs::msg::Part::BATTERY], "battery");
+  ASSERT_EQ(ctest.part_types_[ariac_msgs::msg::Part::PUMP], "pump");
+}
+
+TEST(competitionARIAC_test, TestPartColors)
+{
+  // Test part_colors_
+  ASSERT_EQ(ctest.part_colors_[ariac_msgs::msg::Part::RED], "red");
+  ASSERT_EQ(ctest.part_colors_[ariac_msgs::msg::Part::BLUE], "blue");
+}
