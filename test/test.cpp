@@ -1,3 +1,13 @@
+// Copyright (c) 2023 808X_Group6
+/**
+ * @file test.cpp
+ * @brief testing file implementation
+ * @version 0.1
+ * @date 2023-12-20
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #include <gtest/gtest.h>
 
 #include "../include/ariac_collection_bot/ccs.hpp"

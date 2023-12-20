@@ -1,3 +1,4 @@
+// Copyright (c) 2023 808X_Group6
 /**
  * @file ccs.cpp
  * @author Kiran S Patil (kpatil27@umd.edu)
@@ -357,8 +358,8 @@ void CompetitionARIAC::AddModelsToPlanningScene() {
   }
 
   // Add assembly stations
-  std::map<std::string, std::pair<double, double>> assembly_station_positions =
-      {
+  std::map<std::string, std::pair<double, double>>
+          assembly_station_positions = {
           {"as1", std::pair<double, double>(-7.3, 3)},
           {"as2", std::pair<double, double>(-12.3, 3)},
           {"as3", std::pair<double, double>(-7.3, -3)},

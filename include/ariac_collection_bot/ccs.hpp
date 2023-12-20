@@ -1,3 +1,4 @@
+// Copyright (c) 2023 808X_Group6
 /**
  * @file ccs.hpp
  * @author Kiran S Patil (kpatil27@umd.edu)
@@ -48,7 +49,8 @@
 #include <std_msgs/msg/bool.hpp>
 #include <string>
 #include <thread>
-
+#include <vector>
+#include <utility>
 #include "ariac_msgs/msg/assembly_task.hpp"
 #include "ariac_msgs/msg/bin_info.hpp"
 #include "ariac_msgs/msg/bin_parts.hpp"
