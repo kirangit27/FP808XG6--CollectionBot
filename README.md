@@ -2,7 +2,7 @@
 Repository for ENPM808X Final Project Fall 23 - Group 6
 
 ## FP808XG6 Badges
-![CICD Workflow status](https://github.com/kirangit27/FP808XG6--CollectionBot/actions/workflows/run-unit-test-and-upload-codecov.yml/badge.svg) [![codecov](https://codecov.io/gh/kirangit27/FP808XG6--CollectionBot/branch/Phase_1/graph/badge.svg)](https://codecov.io/gh/kirangit27/FP808XG6--CollectionBot) [![License: Apache](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+![CICD Workflow status](https://github.com/kirangit27/FP808XG6-CollectionBot/actions/workflows/run-unit-test-and-upload-codecov.yml/badge.svg) [![codecov](https://codecov.io/gh/kirangit27/FP808XG6--CollectionBot/branch/Phase_1/graph/badge.svg)](https://codecov.io/gh/kirangit27/FP808XG6--CollectionBot) [![License: Apache](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 
 
@@ -72,6 +72,13 @@ For further installation steps follow the guide at : https://pages.nist.gov/ARIA
 | AIP                       | [link](https://docs.google.com/spreadsheets/d/1FtwduI0UeLAkzt9SnpAClorMw1jcahy9qjM6wzhxDfg/edit#gid=0) |
 | Sprint Planning & Review  | [link](https://docs.google.com/document/d/1ZsBr0pjIIcKHEvNL5tI986ulKs6IyMRJGUegzvP9S6Y/edit) |
 
+### Phase_1
+| Document           |Link                                                                                         |
+| ------------------------- | -------------------------------------------------------------------------------------------- |
+| UML Diagram               | [link](https://github.com/kirangit27/FP808XG6--CollectionBot/blob/master/UML/revised__uml/UML%20Revised.png) |
+| Demo Video                | [link]([https://drive.google.com/drive/folders/1-OMwoqAwp02GAUaVJTIPztD0t-gRjUfr](https://youtu.be/kqizPodgePs)) |
+| AIP                       | [link](https://docs.google.com/spreadsheets/d/1FtwduI0UeLAkzt9SnpAClorMw1jcahy9qjM6wzhxDfg/edit#gid=0) |
+| Sprint Planning & Review  | [link](https://docs.google.com/document/d/1ZsBr0pjIIcKHEvNL5tI986ulKs6IyMRJGUegzvP9S6Y/edit) |
 
 ### cppcheck
 Run the following command from the root directory of your ROS package
