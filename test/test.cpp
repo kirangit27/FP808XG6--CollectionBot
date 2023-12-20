@@ -142,3 +142,24 @@ TEST(competitionARIAC_test, TestQuadOffsets)
   ASSERT_DOUBLE_EQ(ctest.quad_offsets_[ariac_msgs::msg::KittingPart::QUADRANT1].first, -0.08);
   ASSERT_DOUBLE_EQ(ctest.quad_offsets_[ariac_msgs::msg::KittingPart::QUADRANT1].second, 0.12);
 }
+
+TEST(competitionARIAC_test, TestRailPositions)
+{
+  // Test rail_positions_
+  ASSERT_DOUBLE_EQ(ctest.rail_positions_["agv1"], -4.5);
+  ASSERT_DOUBLE_EQ(ctest.rail_positions_["agv2"], -1.2);
+}
+
+TEST(competitionARIAC_test, TestFloorKts1Js)
+{
+  // Test floor_kts1_js_
+  ASSERT_DOUBLE_EQ(ctest.floor_kts1_js_["linear_actuator_joint"], 4.0);
+  ASSERT_DOUBLE_EQ(ctest.floor_kts1_js_["floor_shoulder_pan_joint"], 1.57);
+}
+
+TEST(competitionARIAC_test, TestFloorKts2Js)
+{
+  // Test floor_kts2_js_
+  ASSERT_DOUBLE_EQ(ctest.floor_kts2_js_["linear_actuator_joint"], -4.0);
+  ASSERT_DOUBLE_EQ(ctest.floor_kts2_js_["floor_shoulder_pan_joint"], -1.57);
+}
