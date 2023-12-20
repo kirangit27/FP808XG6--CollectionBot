@@ -27,13 +27,11 @@ Create a new ROS2 workspace:
     source /opt/ros/galactic/setup.bash
     mkdir -p ~/ariac_ws/src
     cd ~/ariac_ws
-
 ```
 
 Clone the ARIAC repository:
 ```
     git clone https://github.com/usnistgov/ARIAC.git src/ariac
-
 ```
  Note: Always use the ariac2023 branch.
 
@@ -50,15 +48,34 @@ Build the ARIAC package:
 ```
     sudo apt install python3-colcon-common-extensions
     colcon build --packages-select ariac
-
 ```
 
 Source the workspace:
 ```
     source install/setup.bash
-
 ```
 For further installation steps follow the guide at : https://pages.nist.gov/ARIAC_docs/en/2023.5.0/getting_started/installation.html
+
+Build the ariac_collection_bot package:
+```
+    colcon build --packages-select ariac_collection_bot
+```
+
+### Run
+terminal 1 - 
+```
+ros2 launch ariac_gazebo ariac.launch.py trial_name:=kitting competitor_pkg:=ariac_collection_bot sensor_config:=sensors
+```
+
+terminal 2 - 
+```
+ros2 launch ariac_moveit_config ariac_robots_moveit.launch.py
+```
+
+terminal 3 - 
+```
+ros2 launch ariac_collection_bot ccs.launch.py
+```
 
 ### Phase_0 (Project Proposal)
 | Document           |Link                                                                                         |
