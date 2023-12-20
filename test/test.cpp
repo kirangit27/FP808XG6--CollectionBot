@@ -101,3 +101,17 @@ TEST(competitionARIAC_test, TestMultiplyPose)
   ASSERT_NEAR(result.orientation.z, expected_result.orientation.z, 1e-5);
   ASSERT_NEAR(result.orientation.w, expected_result.orientation.w, 1e-5);
 }
+
+
+TEST(competitionARIAC_test, TestConstants)
+{
+  // Test kit_tray_thickness_
+  ASSERT_DOUBLE_EQ(ctest.kit_tray_thickness_, 0.01);
+  // Test drop_height_
+  ASSERT_DOUBLE_EQ(ctest.drop_height_, 0.002);
+  // Test pick_offset_
+  ASSERT_DOUBLE_EQ(ctest.pick_offset_, 0.003);
+  // Test battery_grip_offset_
+  ASSERT_DOUBLE_EQ(ctest.battery_grip_offset_, -0.05);
+}
+
