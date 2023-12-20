@@ -1,10 +1,7 @@
-
 #include <gtest/gtest.h>
-
 #include "../include/ariac_collection_bot/ccs.hpp" 
 
-
-class CompetitionARIAC_test:public Parts
+class CompetitionARIAC_test: public Parts
 { 
   public:
     geometry_msgs::msg::Pose BuildPose(
@@ -32,8 +29,8 @@ class CompetitionARIAC_test:public Parts
     }
 
     geometry_msgs::msg::Quaternion QuaternionFromRPY(double r,
-                                                                   double p,
-                                                                   double y) {
+                                                    double p,
+                                                    double y) {
       tf2::Quaternion q;
       geometry_msgs::msg::Quaternion q_msg;
 
@@ -46,7 +43,6 @@ class CompetitionARIAC_test:public Parts
 
       return q_msg;
     }
-
 };
 
 CompetitionARIAC_test ctest;
