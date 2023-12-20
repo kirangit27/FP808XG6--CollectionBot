@@ -72,11 +72,11 @@ For further installation steps follow the guide at : https://pages.nist.gov/ARIA
 | AIP                       | [link](https://docs.google.com/spreadsheets/d/1FtwduI0UeLAkzt9SnpAClorMw1jcahy9qjM6wzhxDfg/edit#gid=0) |
 | Sprint Planning & Review  | [link](https://docs.google.com/document/d/1ZsBr0pjIIcKHEvNL5tI986ulKs6IyMRJGUegzvP9S6Y/edit) |
 
-### Phase_1
+### Phase_2
 | Document           |Link                                                                                         |
 | ------------------------- | -------------------------------------------------------------------------------------------- |
 | UML Diagram               | [link](https://github.com/kirangit27/FP808XG6--CollectionBot/blob/master/UML/revised__uml/UML%20Revised.png) |
-| Demo Video                | [link]([https://drive.google.com/drive/folders/1-OMwoqAwp02GAUaVJTIPztD0t-gRjUfr](https://youtu.be/kqizPodgePs)) |
+| Demo Video                | [link](https://youtu.be/kqizPodgePs) |
 | AIP                       | [link](https://docs.google.com/spreadsheets/d/1FtwduI0UeLAkzt9SnpAClorMw1jcahy9qjM6wzhxDfg/edit#gid=0) |
 | Sprint Planning & Review  | [link](https://docs.google.com/document/d/1ZsBr0pjIIcKHEvNL5tI986ulKs6IyMRJGUegzvP9S6Y/edit) |
 
