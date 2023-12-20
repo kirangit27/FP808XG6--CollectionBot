@@ -31,6 +31,22 @@ class CompetitionARIAC_test:public Parts
       return tf2::toMsg(f3);
     }
 
+    geometry_msgs::msg::Quaternion QuaternionFromRPY(double r,
+                                                                   double p,
+                                                                   double y) {
+      tf2::Quaternion q;
+      geometry_msgs::msg::Quaternion q_msg;
+
+      q.setRPY(r, p, y);
+
+      q_msg.x = q.x();
+      q_msg.y = q.y();
+      q_msg.z = q.z();
+      q_msg.w = q.w();
+
+      return q_msg;
+    }
+
 };
 
 CompetitionARIAC_test ctest;
@@ -127,6 +143,26 @@ TEST(competitionARIAC_test, TestPartColors)
   // Test part_colors_
   ASSERT_EQ(ctest.part_colors_[ariac_msgs::msg::Part::RED], "red");
   ASSERT_EQ(ctest.part_colors_[ariac_msgs::msg::Part::BLUE], "blue");
+}
+
+TEST(competitionARIAC_test, TestQuaternionFromRPY)
+{
+  // Test with known values
+  double roll = 0.1;
+  double pitch = 0.2;
+  double yaw = 0.3;
+
+  geometry_msgs::msg::Quaternion result = ctest.QuaternionFromRPY(roll, pitch, yaw);
+
+  // Convert the quaternion back to RPY for verification
+  tf2::Quaternion expected_quaternion;
+  expected_quaternion.setRPY(roll, pitch, yaw);
+
+  // Verify that the returned quaternion matches the expected values
+  ASSERT_NEAR(result.x, expected_quaternion.x(), 1e-5);
+  ASSERT_NEAR(result.y, expected_quaternion.y(), 1e-5);
+  ASSERT_NEAR(result.z, expected_quaternion.z(), 1e-5);
+  ASSERT_NEAR(result.w, expected_quaternion.w(), 1e-5);
 }
 
 TEST(competitionARIAC_test, TestPartHeights)
