@@ -647,59 +647,64 @@ class CompetitionARIAC : public rclcpp::Node {
   rclcpp::Client<ariac_msgs::srv::VacuumGripperControl>::SharedPtr
       floor_robot_gripper_enable_;
 
-  // Constants
-  double kit_tray_thickness_ = 0.01;
-  double drop_height_ = 0.002;
-  double pick_offset_ = 0.003;
-  double battery_grip_offset_ = -0.05;
+};
 
-  std::map<int, std::string> part_types_ = {
-      {ariac_msgs::msg::Part::BATTERY, "battery"},
-      {ariac_msgs::msg::Part::PUMP, "pump"},
-      {ariac_msgs::msg::Part::REGULATOR, "regulator"},
-      {ariac_msgs::msg::Part::SENSOR, "sensor"}};
+class Parts {
+    public:
+        // Constants
+        double kit_tray_thickness_ = 0.01;
+        double drop_height_ = 0.002;
+        double pick_offset_ = 0.003;
+        double battery_grip_offset_ = -0.05;
 
-  std::map<int, std::string> part_colors_ = {
-      {ariac_msgs::msg::Part::RED, "red"},
-      {ariac_msgs::msg::Part::BLUE, "blue"},
-      {ariac_msgs::msg::Part::GREEN, "green"},
-      {ariac_msgs::msg::Part::ORANGE, "orange"},
-      {ariac_msgs::msg::Part::PURPLE, "purple"},
-  };
+        std::map<int, std::string> part_types_ = {
+            {ariac_msgs::msg::Part::BATTERY, "battery"},
+            {ariac_msgs::msg::Part::PUMP, "pump"},
+            {ariac_msgs::msg::Part::REGULATOR, "regulator"},
+            {ariac_msgs::msg::Part::SENSOR, "sensor"}};
 
-  // Part heights
-  std::map<int, double> part_heights_ = {
-      {ariac_msgs::msg::Part::BATTERY, 0.04},
-      {ariac_msgs::msg::Part::PUMP, 0.12},
-      {ariac_msgs::msg::Part::REGULATOR, 0.07},
-      {ariac_msgs::msg::Part::SENSOR, 0.07}};
+        std::map<int, std::string> part_colors_ = {
+            {ariac_msgs::msg::Part::RED, "red"},
+            {ariac_msgs::msg::Part::BLUE, "blue"},
+            {ariac_msgs::msg::Part::GREEN, "green"},
+            {ariac_msgs::msg::Part::ORANGE, "orange"},
+            {ariac_msgs::msg::Part::PURPLE, "purple"},
+        };
 
-  // Quadrant Offsets
-  std::map<int, std::pair<double, double>> quad_offsets_ = {
-      {ariac_msgs::msg::KittingPart::QUADRANT1,
-       std::pair<double, double>(-0.08, 0.12)},
-      {ariac_msgs::msg::KittingPart::QUADRANT2,
-       std::pair<double, double>(0.08, 0.12)},
-      {ariac_msgs::msg::KittingPart::QUADRANT3,
-       std::pair<double, double>(-0.08, -0.12)},
-      {ariac_msgs::msg::KittingPart::QUADRANT4,
-       std::pair<double, double>(0.08, -0.12)},
-  };
+        // Part heights
+        std::map<int, double> part_heights_ = {
+            {ariac_msgs::msg::Part::BATTERY, 0.04},
+            {ariac_msgs::msg::Part::PUMP, 0.12},
+            {ariac_msgs::msg::Part::REGULATOR, 0.07},
+            {ariac_msgs::msg::Part::SENSOR, 0.07}};
 
-  std::map<std::string, double> rail_positions_ = {
-      {"agv1", -4.5}, {"agv2", -1.2},   {"agv3", 1.2},
-      {"agv4", 4.5},  {"left_bins", 3}, {"right_bins", -3}};
+        // Quadrant Offsets
+        std::map<int, std::pair<double, double>> quad_offsets_ = {
+            {ariac_msgs::msg::KittingPart::QUADRANT1,
+            std::pair<double, double>(-0.08, 0.12)},
+            {ariac_msgs::msg::KittingPart::QUADRANT2,
+            std::pair<double, double>(0.08, 0.12)},
+            {ariac_msgs::msg::KittingPart::QUADRANT3,
+            std::pair<double, double>(-0.08, -0.12)},
+            {ariac_msgs::msg::KittingPart::QUADRANT4,
+            std::pair<double, double>(0.08, -0.12)},
+        };
 
-  // Joint value targets for kitting stations
-  std::map<std::string, double> floor_kts1_js_ = {
-      {"linear_actuator_joint", 4.0},       {"floor_shoulder_pan_joint", 1.57},
-      {"floor_shoulder_lift_joint", -1.57}, {"floor_elbow_joint", 1.57},
-      {"floor_wrist_1_joint", -1.57},       {"floor_wrist_2_joint", -1.57},
-      {"floor_wrist_3_joint", 0.0}};
+        std::map<std::string, double> rail_positions_ = {
+            {"agv1", -4.5}, {"agv2", -1.2},   {"agv3", 1.2},
+            {"agv4", 4.5},  {"left_bins", 3}, {"right_bins", -3}};
 
-  std::map<std::string, double> floor_kts2_js_ = {
-      {"linear_actuator_joint", -4.0},      {"floor_shoulder_pan_joint", -1.57},
-      {"floor_shoulder_lift_joint", -1.57}, {"floor_elbow_joint", 1.57},
-      {"floor_wrist_1_joint", -1.57},       {"floor_wrist_2_joint", -1.57},
-      {"floor_wrist_3_joint", 0.0}};
+        // Joint value targets for kitting stations
+        std::map<std::string, double> floor_kts1_js_ = {
+            {"linear_actuator_joint", 4.0},       {"floor_shoulder_pan_joint", 1.57},
+            {"floor_shoulder_lift_joint", -1.57}, {"floor_elbow_joint", 1.57},
+            {"floor_wrist_1_joint", -1.57},       {"floor_wrist_2_joint", -1.57},
+            {"floor_wrist_3_joint", 0.0}};
+
+        std::map<std::string, double> floor_kts2_js_ = {
+            {"linear_actuator_joint", -4.0},      {"floor_shoulder_pan_joint", -1.57},
+            {"floor_shoulder_lift_joint", -1.57}, {"floor_elbow_joint", 1.57},
+            {"floor_wrist_1_joint", -1.57},       {"floor_wrist_2_joint", -1.57},
+            {"floor_wrist_3_joint", 0.0}};
+            
 };
