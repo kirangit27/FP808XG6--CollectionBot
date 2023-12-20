@@ -1,0 +1,90 @@
+Repository for E\+N\+P\+M808X Final Project Fall 23 -\/ Group 6\hypertarget{md_README_autotoc_md1}{}\doxysection{F\+P808\+X\+G6 Badges}\label{md_README_autotoc_md1}
+ \href{https://codecov.io/gh/kirangit27/FP808XG6--CollectionBot}{\texttt{ }} \mbox{[}\mbox{]}(L\+I\+C\+E\+N\+SE)\hypertarget{md_README_autotoc_md2}{}\doxysection{Overview}\label{md_README_autotoc_md2}
+The Collection Robot is an important mechanism in any industrial automation process. It ensures autonmous kitting and assembling of parts in a timely fashion to increase overall throughput. The Agile Robots for Industrial Automation Challenge was developed by N\+I\+ST that tests the ability of robots to perform a series of tasks in a dynamic environment. The tasks are designed to test the robot\textquotesingle{}s ability to perform pick-\/and-\/place operations, assembly, and kitting in a simulated warehouse. In the context of A\+R\+I\+AC, agility refers to a robot\textquotesingle{}s capacity for adaptation, efficiency, and autonomy in a dynamic manufacturing setting rather than just its speed or physical prowess. The competition acts as a trial run for the creation of algorithms that can be used in actual manufacturing environments. The A\+R\+I\+AC\textquotesingle{}s competition platform standsout as the best simulating and testing ground for agile robots in dynamic industrial environments, which served as the perfect fit for our solution demonstration.\hypertarget{md_README_autotoc_md3}{}\doxysubsection{Team}\label{md_README_autotoc_md3}
+(Group 6)
+\begin{DoxyEnumerate}
+\item Kiran Patil
+\item Vyshnav Achutan
+\item Suryavardhan Reddy Chappidi
+\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md4}{}\doxysection{Steps to Install A\+R\+I\+A\+C Competition Platform}\label{md_README_autotoc_md4}
+Create a new R\+O\+S2 workspace\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{source /opt/ros/galactic/setup.bash}
+\DoxyCodeLine{mkdir -\/p \string~/ariac\_ws/src}
+\DoxyCodeLine{cd \string~/ariac\_ws}
+\end{DoxyCode}
+
+
+Clone the A\+R\+I\+AC repository\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git clone https://github.com/usnistgov/ARIAC.git src/ariac}
+\end{DoxyCode}
+
+
+Note\+: Always use the ariac2023 branch.
+
+Install the dependencies\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo apt install python3-\/rosdep}
+\DoxyCodeLine{sudo apt install openjdk-\/17-\/jdk}
+\DoxyCodeLine{sudo rosdep init}
+\DoxyCodeLine{rosdep update -\/-\/include-\/eol-\/distros}
+\DoxyCodeLine{rosdep install -\/-\/from-\/paths src -\/y -\/-\/ignore-\/src}
+\end{DoxyCode}
+
+
+Build the A\+R\+I\+AC package\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo apt install python3-\/colcon-\/common-\/extensions}
+\DoxyCodeLine{colcon build -\/-\/packages-\/select ariac}
+\end{DoxyCode}
+
+
+Source the workspace\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{source install/setup.bash}
+\end{DoxyCode}
+
+
+For further installation steps follow the guide at \+: \href{https://pages.nist.gov/ARIAC_docs/en/2023.5.0/getting_started/installation.html}{\texttt{ https\+://pages.\+nist.\+gov/\+A\+R\+I\+A\+C\+\_\+docs/en/2023.\+5.\+0/getting\+\_\+started/installation.\+html}}\hypertarget{md_README_autotoc_md5}{}\doxysubsection{Phase\+\_\+0 (\+Project Proposal)}\label{md_README_autotoc_md5}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Document }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Link  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Document }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Link  }\\\cline{1-2}
+\endhead
+Project Proposal &\href{https://github.com/kirangit27/FP808XG6--CollectionBot/blob/Phase_1/documents/ENPM808X\%20-\%20Final\%20Project\%20Proposal\%20(Phase\%200).pdf}{\texttt{ link}}  \\\cline{1-2}
+Quad Chart &\href{https://github.com/kirangit27/FP808XG6--CollectionBot/blob/Phase_1/documents/QuadChart_Final.pdf}{\texttt{ link}}  \\\cline{1-2}
+U\+ML Diagram &\href{https://github.com/kirangit27/FP808XG6--CollectionBot/blob/master/UML/initial_uml/UML\%20class.png}{\texttt{ link}}  \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_README_autotoc_md6}{}\doxysubsection{Phase\+\_\+1}\label{md_README_autotoc_md6}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Document }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Link  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Document }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Link  }\\\cline{1-2}
+\endhead
+U\+ML Diagram &\href{https://github.com/kirangit27/FP808XG6--CollectionBot/blob/master/UML/revised__uml/UML\%20Revised.png}{\texttt{ link}}  \\\cline{1-2}
+Proposal Video &\href{https://drive.google.com/drive/folders/1-OMwoqAwp02GAUaVJTIPztD0t-gRjUfr}{\texttt{ link}}  \\\cline{1-2}
+A\+IP &\href{https://docs.google.com/spreadsheets/d/1FtwduI0UeLAkzt9SnpAClorMw1jcahy9qjM6wzhxDfg/edit\#gid=0}{\texttt{ link}}  \\\cline{1-2}
+Sprint Planning \& Review &\href{https://docs.google.com/document/d/1ZsBr0pjIIcKHEvNL5tI986ulKs6IyMRJGUegzvP9S6Y/edit}{\texttt{ link}}  \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_README_autotoc_md7}{}\doxysubsection{cppcheck}\label{md_README_autotoc_md7}
+Run the following command from the root directory of your R\+OS package 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cppcheck -\/-\/enable=all -\/-\/std=c++17 ./src/*.cpp ./include/collection\_bot/*.hpp ./test/*.cpp -\/-\/suppress=missingIncludeSystem -\/-\/suppress=unmatchedSuppression -\/-\/suppress=unusedFunction -\/-\/suppress=missingInclude -\/-\/suppress=useInitializationList > results/cppcheck.txt}
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md8}{}\doxysubsection{cpplint}\label{md_README_autotoc_md8}
+Run the following command from the root directory of your R\+OS package 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cpplint -\/-\/filter=-\/build/c++11,+build/c++17,-\/build/namespaces,-\/build/include\_order ./src/*.cpp ./include/collection\_bot/*.hpp ./test/*.cpp > ./results/cpplint.txt}
+\end{DoxyCode}
+ 

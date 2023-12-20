@@ -1,3 +1,4 @@
+// Copyright (c) 2023 808X_Group6
 /**
  * @file main.cpp
  * @brief Entry point for running Google Test unit tests.

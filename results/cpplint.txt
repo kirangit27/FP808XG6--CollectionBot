@@ -1,6 +1,5 @@
-Done processing ./include/collection_bot/ccs.hpp
+Done processing ./include/ariac_collection_bot/ccs.hpp
 Done processing ./src/ccs.cpp
 Done processing ./src/ccs_main.cpp
 Done processing ./test/main.cpp
 Done processing ./test/test.cpp
-

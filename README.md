@@ -2,13 +2,18 @@
 Repository for ENPM808X Final Project Fall 23 - Group 6
 
 ## FP808XG6 Badges
-![CICD Workflow status](https://github.com/kirangit27/FP808XG6--CollectionBot/actions/workflows/run-unit-test-and-upload-codecov.yml/badge.svg) [![codecov](https://codecov.io/gh/kirangit27/FP808XG6--CollectionBot/branch/Phase_1/graph/badge.svg)](https://codecov.io/gh/kirangit27/FP808XG6--CollectionBot) [![License: Apache](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+![CICD Workflow status](https://github.com/kirangit27/FP808XG6--CollectionBot/actions/workflows/run-unit-test-and-upload-codecov.yml/badge.svg) [![codecov](https://codecov.io/gh/kirangit27/FP808XG6--CollectionBot/branch/master/graph/badge.svg)](https://codecov.io/gh/kirangit27/FP808XG6--CollectionBot) [![License: Apache](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
+## Coverage Report
+![coverage](https://github.com/kirangit27/FP808XG6--CollectionBot/assets/38507208/073b1292-5fdf-47de-b774-fa9f80985bea)
+### coverage report can be found at documents/coverage/index.html
 
 
 
 ## Overview
 The Collection Robot is an important mechanism in any industrial automation process. It ensures autonmous kitting and assembling of parts in a timely fashion to increase overall throughput. The Agile Robots for Industrial Automation Challenge was developed by NIST that tests the ability of robots to perform a series of tasks in a dynamic environment. The tasks are designed to test the robot's ability to perform pick-and-place operations, assembly, and kitting in a simulated warehouse. In the context of ARIAC, agility refers to a robot's capacity for adaptation, efficiency, and autonomy in a dynamic manufacturing setting rather than just its speed or physical prowess. The competition acts as a trial run for the creation of algorithms that can be used in actual manufacturing environments. The ARIAC's competition platform standsout as the best simulating and testing ground for agile robots in dynamic industrial environments, which served as the perfect fit  for our solution demonstration.
 
+![demo](https://github.com/kirangit27/FP808XG6--CollectionBot/assets/38507208/13266bf2-54c2-4e02-82c8-81db33c2535b)
 
 ### Team
 (Group 6)
@@ -22,13 +27,11 @@ Create a new ROS2 workspace:
     source /opt/ros/galactic/setup.bash
     mkdir -p ~/ariac_ws/src
     cd ~/ariac_ws
-
 ```
 
 Clone the ARIAC repository:
 ```
     git clone https://github.com/usnistgov/ARIAC.git src/ariac
-
 ```
  Note: Always use the ariac2023 branch.
 
@@ -45,15 +48,34 @@ Build the ARIAC package:
 ```
     sudo apt install python3-colcon-common-extensions
     colcon build --packages-select ariac
-
 ```
 
 Source the workspace:
 ```
     source install/setup.bash
-
 ```
 For further installation steps follow the guide at : https://pages.nist.gov/ARIAC_docs/en/2023.5.0/getting_started/installation.html
+
+Build the ariac_collection_bot package:
+```
+    colcon build --packages-select ariac_collection_bot
+```
+
+### Run
+terminal 1 - 
+```
+ros2 launch ariac_gazebo ariac.launch.py trial_name:=kitting competitor_pkg:=ariac_collection_bot sensor_config:=sensors
+```
+
+terminal 2 - 
+```
+ros2 launch ariac_moveit_config ariac_robots_moveit.launch.py
+```
+
+terminal 3 - 
+```
+ros2 launch ariac_collection_bot ccs.launch.py
+```
 
 ### Phase_0 (Project Proposal)
 | Document           |Link                                                                                         |
@@ -72,14 +94,22 @@ For further installation steps follow the guide at : https://pages.nist.gov/ARIA
 | AIP                       | [link](https://docs.google.com/spreadsheets/d/1FtwduI0UeLAkzt9SnpAClorMw1jcahy9qjM6wzhxDfg/edit#gid=0) |
 | Sprint Planning & Review  | [link](https://docs.google.com/document/d/1ZsBr0pjIIcKHEvNL5tI986ulKs6IyMRJGUegzvP9S6Y/edit) |
 
+### Phase_2
+| Document           |Link                                                                                         |
+| ------------------------- | -------------------------------------------------------------------------------------------- |
+| UML Diagram               | [link](https://github.com/kirangit27/FP808XG6--CollectionBot/blob/master/UML/revised__uml/UML%20Revised.png) |
+| Demo Video                | [link](https://youtu.be/kqizPodgePs) |
+| AIP                       | [link](https://docs.google.com/spreadsheets/d/1FtwduI0UeLAkzt9SnpAClorMw1jcahy9qjM6wzhxDfg/edit#gid=0) |
+| Sprint Planning & Review  | [link](https://docs.google.com/document/d/1ZsBr0pjIIcKHEvNL5tI986ulKs6IyMRJGUegzvP9S6Y/edit) |
+
 
 ### cppcheck
 Run the following command from the root directory of your ROS package
 ```
-cppcheck --enable=all --std=c++17 ./src/*.cpp ./include/collection_bot/*.hpp ./test/*.cpp --suppress=missingIncludeSystem --suppress=unmatchedSuppression --suppress=unusedFunction --suppress=missingInclude --suppress=useInitializationList > results/cppcheck.txt
+cppcheck --enable=all --std=c++17 ./src/*.cpp ./include/ariac_collection_bot/*.hpp ./test/*.cpp --suppress=missingIncludeSystem --suppress=unmatchedSuppression --suppress=unusedFunction --suppress=missingInclude --suppress=useInitializationList > results/cppcheck.txt
 ```
 ### cpplint
 Run the following command from the root directory of your ROS package
 ```
- cpplint --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_order ./src/*.cpp ./include/collection_bot/*.hpp ./test/*.cpp > ./results/cpplint.txt
+ cpplint --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_order ./src/*.cpp ./include/ariac_collection_bot/*.hpp ./test/*.cpp > ./results/cpplint.txt
 ```
