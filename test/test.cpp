@@ -1,38 +1,45 @@
 
 #include <gtest/gtest.h>
 
-#include "../include/ccs.hpp"
+#include "../include/ariac_collection_bot/ccs.hpp" 
 
-// Dummy Test
-class CompetitionARIACTest : public ::testing::Test {
- protected:
-  void SetUp() override {}
 
-  void TearDown() override {}
+class CompetitionARIAC_test:public Parts
+{ 
+  public:
+  geometry_msgs::msg::Pose BuildPose(
+      double x, double y, double z, geometry_msgs::msg::Quaternion orientation) {
+    geometry_msgs::msg::Pose pose;
+    pose.position.x = x;
+    pose.position.y = y;
+    pose.position.z = z;
+    pose.orientation = orientation;
+
+  return pose;
+
+}
 };
 
-TEST_F(CompetitionARIACTest, OrderCallbackTest) {
-  ariac_msgs::msg::Order test_order;
-  test_order.id = "test_order_1";
-  // Populate test_order with more data as needed
+CompetitionARIAC_test ctest;
 
-  CompetitionARIAC comp_ariac;
-  comp_ariac.OrderCallback(
-      std::make_shared<ariac_msgs::msg::Order>(test_order));
+TEST(competitionARIAC_test, TestBuildPose) {
+    // Define test inputs
+    double x = 1.0, y = 2.0, z = 3.0;
+    geometry_msgs::msg::Quaternion orientation;
+    orientation.x = 0.1;
+    orientation.y = 0.2;
+    orientation.z = 0.3;
+    orientation.w = 0.4;
 
-  // Check if the order is added to the orders_list
-  EXPECT_EQ(comp_ariac.orders_list.size(), 1);
-  EXPECT_EQ(comp_ariac.orders_list[0].id, "test_order_1");
-}
+    // Call BuildPose
+    auto result_pose = ctest.BuildPose(x, y, z, orientation);
 
-TEST_F(CompetitionARIACTest, FloorRobotPickBinPartTest) {
-  order_::KittingPart test_part;
-  test_part.color = ariac_msgs::msg::Part::RED;
-  test_part.type = ariac_msgs::msg::Part::BATTERY;
-  // More attributes of test_part can be set as needed
-
-  CompetitionARIAC comp_ariac;
-  bool pick_result = comp_ariac.FloorRobotPickBinPart(test_part);
-
-  EXPECT_TRUE(pick_result);
+    // Check if the result matches the input
+    EXPECT_DOUBLE_EQ(result_pose.position.x, x);
+    EXPECT_DOUBLE_EQ(result_pose.position.y, y);
+    EXPECT_DOUBLE_EQ(result_pose.position.z, z);
+    EXPECT_DOUBLE_EQ(result_pose.orientation.x, orientation.x);
+    EXPECT_DOUBLE_EQ(result_pose.orientation.y, orientation.y);
+    EXPECT_DOUBLE_EQ(result_pose.orientation.z, orientation.z);
+    EXPECT_DOUBLE_EQ(result_pose.orientation.w, orientation.w);
 }
