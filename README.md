@@ -2,13 +2,18 @@
 Repository for ENPM808X Final Project Fall 23 - Group 6
 
 ## FP808XG6 Badges
-![CICD Workflow status](https://github.com/kirangit27/FP808XG6-CollectionBot/actions/workflows/run-unit-test-and-upload-codecov.yml/badge.svg) [![codecov](https://codecov.io/gh/kirangit27/FP808XG6--CollectionBot/branch/Phase_1/graph/badge.svg)](https://codecov.io/gh/kirangit27/FP808XG6--CollectionBot) [![License: Apache](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+![CICD Workflow status](https://github.com/kirangit27/FP808XG6--CollectionBot/actions/workflows/run-unit-test-and-upload-codecov.yml/badge.svg) [![codecov](https://codecov.io/gh/kirangit27/FP808XG6--CollectionBot/branch/Phase_1/graph/badge.svg)](https://codecov.io/gh/kirangit27/FP808XG6--CollectionBot) [![License: Apache](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
+## Coverage Report
+![coverage](https://github.com/kirangit27/FP808XG6--CollectionBot/assets/38507208/073b1292-5fdf-47de-b774-fa9f80985bea)
+### coverage report can be found at documents/coverage/index.html
 
 
 
 ## Overview
 The Collection Robot is an important mechanism in any industrial automation process. It ensures autonmous kitting and assembling of parts in a timely fashion to increase overall throughput. The Agile Robots for Industrial Automation Challenge was developed by NIST that tests the ability of robots to perform a series of tasks in a dynamic environment. The tasks are designed to test the robot's ability to perform pick-and-place operations, assembly, and kitting in a simulated warehouse. In the context of ARIAC, agility refers to a robot's capacity for adaptation, efficiency, and autonomy in a dynamic manufacturing setting rather than just its speed or physical prowess. The competition acts as a trial run for the creation of algorithms that can be used in actual manufacturing environments. The ARIAC's competition platform standsout as the best simulating and testing ground for agile robots in dynamic industrial environments, which served as the perfect fit  for our solution demonstration.
 
+![demo](https://github.com/kirangit27/FP808XG6--CollectionBot/assets/38507208/13266bf2-54c2-4e02-82c8-81db33c2535b)
 
 ### Team
 (Group 6)
@@ -79,6 +84,7 @@ For further installation steps follow the guide at : https://pages.nist.gov/ARIA
 | Demo Video                | [link](https://youtu.be/kqizPodgePs) |
 | AIP                       | [link](https://docs.google.com/spreadsheets/d/1FtwduI0UeLAkzt9SnpAClorMw1jcahy9qjM6wzhxDfg/edit#gid=0) |
 | Sprint Planning & Review  | [link](https://docs.google.com/document/d/1ZsBr0pjIIcKHEvNL5tI986ulKs6IyMRJGUegzvP9S6Y/edit) |
+
 
 ### cppcheck
 Run the following command from the root directory of your ROS package
