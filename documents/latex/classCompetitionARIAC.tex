@@ -1,0 +1,459 @@
+\hypertarget{classCompetitionARIAC}{}\doxysection{Competition\+A\+R\+I\+AC Class Reference}
+\label{classCompetitionARIAC}\index{CompetitionARIAC@{CompetitionARIAC}}
+
+
+This class manages the A\+R\+I\+AC competition workflow and robot interactions.  
+
+
+
+
+{\ttfamily \#include $<$ccs.\+hpp$>$}
+
+
+
+Inheritance diagram for Competition\+A\+R\+I\+AC\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=187pt]{classCompetitionARIAC__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Competition\+A\+R\+I\+AC\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=187pt]{classCompetitionARIAC__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCompetitionARIAC_a1ecd6e506a98ecb2b9983a556fef551a}{Competition\+A\+R\+I\+AC}} ()
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classCompetitionARIAC}{Competition\+A\+R\+I\+AC}} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classCompetitionARIAC_a288659428db8821ed675bf91266b3094}{$\sim$\+Competition\+A\+R\+I\+AC}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \mbox{\hyperlink{classCompetitionARIAC}{Competition\+A\+R\+I\+AC}} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCompetitionARIAC_adae883053a21ea4e6e2a08a4e2df4df9}{Floor\+Robot\+Send\+Home}} ()
+\begin{DoxyCompactList}\small\item\em Sends the robot to its home position. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCompetitionARIAC_a58c4868a220be4611fec2889d562231f}{Floor\+Robot\+Set\+Gripper\+State}} (bool enable)
+\begin{DoxyCompactList}\small\item\em Sets the state of the robot\textquotesingle{}s gripper. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCompetitionARIAC_a5cb1461d1a716922a16e7fe0cfcbae2d}{Floor\+Robot\+Change\+Gripper}} (std\+::string station, std\+::string gripper\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Changes the gripper type of the robot. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCompetitionARIAC_a0cca918a179818e8a5ff92b848615aab}{Floor\+Robot\+Pickand\+Place\+Tray}} (int tray\+\_\+id, int agv\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Picks and places a tray on an A\+GV. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCompetitionARIAC_adaf4037b62d66fadbaed8cb049fd72e2}{Floor\+Robot\+Pick\+Bin\+Part}} (ariac\+\_\+msgs\+::msg\+::\+Part part\+\_\+to\+\_\+pick)
+\begin{DoxyCompactList}\small\item\em Picks a part for kitting. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCompetitionARIAC_abc59c6f292a314056a35d543df313db9}{Floor\+Robot\+Place\+Part\+On\+Kit\+Tray}} (int agv\+\_\+num, int quadrant)
+\begin{DoxyCompactList}\small\item\em Places a part on the kitting tray. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCompetitionARIAC_a4f19b4f84ac94e14170521e57d624ae2}{Start\+Competition}} ()
+\begin{DoxyCompactList}\small\item\em Calls the service to start the competition. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCompetitionARIAC_a534b161d332930597b5bc58bfb63bcf9}{End\+Competition}} ()
+\begin{DoxyCompactList}\small\item\em Calls the service to end the competition. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCompetitionARIAC_af743b14b4e181a3a6baeb4b9370dd2b8}{Move\+A\+GV}} (int agv\+\_\+num, int destination)
+\begin{DoxyCompactList}\small\item\em Moves an A\+GV to a specified destination. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCompetitionARIAC_a88eddd26f0b0cd7e96657d4a6d1310f2}{Lock\+A\+GV}} (int agv\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Locks an A\+GV in its current position. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCompetitionARIAC_a94adb571e9d9cdfbbe8f7fe056ec0ac3}{Submit\+Order}} (std\+::string order\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Calls the service to submit an order. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCompetitionARIAC_a539125d56bcbb6a6e28c1bd5fad4820e}{Complete\+Orders}} ()
+\begin{DoxyCompactList}\small\item\em Completes all the orders in the competition. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCompetitionARIAC_a8dfeeb1bceff6079083bd9c946349951}{Complete\+Kitting\+Task}} (ariac\+\_\+msgs\+::msg\+::\+Kitting\+Task task)
+\begin{DoxyCompactList}\small\item\em Completes a kitting task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class manages the A\+R\+I\+AC competition workflow and robot interactions. 
+
+It subscribes to various topics to receive competition state updates, orders, and sensor data. It also provides functionalities to control a robot for tasks like picking, placing, and moving parts. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCompetitionARIAC_a1ecd6e506a98ecb2b9983a556fef551a}\label{classCompetitionARIAC_a1ecd6e506a98ecb2b9983a556fef551a}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!CompetitionARIAC@{CompetitionARIAC}}
+\index{CompetitionARIAC@{CompetitionARIAC}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{CompetitionARIAC()}{CompetitionARIAC()}}
+{\footnotesize\ttfamily Competition\+A\+R\+I\+A\+C\+::\+Competition\+A\+R\+I\+AC (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new \mbox{\hyperlink{classCompetitionARIAC}{Competition\+A\+R\+I\+AC}} object. 
+
+Sets up R\+OS node, initializes Move\+Group for robot control, and subscribes to necessary topics. \mbox{\Hypertarget{classCompetitionARIAC_a288659428db8821ed675bf91266b3094}\label{classCompetitionARIAC_a288659428db8821ed675bf91266b3094}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!````~CompetitionARIAC@{$\sim$CompetitionARIAC}}
+\index{````~CompetitionARIAC@{$\sim$CompetitionARIAC}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{$\sim$CompetitionARIAC()}{~CompetitionARIAC()}}
+{\footnotesize\ttfamily Competition\+A\+R\+I\+A\+C\+::$\sim$\+Competition\+A\+R\+I\+AC (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Destroy the \mbox{\hyperlink{classCompetitionARIAC}{Competition\+A\+R\+I\+AC}} object. 
+
+Ensures proper resource cleanup and node shutdown. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCompetitionARIAC_a8dfeeb1bceff6079083bd9c946349951}\label{classCompetitionARIAC_a8dfeeb1bceff6079083bd9c946349951}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!CompleteKittingTask@{CompleteKittingTask}}
+\index{CompleteKittingTask@{CompleteKittingTask}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{CompleteKittingTask()}{CompleteKittingTask()}}
+{\footnotesize\ttfamily bool Competition\+A\+R\+I\+A\+C\+::\+Complete\+Kitting\+Task (\begin{DoxyParamCaption}\item[{ariac\+\_\+msgs\+::msg\+::\+Kitting\+Task}]{task }\end{DoxyParamCaption})}
+
+
+
+Completes a kitting task. 
+
+This function performs a kitting task by picking and placing a tray and handling the parts for the kit. It includes picking parts from bins, placing them on the kit tray, and performing quality checks.
+
+
+\begin{DoxyParams}{Parameters}
+{\em task} & The kitting task to be completed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the kitting task is completed successfully. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCompetitionARIAC_a539125d56bcbb6a6e28c1bd5fad4820e}\label{classCompetitionARIAC_a539125d56bcbb6a6e28c1bd5fad4820e}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!CompleteOrders@{CompleteOrders}}
+\index{CompleteOrders@{CompleteOrders}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{CompleteOrders()}{CompleteOrders()}}
+{\footnotesize\ttfamily bool Competition\+A\+R\+I\+A\+C\+::\+Complete\+Orders (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Completes all the orders in the competition. 
+
+This function processes and completes all the orders received during the competition. It continues until all orders are completed or the competition ends. It handles kitting tasks and A\+GV movements.
+
+\begin{DoxyReturn}{Returns}
+True if all orders were successfully completed, false if the competition ended prematurely. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCompetitionARIAC_a534b161d332930597b5bc58bfb63bcf9}\label{classCompetitionARIAC_a534b161d332930597b5bc58bfb63bcf9}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!EndCompetition@{EndCompetition}}
+\index{EndCompetition@{EndCompetition}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{EndCompetition()}{EndCompetition()}}
+{\footnotesize\ttfamily bool Competition\+A\+R\+I\+A\+C\+::\+End\+Competition (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calls the service to end the competition. 
+
+Ends the competition.
+
+This function sends a request to the competition\textquotesingle{}s end service.
+
+This function ends the competition by sending a request to the competition end service.
+
+\begin{DoxyReturn}{Returns}
+True if the competition ends successfully, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCompetitionARIAC_a5cb1461d1a716922a16e7fe0cfcbae2d}\label{classCompetitionARIAC_a5cb1461d1a716922a16e7fe0cfcbae2d}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!FloorRobotChangeGripper@{FloorRobotChangeGripper}}
+\index{FloorRobotChangeGripper@{FloorRobotChangeGripper}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{FloorRobotChangeGripper()}{FloorRobotChangeGripper()}}
+{\footnotesize\ttfamily bool Competition\+A\+R\+I\+A\+C\+::\+Floor\+Robot\+Change\+Gripper (\begin{DoxyParamCaption}\item[{std\+::string}]{station,  }\item[{std\+::string}]{gripper\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Changes the gripper type of the robot. 
+
+Changes the gripper type of the floor robot.
+
+
+\begin{DoxyParams}{Parameters}
+{\em station} & The station where the gripper change is to be performed. \\
+\hline
+{\em gripper\+\_\+type} & The type of the gripper to be changed to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If the gripper was successfully changed. 
+
+false If the gripper change failed.
+\end{DoxyReturn}
+This function changes the gripper type of the floor robot by moving to a tool changer and calling a service to perform the change.
+
+
+\begin{DoxyParams}{Parameters}
+{\em station} & Tool changer station ID. \\
+\hline
+{\em gripper\+\_\+type} & Type of the gripper to be changed to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the gripper change was successful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCompetitionARIAC_a0cca918a179818e8a5ff92b848615aab}\label{classCompetitionARIAC_a0cca918a179818e8a5ff92b848615aab}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!FloorRobotPickandPlaceTray@{FloorRobotPickandPlaceTray}}
+\index{FloorRobotPickandPlaceTray@{FloorRobotPickandPlaceTray}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{FloorRobotPickandPlaceTray()}{FloorRobotPickandPlaceTray()}}
+{\footnotesize\ttfamily bool Competition\+A\+R\+I\+A\+C\+::\+Floor\+Robot\+Pickand\+Place\+Tray (\begin{DoxyParamCaption}\item[{int}]{tray\+\_\+id,  }\item[{int}]{agv\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Picks and places a tray on an A\+GV. 
+
+Picks up a tray and places it on an A\+GV.
+
+This method controls the robot to pick a tray identified by tray\+\_\+id and place it on a specified A\+GV numbered agv\+\_\+num.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tray\+\_\+id} & The identifier of the tray to be picked. \\
+\hline
+{\em agv\+\_\+num} & The number of the A\+GV where the tray is to be placed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If the tray is successfully picked and placed. 
+
+false If the operation fails.
+\end{DoxyReturn}
+This function locates a tray by its ID, picks it up, and places it onto a specified A\+GV. It includes steps for finding the tray, moving to it, adjusting the gripper, and handling the tray throughout the process.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tray\+\_\+id} & The ID of the tray to be picked up. \\
+\hline
+{\em agv\+\_\+num} & The number of the A\+GV where the tray is to be placed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the pick and place operation was successful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCompetitionARIAC_adaf4037b62d66fadbaed8cb049fd72e2}\label{classCompetitionARIAC_adaf4037b62d66fadbaed8cb049fd72e2}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!FloorRobotPickBinPart@{FloorRobotPickBinPart}}
+\index{FloorRobotPickBinPart@{FloorRobotPickBinPart}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{FloorRobotPickBinPart()}{FloorRobotPickBinPart()}}
+{\footnotesize\ttfamily bool Competition\+A\+R\+I\+A\+C\+::\+Floor\+Robot\+Pick\+Bin\+Part (\begin{DoxyParamCaption}\item[{ariac\+\_\+msgs\+::msg\+::\+Part}]{part\+\_\+to\+\_\+pick }\end{DoxyParamCaption})}
+
+
+
+Picks a part for kitting. 
+
+Picks a part from a bin and places it in the robot\textquotesingle{}s gripper.
+
+This method is used to control the robot to pick a specified part for the kitting process. The part to be picked is specified by the order\+\_\+\+::\+Kitting\+Part structure.
+
+
+\begin{DoxyParams}{Parameters}
+{\em part\+\_\+to\+\_\+pick} & The Kitting\+Part struct representing the part to be picked. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If the part is successfully picked. 
+
+false If the operation fails.
+\end{DoxyReturn}
+This function identifies and picks a specified part from one of the bins. It includes searching for the part, moving the robot to the part\textquotesingle{}s location, changing the gripper if necessary, and attaching the part to the gripper.
+
+
+\begin{DoxyParams}{Parameters}
+{\em part\+\_\+to\+\_\+pick} & The part to be picked, specified by its type and color. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the part was successfully picked and attached to the gripper, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCompetitionARIAC_abc59c6f292a314056a35d543df313db9}\label{classCompetitionARIAC_abc59c6f292a314056a35d543df313db9}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!FloorRobotPlacePartOnKitTray@{FloorRobotPlacePartOnKitTray}}
+\index{FloorRobotPlacePartOnKitTray@{FloorRobotPlacePartOnKitTray}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{FloorRobotPlacePartOnKitTray()}{FloorRobotPlacePartOnKitTray()}}
+{\footnotesize\ttfamily bool Competition\+A\+R\+I\+A\+C\+::\+Floor\+Robot\+Place\+Part\+On\+Kit\+Tray (\begin{DoxyParamCaption}\item[{int}]{agv\+\_\+num,  }\item[{int}]{quadrant }\end{DoxyParamCaption})}
+
+
+
+Places a part on the kitting tray. 
+
+Picks a part from a bin and places it in the robot\textquotesingle{}s gripper.
+
+This method controls the robot to place a part on a specified quadrant of the kitting tray located on an A\+GV numbered agv\+\_\+num.
+
+
+\begin{DoxyParams}{Parameters}
+{\em agv\+\_\+num} & The number of the A\+GV on which the kitting tray is located. \\
+\hline
+{\em quadrant} & The quadrant of the kitting tray where the part is to be placed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If the part is successfully placed. 
+
+false If the operation fails.
+\end{DoxyReturn}
+This function identifies and picks a specified part from one of the bins. It includes searching for the part, moving the robot to the part\textquotesingle{}s location, changing the gripper if necessary, and attaching the part to the gripper.
+
+
+\begin{DoxyParams}{Parameters}
+{\em part\+\_\+to\+\_\+pick} & The part to be picked, specified by its type and color. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the part was successfully picked and attached to the gripper, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCompetitionARIAC_adae883053a21ea4e6e2a08a4e2df4df9}\label{classCompetitionARIAC_adae883053a21ea4e6e2a08a4e2df4df9}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!FloorRobotSendHome@{FloorRobotSendHome}}
+\index{FloorRobotSendHome@{FloorRobotSendHome}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{FloorRobotSendHome()}{FloorRobotSendHome()}}
+{\footnotesize\ttfamily void Competition\+A\+R\+I\+A\+C\+::\+Floor\+Robot\+Send\+Home (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Sends the robot to its home position. 
+
+Sends the floor robot to its home position.
+
+This function moves the floor robot to a predefined home position. \mbox{\Hypertarget{classCompetitionARIAC_a58c4868a220be4611fec2889d562231f}\label{classCompetitionARIAC_a58c4868a220be4611fec2889d562231f}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!FloorRobotSetGripperState@{FloorRobotSetGripperState}}
+\index{FloorRobotSetGripperState@{FloorRobotSetGripperState}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{FloorRobotSetGripperState()}{FloorRobotSetGripperState()}}
+{\footnotesize\ttfamily bool Competition\+A\+R\+I\+A\+C\+::\+Floor\+Robot\+Set\+Gripper\+State (\begin{DoxyParamCaption}\item[{bool}]{enable }\end{DoxyParamCaption})}
+
+
+
+Sets the state of the robot\textquotesingle{}s gripper. 
+
+Sets the state of the floor robot\textquotesingle{}s gripper.
+
+
+\begin{DoxyParams}{Parameters}
+{\em enable} & A boolean value to enable or disable the gripper. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If the gripper state was successfully set. 
+
+false If the gripper state could not be set.
+\end{DoxyReturn}
+This function enables or disables the floor robot\textquotesingle{}s gripper based on the given state.
+
+
+\begin{DoxyParams}{Parameters}
+{\em enable} & True to enable the gripper, false to disable it. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the operation was successful, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCompetitionARIAC_a88eddd26f0b0cd7e96657d4a6d1310f2}\label{classCompetitionARIAC_a88eddd26f0b0cd7e96657d4a6d1310f2}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!LockAGV@{LockAGV}}
+\index{LockAGV@{LockAGV}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{LockAGV()}{LockAGV()}}
+{\footnotesize\ttfamily bool Competition\+A\+R\+I\+A\+C\+::\+Lock\+A\+GV (\begin{DoxyParamCaption}\item[{int}]{agv\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Locks an A\+GV in its current position. 
+
+Locks the tray on an A\+GV.
+
+This method is used to lock an A\+GV, identified by agv\+\_\+num, preventing it from moving.
+
+
+\begin{DoxyParams}{Parameters}
+{\em agv\+\_\+num} & The number of the A\+GV to be locked. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If the A\+GV is successfully locked. 
+
+false If the operation fails.
+\end{DoxyReturn}
+This function locks the tray on an A\+GV by sending a request to the A\+GV tray lock service.
+
+
+\begin{DoxyParams}{Parameters}
+{\em agv\+\_\+num} & The number of the A\+GV whose tray is to be locked. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the tray is locked successfully, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCompetitionARIAC_af743b14b4e181a3a6baeb4b9370dd2b8}\label{classCompetitionARIAC_af743b14b4e181a3a6baeb4b9370dd2b8}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!MoveAGV@{MoveAGV}}
+\index{MoveAGV@{MoveAGV}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{MoveAGV()}{MoveAGV()}}
+{\footnotesize\ttfamily bool Competition\+A\+R\+I\+A\+C\+::\+Move\+A\+GV (\begin{DoxyParamCaption}\item[{int}]{agv\+\_\+num,  }\item[{int}]{destination }\end{DoxyParamCaption})}
+
+
+
+Moves an A\+GV to a specified destination. 
+
+This method sends a command to move an A\+GV, identified by agv\+\_\+num, to a specified destination.
+
+
+\begin{DoxyParams}{Parameters}
+{\em agv\+\_\+num} & The number of the A\+GV to be moved. \\
+\hline
+{\em destination} & The destination where the A\+GV is to be moved. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If the A\+GV successfully moves to the destination. 
+
+false If the operation fails.
+\end{DoxyReturn}
+This function moves an A\+GV to a given destination by sending a request to the A\+GV movement service.
+
+
+\begin{DoxyParams}{Parameters}
+{\em agv\+\_\+num} & The number of the A\+GV to move. \\
+\hline
+{\em destination} & The destination to move the A\+GV to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the A\+GV is moved successfully, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCompetitionARIAC_a4f19b4f84ac94e14170521e57d624ae2}\label{classCompetitionARIAC_a4f19b4f84ac94e14170521e57d624ae2}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!StartCompetition@{StartCompetition}}
+\index{StartCompetition@{StartCompetition}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{StartCompetition()}{StartCompetition()}}
+{\footnotesize\ttfamily bool Competition\+A\+R\+I\+A\+C\+::\+Start\+Competition (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calls the service to start the competition. 
+
+Starts the competition.
+
+This function sends a request to the competition\textquotesingle{}s start service.
+
+This function starts the competition by sending a request to the competition start service. It waits until the competition state is ready before sending the request.
+
+\begin{DoxyReturn}{Returns}
+True if the competition starts successfully, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCompetitionARIAC_a94adb571e9d9cdfbbe8f7fe056ec0ac3}\label{classCompetitionARIAC_a94adb571e9d9cdfbbe8f7fe056ec0ac3}} 
+\index{CompetitionARIAC@{CompetitionARIAC}!SubmitOrder@{SubmitOrder}}
+\index{SubmitOrder@{SubmitOrder}!CompetitionARIAC@{CompetitionARIAC}}
+\doxysubsubsection{\texorpdfstring{SubmitOrder()}{SubmitOrder()}}
+{\footnotesize\ttfamily bool Competition\+A\+R\+I\+A\+C\+::\+Submit\+Order (\begin{DoxyParamCaption}\item[{std\+::string}]{order\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Calls the service to submit an order. 
+
+Submits an order.
+
+
+\begin{DoxyParams}{Parameters}
+{\em order\+\_\+id} & The order to be submitted.\\
+\hline
+\end{DoxyParams}
+This function submits an order by sending a request to the order submission service with the order ID.
+
+
+\begin{DoxyParams}{Parameters}
+{\em order\+\_\+id} & The ID of the order to submit. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the order is submitted successfully, false otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/ariac\+\_\+collection\+\_\+bot/\mbox{\hyperlink{ccs_8hpp}{ccs.\+hpp}}\item 
+src/\mbox{\hyperlink{ccs_8cpp}{ccs.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,94 @@
+\hypertarget{ccs_8hpp}{}\doxysection{include/ariac\+\_\+collection\+\_\+bot/ccs.hpp File Reference}
+\label{ccs_8hpp}\index{include/ariac\_collection\_bot/ccs.hpp@{include/ariac\_collection\_bot/ccs.hpp}}
+
+
+Manages interactions and functionalities in the Automated Robot Industrial Automation Competition (A\+R\+I\+AC).  
+
+
+{\ttfamily \#include $<$geometric\+\_\+shapes/shape\+\_\+operations.\+h$>$}\newline
+{\ttfamily \#include $<$geometric\+\_\+shapes/shapes.\+h$>$}\newline
+{\ttfamily \#include $<$moveit/move\+\_\+group\+\_\+interface/move\+\_\+group\+\_\+interface.\+h$>$}\newline
+{\ttfamily \#include $<$moveit/planning\+\_\+scene\+\_\+interface/planning\+\_\+scene\+\_\+interface.\+h$>$}\newline
+{\ttfamily \#include $<$moveit/trajectory\+\_\+processing/time\+\_\+optimal\+\_\+trajectory\+\_\+generation.\+h$>$}\newline
+{\ttfamily \#include $<$shape\+\_\+msgs/msg/mesh.\+h$>$}\newline
+{\ttfamily \#include $<$tf2\+\_\+kdl/tf2\+\_\+kdl.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$ament\+\_\+index\+\_\+cpp/get\+\_\+package\+\_\+share\+\_\+directory.\+hpp$>$}\newline
+{\ttfamily \#include $<$ariac\+\_\+msgs/msg/advanced\+\_\+logical\+\_\+camera\+\_\+image.\+hpp$>$}\newline
+{\ttfamily \#include $<$ariac\+\_\+msgs/msg/agv\+\_\+status.\+hpp$>$}\newline
+{\ttfamily \#include $<$ariac\+\_\+msgs/msg/assembly\+\_\+state.\+hpp$>$}\newline
+{\ttfamily \#include $<$ariac\+\_\+msgs/msg/kit\+\_\+tray\+\_\+pose.\+hpp$>$}\newline
+{\ttfamily \#include $<$ariac\+\_\+msgs/msg/part\+\_\+pose.\+hpp$>$}\newline
+{\ttfamily \#include $<$ariac\+\_\+msgs/msg/vacuum\+\_\+gripper\+\_\+state.\+hpp$>$}\newline
+{\ttfamily \#include $<$ariac\+\_\+msgs/srv/change\+\_\+gripper.\+hpp$>$}\newline
+{\ttfamily \#include $<$ariac\+\_\+msgs/srv/get\+\_\+pre\+\_\+assembly\+\_\+poses.\+hpp$>$}\newline
+{\ttfamily \#include $<$ariac\+\_\+msgs/srv/move\+\_\+agv.\+hpp$>$}\newline
+{\ttfamily \#include $<$ariac\+\_\+msgs/srv/perform\+\_\+quality\+\_\+check.\+hpp$>$}\newline
+{\ttfamily \#include $<$ariac\+\_\+msgs/srv/vacuum\+\_\+gripper\+\_\+control.\+hpp$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/msg/pose.\+hpp$>$}\newline
+{\ttfamily \#include $<$kdl/frames.\+hpp$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$moveit\+\_\+msgs/msg/collision\+\_\+object.\+hpp$>$}\newline
+{\ttfamily \#include $<$rclcpp/qos.\+hpp$>$}\newline
+{\ttfamily \#include $<$rclcpp/rclcpp.\+hpp$>$}\newline
+{\ttfamily \#include $<$rclcpp\+\_\+action/rclcpp\+\_\+action.\+hpp$>$}\newline
+{\ttfamily \#include $<$std\+\_\+msgs/msg/bool.\+hpp$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include \char`\"{}ariac\+\_\+msgs/msg/assembly\+\_\+task.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ariac\+\_\+msgs/msg/bin\+\_\+info.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ariac\+\_\+msgs/msg/bin\+\_\+parts.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ariac\+\_\+msgs/msg/break\+\_\+beam\+\_\+status.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ariac\+\_\+msgs/msg/competition\+\_\+state.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ariac\+\_\+msgs/msg/conveyor\+\_\+parts.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ariac\+\_\+msgs/msg/kitting\+\_\+part.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ariac\+\_\+msgs/msg/kitting\+\_\+task.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ariac\+\_\+msgs/msg/order.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ariac\+\_\+msgs/msg/part.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ariac\+\_\+msgs/msg/part\+\_\+lot.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ariac\+\_\+msgs/srv/submit\+\_\+order.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}geometry\+\_\+msgs/msg/pose\+\_\+stamped.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}geometry\+\_\+msgs/msg/vector3.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}std\+\_\+srvs/srv/trigger.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}tf2/exceptions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}tf2\+\_\+ros/buffer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}tf2\+\_\+ros/transform\+\_\+listener.\+h\char`\"{}}\newline
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{ccs_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classCompetitionARIAC}{Competition\+A\+R\+I\+AC}}
+\begin{DoxyCompactList}\small\item\em This class manages the A\+R\+I\+AC competition workflow and robot interactions. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classParts}{Parts}}
+\begin{DoxyCompactList}\small\item\em Class to manage part properties and configurations in the A\+R\+I\+AC competition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages interactions and functionalities in the Automated Robot Industrial Automation Competition (A\+R\+I\+AC). 
+
+\begin{DoxyAuthor}{Author}
+Kiran S Patil (\href{mailto:kpatil27@umd.edu}{\texttt{ kpatil27@umd.\+edu}}) 
+
+Vyshnav Achuthan (\href{mailto:vyachu07@umd.edu}{\texttt{ vyachu07@umd.\+edu}}) 
+
+Surya Chappidi (\href{mailto:chappidi@umd.edu}{\texttt{ chappidi@umd.\+edu}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2023-\/12-\/6
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2023 
+\end{DoxyCopyright}
