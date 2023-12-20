@@ -49,7 +49,6 @@ jobs:
         run: |
           git clone https://github.com/kirangit27/FP808XG6--CollectionBot ${{ github.workspace }}/ros2_ws/src/collection_bot
           cd ${{ github.workspace }}/ros2_ws/src/collection_bot/
-          git checkout phase_cc
           # Add any necessary setup steps for ARIAC here
           
       - name: Install system and ROS dependencies
