@@ -1,0 +1,208 @@
+\hypertarget{classParts}{}\doxysection{Parts Class Reference}
+\label{classParts}\index{Parts@{Parts}}
+
+
+Class to manage part properties and configurations in the A\+R\+I\+AC competition.  
+
+
+
+
+{\ttfamily \#include $<$ccs.\+hpp$>$}
+
+
+
+Inheritance diagram for Parts\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{classParts__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classParts_a83bb41724fff68fdcdd296a261443535}{kit\+\_\+tray\+\_\+thickness\+\_\+}} = 0.\+01
+\begin{DoxyCompactList}\small\item\em Constants for part manipulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classParts_a69e2810099f0e8e7fec383120c9e29aa}\label{classParts_a69e2810099f0e8e7fec383120c9e29aa}} 
+double \mbox{\hyperlink{classParts_a69e2810099f0e8e7fec383120c9e29aa}{drop\+\_\+height\+\_\+}} = 0.\+002
+\begin{DoxyCompactList}\small\item\em Height to drop parts onto the tray. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classParts_a8862f8699ae1fbb32ffeea7f514c561b}\label{classParts_a8862f8699ae1fbb32ffeea7f514c561b}} 
+double \mbox{\hyperlink{classParts_a8862f8699ae1fbb32ffeea7f514c561b}{pick\+\_\+offset\+\_\+}} = 0.\+003
+\begin{DoxyCompactList}\small\item\em Offset for picking parts. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classParts_aade6f3badde9f2ed54e581aab4e42fe2}\label{classParts_aade6f3badde9f2ed54e581aab4e42fe2}} 
+double \mbox{\hyperlink{classParts_aade6f3badde9f2ed54e581aab4e42fe2}{battery\+\_\+grip\+\_\+offset\+\_\+}} = -\/0.\+05
+\begin{DoxyCompactList}\small\item\em Offset for gripping batteries. \end{DoxyCompactList}\item 
+std\+::map$<$ int, std\+::string $>$ \mbox{\hyperlink{classParts_a160a5a874b549df49da2ed54640bfb71}{part\+\_\+types\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Map of part types. \end{DoxyCompactList}\item 
+std\+::map$<$ int, std\+::string $>$ \mbox{\hyperlink{classParts_a81c76c665eaf60b2eb317f67afe7ee87}{part\+\_\+colors\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Map of part colors. \end{DoxyCompactList}\item 
+std\+::map$<$ int, double $>$ \mbox{\hyperlink{classParts_a71a8bca41b6f35d1d9f53204527a518a}{part\+\_\+heights\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Map of part heights. \end{DoxyCompactList}\item 
+std\+::map$<$ int, std\+::pair$<$ double, double $>$ $>$ \mbox{\hyperlink{classParts_ad2a4647640630e40b72af9c3b27f4307}{quad\+\_\+offsets\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Map of quadrant offsets for part placement. \end{DoxyCompactList}\item 
+std\+::map$<$ std\+::string, double $>$ \mbox{\hyperlink{classParts_af0049537202dcbae80039575a80082d0}{rail\+\_\+positions\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Map of rail positions for A\+G\+Vs and bins. \end{DoxyCompactList}\item 
+std\+::map$<$ std\+::string, double $>$ \mbox{\hyperlink{classParts_a97da05ad786271377539a5a345e2746a}{floor\+\_\+kts1\+\_\+js\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Joint value targets for kitting station 1. \end{DoxyCompactList}\item 
+std\+::map$<$ std\+::string, double $>$ \mbox{\hyperlink{classParts_a47317841156f805e797a489307332d21}{floor\+\_\+kts2\+\_\+js\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Joint value targets for kitting station 2. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class to manage part properties and configurations in the A\+R\+I\+AC competition. 
+
+This class includes constants and mappings related to parts used in the A\+R\+I\+AC competition. It contains details like part types, colors, heights, and specific configurations for handling parts with the robotic system. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classParts_a97da05ad786271377539a5a345e2746a}\label{classParts_a97da05ad786271377539a5a345e2746a}} 
+\index{Parts@{Parts}!floor\_kts1\_js\_@{floor\_kts1\_js\_}}
+\index{floor\_kts1\_js\_@{floor\_kts1\_js\_}!Parts@{Parts}}
+\doxysubsubsection{\texorpdfstring{floor\_kts1\_js\_}{floor\_kts1\_js\_}}
+{\footnotesize\ttfamily std\+::map$<$std\+::string, double$>$ Parts\+::floor\+\_\+kts1\+\_\+js\+\_\+}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"linear\_actuator\_joint"}, 4.0\},       \{\textcolor{stringliteral}{"floor\_shoulder\_pan\_joint"}, 1.57\},}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"floor\_shoulder\_lift\_joint"}, -\/1.57\}, \{\textcolor{stringliteral}{"floor\_elbow\_joint"}, 1.57\},}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"floor\_wrist\_1\_joint"}, -\/1.57\},       \{\textcolor{stringliteral}{"floor\_wrist\_2\_joint"}, -\/1.57\},}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"floor\_wrist\_3\_joint"}, 0.0\}\}}
+
+\end{DoxyCode}
+
+
+Joint value targets for kitting station 1. 
+
+\mbox{\Hypertarget{classParts_a47317841156f805e797a489307332d21}\label{classParts_a47317841156f805e797a489307332d21}} 
+\index{Parts@{Parts}!floor\_kts2\_js\_@{floor\_kts2\_js\_}}
+\index{floor\_kts2\_js\_@{floor\_kts2\_js\_}!Parts@{Parts}}
+\doxysubsubsection{\texorpdfstring{floor\_kts2\_js\_}{floor\_kts2\_js\_}}
+{\footnotesize\ttfamily std\+::map$<$std\+::string, double$>$ Parts\+::floor\+\_\+kts2\+\_\+js\+\_\+}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"linear\_actuator\_joint"}, -\/4.0\},      \{\textcolor{stringliteral}{"floor\_shoulder\_pan\_joint"}, -\/1.57\},}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"floor\_shoulder\_lift\_joint"}, -\/1.57\}, \{\textcolor{stringliteral}{"floor\_elbow\_joint"}, 1.57\},}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"floor\_wrist\_1\_joint"}, -\/1.57\},       \{\textcolor{stringliteral}{"floor\_wrist\_2\_joint"}, -\/1.57\},}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"floor\_wrist\_3\_joint"}, 0.0\}\}}
+
+\end{DoxyCode}
+
+
+Joint value targets for kitting station 2. 
+
+\mbox{\Hypertarget{classParts_a83bb41724fff68fdcdd296a261443535}\label{classParts_a83bb41724fff68fdcdd296a261443535}} 
+\index{Parts@{Parts}!kit\_tray\_thickness\_@{kit\_tray\_thickness\_}}
+\index{kit\_tray\_thickness\_@{kit\_tray\_thickness\_}!Parts@{Parts}}
+\doxysubsubsection{\texorpdfstring{kit\_tray\_thickness\_}{kit\_tray\_thickness\_}}
+{\footnotesize\ttfamily double Parts\+::kit\+\_\+tray\+\_\+thickness\+\_\+ = 0.\+01}
+
+
+
+Constants for part manipulation. 
+
+Thickness of the kit tray. \mbox{\Hypertarget{classParts_a81c76c665eaf60b2eb317f67afe7ee87}\label{classParts_a81c76c665eaf60b2eb317f67afe7ee87}} 
+\index{Parts@{Parts}!part\_colors\_@{part\_colors\_}}
+\index{part\_colors\_@{part\_colors\_}!Parts@{Parts}}
+\doxysubsubsection{\texorpdfstring{part\_colors\_}{part\_colors\_}}
+{\footnotesize\ttfamily std\+::map$<$int, std\+::string$>$ Parts\+::part\+\_\+colors\+\_\+}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      \{ariac\_msgs::msg::Part::RED, \textcolor{stringliteral}{"red"}\},}
+\DoxyCodeLine{      \{ariac\_msgs::msg::Part::BLUE, \textcolor{stringliteral}{"blue"}\},}
+\DoxyCodeLine{      \{ariac\_msgs::msg::Part::GREEN, \textcolor{stringliteral}{"green"}\},}
+\DoxyCodeLine{      \{ariac\_msgs::msg::Part::ORANGE, \textcolor{stringliteral}{"orange"}\},}
+\DoxyCodeLine{      \{ariac\_msgs::msg::Part::PURPLE, \textcolor{stringliteral}{"purple"}\}\}}
+
+\end{DoxyCode}
+
+
+Map of part colors. 
+
+\mbox{\Hypertarget{classParts_a71a8bca41b6f35d1d9f53204527a518a}\label{classParts_a71a8bca41b6f35d1d9f53204527a518a}} 
+\index{Parts@{Parts}!part\_heights\_@{part\_heights\_}}
+\index{part\_heights\_@{part\_heights\_}!Parts@{Parts}}
+\doxysubsubsection{\texorpdfstring{part\_heights\_}{part\_heights\_}}
+{\footnotesize\ttfamily std\+::map$<$int, double$>$ Parts\+::part\+\_\+heights\+\_\+}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      \{ariac\_msgs::msg::Part::BATTERY, 0.04\},}
+\DoxyCodeLine{      \{ariac\_msgs::msg::Part::PUMP, 0.12\},}
+\DoxyCodeLine{      \{ariac\_msgs::msg::Part::REGULATOR, 0.07\},}
+\DoxyCodeLine{      \{ariac\_msgs::msg::Part::SENSOR, 0.07\}\}}
+
+\end{DoxyCode}
+
+
+Map of part heights. 
+
+\mbox{\Hypertarget{classParts_a160a5a874b549df49da2ed54640bfb71}\label{classParts_a160a5a874b549df49da2ed54640bfb71}} 
+\index{Parts@{Parts}!part\_types\_@{part\_types\_}}
+\index{part\_types\_@{part\_types\_}!Parts@{Parts}}
+\doxysubsubsection{\texorpdfstring{part\_types\_}{part\_types\_}}
+{\footnotesize\ttfamily std\+::map$<$int, std\+::string$>$ Parts\+::part\+\_\+types\+\_\+}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      \{ariac\_msgs::msg::Part::BATTERY, \textcolor{stringliteral}{"battery"}\},}
+\DoxyCodeLine{      \{ariac\_msgs::msg::Part::PUMP, \textcolor{stringliteral}{"pump"}\},}
+\DoxyCodeLine{      \{ariac\_msgs::msg::Part::REGULATOR, \textcolor{stringliteral}{"regulator"}\},}
+\DoxyCodeLine{      \{ariac\_msgs::msg::Part::SENSOR, \textcolor{stringliteral}{"sensor"}\}\}}
+
+\end{DoxyCode}
+
+
+Map of part types. 
+
+\mbox{\Hypertarget{classParts_ad2a4647640630e40b72af9c3b27f4307}\label{classParts_ad2a4647640630e40b72af9c3b27f4307}} 
+\index{Parts@{Parts}!quad\_offsets\_@{quad\_offsets\_}}
+\index{quad\_offsets\_@{quad\_offsets\_}!Parts@{Parts}}
+\doxysubsubsection{\texorpdfstring{quad\_offsets\_}{quad\_offsets\_}}
+{\footnotesize\ttfamily std\+::map$<$int, std\+::pair$<$double, double$>$ $>$ Parts\+::quad\+\_\+offsets\+\_\+}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      \{ariac\_msgs::msg::KittingPart::QUADRANT1,}
+\DoxyCodeLine{       std::pair<double, double>(-\/0.08, 0.12)\},}
+\DoxyCodeLine{      \{ariac\_msgs::msg::KittingPart::QUADRANT2,}
+\DoxyCodeLine{       std::pair<double, double>(0.08, 0.12)\},}
+\DoxyCodeLine{      \{ariac\_msgs::msg::KittingPart::QUADRANT3,}
+\DoxyCodeLine{       std::pair<double, double>(-\/0.08, -\/0.12)\},}
+\DoxyCodeLine{      \{ariac\_msgs::msg::KittingPart::QUADRANT4,}
+\DoxyCodeLine{       std::pair<double, double>(0.08, -\/0.12)\}\}}
+
+\end{DoxyCode}
+
+
+Map of quadrant offsets for part placement. 
+
+\mbox{\Hypertarget{classParts_af0049537202dcbae80039575a80082d0}\label{classParts_af0049537202dcbae80039575a80082d0}} 
+\index{Parts@{Parts}!rail\_positions\_@{rail\_positions\_}}
+\index{rail\_positions\_@{rail\_positions\_}!Parts@{Parts}}
+\doxysubsubsection{\texorpdfstring{rail\_positions\_}{rail\_positions\_}}
+{\footnotesize\ttfamily std\+::map$<$std\+::string, double$>$ Parts\+::rail\+\_\+positions\+\_\+}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"agv1"}, -\/4.5\}, \{\textcolor{stringliteral}{"agv2"}, -\/1.2\},   \{\textcolor{stringliteral}{"agv3"}, 1.2\},}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"agv4"}, 4.5\},  \{\textcolor{stringliteral}{"left\_bins"}, 3\}, \{\textcolor{stringliteral}{"right\_bins"}, -\/3\}\}}
+
+\end{DoxyCode}
+
+
+Map of rail positions for A\+G\+Vs and bins. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/ariac\+\_\+collection\+\_\+bot/\mbox{\hyperlink{ccs_8hpp}{ccs.\+hpp}}\end{DoxyCompactItemize}

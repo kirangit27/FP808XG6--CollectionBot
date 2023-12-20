@@ -1,0 +1,59 @@
+\hypertarget{ccs__main_8cpp}{}\doxysection{src/ccs\+\_\+main.cpp File Reference}
+\label{ccs__main_8cpp}\index{src/ccs\_main.cpp@{src/ccs\_main.cpp}}
+
+
+Main file for managing interactions and functionalities in the Automated Robot Industrial Automation Competition (A\+R\+I\+AC).  
+
+
+{\ttfamily \#include \char`\"{}../include/ariac\+\_\+collection\+\_\+bot/ccs.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rclcpp/rclcpp.\+hpp\char`\"{}}\newline
+Include dependency graph for ccs\+\_\+main.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ccs__main_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{ccs__main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Main function for the A\+R\+I\+AC competition node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main file for managing interactions and functionalities in the Automated Robot Industrial Automation Competition (A\+R\+I\+AC). 
+
+\begin{DoxyAuthor}{Author}
+Kiran S Patil (\href{mailto:kpatil27@umd.edu}{\texttt{ kpatil27@umd.\+edu}}) 
+
+Vyshnav Achuthan (\href{mailto:vyachu07@umd.edu}{\texttt{ vyachu07@umd.\+edu}}) 
+
+Surya Chappidi (\href{mailto:chappidi@umd.edu}{\texttt{ chappidi@umd.\+edu}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2023-\/12-\/6
+\end{DoxyDate}
+This file contains the main function which initializes and runs the \mbox{\hyperlink{classCompetitionARIAC}{Competition\+A\+R\+I\+AC}} node within the R\+O\+S2 environment for the A\+R\+I\+AC competition.
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2023 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ccs__main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{ccs__main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{ccs\_main.cpp@{ccs\_main.cpp}!main@{main}}
+\index{main@{main}!ccs\_main.cpp@{ccs\_main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Main function for the A\+R\+I\+AC competition node. 
+
+Initializes R\+O\+S2, creates an instance of the \mbox{\hyperlink{classCompetitionARIAC}{Competition\+A\+R\+I\+AC}} node, and runs the node using a multi-\/threaded executor. This setup allows the node to manage various functionalities required for the A\+R\+I\+AC competition, such as handling orders, controlling robots, and processing sensor inputs. 
