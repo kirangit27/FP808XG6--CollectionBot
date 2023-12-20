@@ -58,8 +58,35 @@ install(DIRECTORY include
 	rviz
 	DESTINATION share/${PROJECT_NAME})	
 
-if(BUILD_TESTING)
+	if(BUILD_TESTING)
+	find_package(ament_cmake_gtest REQUIRED)
 	find_package(ament_lint_auto REQUIRED)
+
+	set(ament_cmake_cppcheck_FOUND TRUE)
+	set(ament_cmake_copyright_FOUND TRUE)
+	set(ament_cmake_cpplint_FOUND TRUE)
+	set(ament_cmake_flake8_FOUND TRUE)
+	set(ament_cmake_uncrustify_FOUND TRUE)
+	set(ament_cmake_xmllint_FOUND TRUE)
+	set(ament_cmake_lint_cmake_FOUND TRUE)
+	ament_lint_auto_find_test_dependencies()
+
+	set(TESTFILES
+	test/main.cpp
+	test/test.cpp
+	src/ccs.cpp)
+
+	ament_add_gtest(test_${PROJECT_NAME} ${TESTFILES})
+
+	ament_target_dependencies(test_${PROJECT_NAME} rclcpp ariac_msgs std_srvs shape_msgs moveit_ros_planning_interface)
+	target_include_directories(test_${PROJECT_NAME} PUBLIC ../include/ariac_collection_bot)
+
+	install(TARGETS
+		test_${PROJECT_NAME}
+		DESTINATION lib/${PROJECT_NAME}  
+		)
+		
+
 	# the following line skips the linter which checks for copyrights
 	# uncomment the line when a copyright and license is not present in all source files
 	#set(ament_cmake_copyright_FOUND TRUE)
