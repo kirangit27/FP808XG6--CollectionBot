@@ -85,6 +85,7 @@ jobs:
           
       - name: Generate test coverage report
         run: |
+          source /opt/ros/galactic/setup.bash
           cd ${{ github.workspace }}/ros2_ws
           colcon build --packages-select ariac_collection_bot
           source install/setup.bash
