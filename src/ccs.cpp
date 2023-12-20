@@ -18,8 +18,6 @@
 
 #include "../include/ariac_collection_bot/ccs.hpp"
 
-Parts p;
-
 /**
  * @brief Callback for processing new orders.
  *
@@ -275,6 +273,15 @@ geometry_msgs::msg::Quaternion CompetitionARIAC::QuaternionFromRPY(double r,
 
   return q_msg;
 }
+
+/**
+ * @brief An instance of the Parts class.
+ *
+ * This object 'p' is used to access part properties and configurations such as
+ * part types, colors, heights, and specific robotic handling configurations for
+ * the ARIAC competition.
+ */
+Parts p;
 
 /**
  * @brief Adds a model to the planning scene.
@@ -723,10 +730,10 @@ bool CompetitionARIAC::FloorRobotPickandPlaceTray(int tray_id, int agv_num) {
       agv_tray_pose.position.x, agv_tray_pose.position.y,
       agv_tray_pose.position.z + 0.3, SetRobotOrientation(agv_rotation)));
 
-  waypoints.push_back(
-      BuildPose(agv_tray_pose.position.x, agv_tray_pose.position.y,
-                agv_tray_pose.position.z + p.kit_tray_thickness_ + p.drop_height_,
-                SetRobotOrientation(agv_rotation)));
+  waypoints.push_back(BuildPose(
+      agv_tray_pose.position.x, agv_tray_pose.position.y,
+      agv_tray_pose.position.z + p.kit_tray_thickness_ + p.drop_height_,
+      SetRobotOrientation(agv_rotation)));
 
   FloorRobotMoveCartesian(waypoints, 0.2, 0.1);
 
@@ -828,10 +835,11 @@ bool CompetitionARIAC::FloorRobotPickBinPart(
                                 part_pose.position.z + 0.5,
                                 SetRobotOrientation(part_rotation)));
 
-  waypoints.push_back(BuildPose(
-      part_pose.position.x, part_pose.position.y,
-      part_pose.position.z + p.part_heights_[part_to_pick.type] + p.pick_offset_,
-      SetRobotOrientation(part_rotation)));
+  waypoints.push_back(BuildPose(part_pose.position.x, part_pose.position.y,
+                                part_pose.position.z +
+                                    p.part_heights_[part_to_pick.type] +
+                                    p.pick_offset_,
+                                SetRobotOrientation(part_rotation)));
 
   FloorRobotMoveCartesian(waypoints, 0.3, 0.3);
 
@@ -840,8 +848,8 @@ bool CompetitionARIAC::FloorRobotPickBinPart(
   FloorRobotWaitForAttach(3.0);
 
   // Add part to planning scene
-  std::string part_name =
-      p.part_colors_[part_to_pick.color] + "_" + p.part_types_[part_to_pick.type];
+  std::string part_name = p.part_colors_[part_to_pick.color] + "_" +
+                          p.part_types_[part_to_pick.type];
   AddModelToPlanningScene(part_name, p.part_types_[part_to_pick.type] + ".stl",
                           part_pose);
   floor_robot_.attachObject(part_name);
@@ -886,9 +894,9 @@ bool CompetitionARIAC::FloorRobotPlacePartOnKitTray(int agv_num, int quadrant) {
   auto agv_tray_pose =
       FrameWorldPose("agv" + std::to_string(agv_num) + "_tray");
 
-  auto part_drop_offset =
-      BuildPose(p.quad_offsets_[quadrant].first, p.quad_offsets_[quadrant].second,
-                0.0, geometry_msgs::msg::Quaternion());
+  auto part_drop_offset = BuildPose(p.quad_offsets_[quadrant].first,
+                                    p.quad_offsets_[quadrant].second, 0.0,
+                                    geometry_msgs::msg::Quaternion());
 
   auto part_drop_pose = MultiplyPose(agv_tray_pose, part_drop_offset);
 
@@ -909,8 +917,8 @@ bool CompetitionARIAC::FloorRobotPlacePartOnKitTray(int agv_num, int quadrant) {
   // Drop part in quadrant
   FloorRobotSetGripperState(false);
 
-  std::string part_name = p.part_colors_[floor_robot_attached_part_.color] + "_" +
-                          p.part_types_[floor_robot_attached_part_.type];
+  std::string part_name = p.part_colors_[floor_robot_attached_part_.color] +
+                          "_" + p.part_types_[floor_robot_attached_part_.type];
   floor_robot_.detachObject(part_name);
 
   waypoints.clear();

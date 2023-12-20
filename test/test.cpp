@@ -1,77 +1,75 @@
 #include <gtest/gtest.h>
-#include "../include/ariac_collection_bot/ccs.hpp" 
 
-class CompetitionARIAC_test: public Parts
-{ 
-  public:
-    geometry_msgs::msg::Pose BuildPose(
-        double x, double y, double z, geometry_msgs::msg::Quaternion orientation) {
-        geometry_msgs::msg::Pose pose;
-        pose.position.x = x;
-        pose.position.y = y;
-        pose.position.z = z;
-        pose.orientation = orientation;
+#include "../include/ariac_collection_bot/ccs.hpp"
 
-      return pose;
-      }
+class CompetitionARIAC_test : public Parts {
+ public:
+  geometry_msgs::msg::Pose BuildPose(
+      double x, double y, double z,
+      geometry_msgs::msg::Quaternion orientation) {
+    geometry_msgs::msg::Pose pose;
+    pose.position.x = x;
+    pose.position.y = y;
+    pose.position.z = z;
+    pose.orientation = orientation;
 
-    geometry_msgs::msg::Pose MultiplyPose(
-    geometry_msgs::msg::Pose p1, geometry_msgs::msg::Pose p2) {
-      KDL::Frame f1;
-      KDL::Frame f2;
+    return pose;
+  }
 
-      tf2::fromMsg(p1, f1);
-      tf2::fromMsg(p2, f2);
+  geometry_msgs::msg::Pose MultiplyPose(geometry_msgs::msg::Pose p1,
+                                        geometry_msgs::msg::Pose p2) {
+    KDL::Frame f1;
+    KDL::Frame f2;
 
-      KDL::Frame f3 = f1 * f2;
+    tf2::fromMsg(p1, f1);
+    tf2::fromMsg(p2, f2);
 
-      return tf2::toMsg(f3);
-    }
+    KDL::Frame f3 = f1 * f2;
 
-    geometry_msgs::msg::Quaternion QuaternionFromRPY(double r,
-                                                    double p,
-                                                    double y) {
-      tf2::Quaternion q;
-      geometry_msgs::msg::Quaternion q_msg;
+    return tf2::toMsg(f3);
+  }
 
-      q.setRPY(r, p, y);
+  geometry_msgs::msg::Quaternion QuaternionFromRPY(double r, double p,
+                                                   double y) {
+    tf2::Quaternion q;
+    geometry_msgs::msg::Quaternion q_msg;
 
-      q_msg.x = q.x();
-      q_msg.y = q.y();
-      q_msg.z = q.z();
-      q_msg.w = q.w();
+    q.setRPY(r, p, y);
 
-      return q_msg;
-    }
+    q_msg.x = q.x();
+    q_msg.y = q.y();
+    q_msg.z = q.z();
+    q_msg.w = q.w();
+
+    return q_msg;
+  }
 };
 
 CompetitionARIAC_test ctest;
 
 TEST(competitionARIAC_test, TestBuildPose) {
-    // Define test inputs
-    double x = 1.0, y = 2.0, z = 3.0;
-    geometry_msgs::msg::Quaternion orientation;
-    orientation.x = 0.1;
-    orientation.y = 0.2;
-    orientation.z = 0.3;
-    orientation.w = 0.4;
+  // Define test inputs
+  double x = 1.0, y = 2.0, z = 3.0;
+  geometry_msgs::msg::Quaternion orientation;
+  orientation.x = 0.1;
+  orientation.y = 0.2;
+  orientation.z = 0.3;
+  orientation.w = 0.4;
 
-    // Call BuildPose
-    auto result_pose = ctest.BuildPose(x, y, z, orientation);
+  // Call BuildPose
+  auto result_pose = ctest.BuildPose(x, y, z, orientation);
 
-    // Check if the result matches the input
-    EXPECT_DOUBLE_EQ(result_pose.position.x, x);
-    EXPECT_DOUBLE_EQ(result_pose.position.y, y);
-    EXPECT_DOUBLE_EQ(result_pose.position.z, z);
-    EXPECT_DOUBLE_EQ(result_pose.orientation.x, orientation.x);
-    EXPECT_DOUBLE_EQ(result_pose.orientation.y, orientation.y);
-    EXPECT_DOUBLE_EQ(result_pose.orientation.z, orientation.z);
-    EXPECT_DOUBLE_EQ(result_pose.orientation.w, orientation.w);
+  // Check if the result matches the input
+  EXPECT_DOUBLE_EQ(result_pose.position.x, x);
+  EXPECT_DOUBLE_EQ(result_pose.position.y, y);
+  EXPECT_DOUBLE_EQ(result_pose.position.z, z);
+  EXPECT_DOUBLE_EQ(result_pose.orientation.x, orientation.x);
+  EXPECT_DOUBLE_EQ(result_pose.orientation.y, orientation.y);
+  EXPECT_DOUBLE_EQ(result_pose.orientation.z, orientation.z);
+  EXPECT_DOUBLE_EQ(result_pose.orientation.w, orientation.w);
 }
 
-
-TEST(competitionARIAC_test, TestMultiplyPose)
-{
+TEST(competitionARIAC_test, TestMultiplyPose) {
   geometry_msgs::msg::Pose p1, p2, expected_result, result;
 
   // Initialize p1 with suitable values
@@ -107,16 +105,14 @@ TEST(competitionARIAC_test, TestMultiplyPose)
   ASSERT_NEAR(result.position.x, expected_result.position.x, 1e-5);
   ASSERT_NEAR(result.position.y, expected_result.position.y, 1e-5);
   ASSERT_NEAR(result.position.z, expected_result.position.z, 1e-5);
-  
+
   ASSERT_NEAR(result.orientation.x, expected_result.orientation.x, 1e-5);
   ASSERT_NEAR(result.orientation.y, expected_result.orientation.y, 1e-5);
   ASSERT_NEAR(result.orientation.z, expected_result.orientation.z, 1e-5);
   ASSERT_NEAR(result.orientation.w, expected_result.orientation.w, 1e-5);
 }
 
-
-TEST(competitionARIAC_test, TestConstants)
-{
+TEST(competitionARIAC_test, TestConstants) {
   // Test kit_tray_thickness_
   ASSERT_DOUBLE_EQ(ctest.kit_tray_thickness_, 0.01);
   // Test drop_height_
@@ -127,28 +123,26 @@ TEST(competitionARIAC_test, TestConstants)
   ASSERT_DOUBLE_EQ(ctest.battery_grip_offset_, -0.05);
 }
 
-TEST(competitionARIAC_test, TestPartTypes)
-{
+TEST(competitionARIAC_test, TestPartTypes) {
   // Test part_types_
   ASSERT_EQ(ctest.part_types_[ariac_msgs::msg::Part::BATTERY], "battery");
   ASSERT_EQ(ctest.part_types_[ariac_msgs::msg::Part::PUMP], "pump");
 }
 
-TEST(competitionARIAC_test, TestPartColors)
-{
+TEST(competitionARIAC_test, TestPartColors) {
   // Test part_colors_
   ASSERT_EQ(ctest.part_colors_[ariac_msgs::msg::Part::RED], "red");
   ASSERT_EQ(ctest.part_colors_[ariac_msgs::msg::Part::BLUE], "blue");
 }
 
-TEST(competitionARIAC_test, TestQuaternionFromRPY)
-{
+TEST(competitionARIAC_test, TestQuaternionFromRPY) {
   // Test with known values
   double roll = 0.1;
   double pitch = 0.2;
   double yaw = 0.3;
 
-  geometry_msgs::msg::Quaternion result = ctest.QuaternionFromRPY(roll, pitch, yaw);
+  geometry_msgs::msg::Quaternion result =
+      ctest.QuaternionFromRPY(roll, pitch, yaw);
 
   // Convert the quaternion back to RPY for verification
   tf2::Quaternion expected_quaternion;
@@ -161,36 +155,35 @@ TEST(competitionARIAC_test, TestQuaternionFromRPY)
   ASSERT_NEAR(result.w, expected_quaternion.w(), 1e-5);
 }
 
-TEST(competitionARIAC_test, TestPartHeights)
-{
+TEST(competitionARIAC_test, TestPartHeights) {
   // Test part_heights_
   ASSERT_DOUBLE_EQ(ctest.part_heights_[ariac_msgs::msg::Part::BATTERY], 0.04);
   ASSERT_DOUBLE_EQ(ctest.part_heights_[ariac_msgs::msg::Part::PUMP], 0.12);
 }
 
-TEST(competitionARIAC_test, TestQuadOffsets)
-{
+TEST(competitionARIAC_test, TestQuadOffsets) {
   // Test quad_offsets_
-  ASSERT_DOUBLE_EQ(ctest.quad_offsets_[ariac_msgs::msg::KittingPart::QUADRANT1].first, -0.08);
-  ASSERT_DOUBLE_EQ(ctest.quad_offsets_[ariac_msgs::msg::KittingPart::QUADRANT1].second, 0.12);
+  ASSERT_DOUBLE_EQ(
+      ctest.quad_offsets_[ariac_msgs::msg::KittingPart::QUADRANT1].first,
+      -0.08);
+  ASSERT_DOUBLE_EQ(
+      ctest.quad_offsets_[ariac_msgs::msg::KittingPart::QUADRANT1].second,
+      0.12);
 }
 
-TEST(competitionARIAC_test, TestRailPositions)
-{
+TEST(competitionARIAC_test, TestRailPositions) {
   // Test rail_positions_
   ASSERT_DOUBLE_EQ(ctest.rail_positions_["agv1"], -4.5);
   ASSERT_DOUBLE_EQ(ctest.rail_positions_["agv2"], -1.2);
 }
 
-TEST(competitionARIAC_test, TestFloorKts1Js)
-{
+TEST(competitionARIAC_test, TestFloorKts1Js) {
   // Test floor_kts1_js_
   ASSERT_DOUBLE_EQ(ctest.floor_kts1_js_["linear_actuator_joint"], 4.0);
   ASSERT_DOUBLE_EQ(ctest.floor_kts1_js_["floor_shoulder_pan_joint"], 1.57);
 }
 
-TEST(competitionARIAC_test, TestFloorKts2Js)
-{
+TEST(competitionARIAC_test, TestFloorKts2Js) {
   // Test floor_kts2_js_
   ASSERT_DOUBLE_EQ(ctest.floor_kts2_js_["linear_actuator_joint"], -4.0);
   ASSERT_DOUBLE_EQ(ctest.floor_kts2_js_["floor_shoulder_pan_joint"], -1.57);
