@@ -128,3 +128,17 @@ TEST(competitionARIAC_test, TestPartColors)
   ASSERT_EQ(ctest.part_colors_[ariac_msgs::msg::Part::RED], "red");
   ASSERT_EQ(ctest.part_colors_[ariac_msgs::msg::Part::BLUE], "blue");
 }
+
+TEST(competitionARIAC_test, TestPartHeights)
+{
+  // Test part_heights_
+  ASSERT_DOUBLE_EQ(ctest.part_heights_[ariac_msgs::msg::Part::BATTERY], 0.04);
+  ASSERT_DOUBLE_EQ(ctest.part_heights_[ariac_msgs::msg::Part::PUMP], 0.12);
+}
+
+TEST(competitionARIAC_test, TestQuadOffsets)
+{
+  // Test quad_offsets_
+  ASSERT_DOUBLE_EQ(ctest.quad_offsets_[ariac_msgs::msg::KittingPart::QUADRANT1].first, -0.08);
+  ASSERT_DOUBLE_EQ(ctest.quad_offsets_[ariac_msgs::msg::KittingPart::QUADRANT1].second, 0.12);
+}
